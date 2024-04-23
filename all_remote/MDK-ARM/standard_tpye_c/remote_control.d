@@ -51,4 +51,3 @@ standard_tpye_c\remote_control.o: ..\bsp\boards\bsp_usart.h
 standard_tpye_c\remote_control.o: C:\Keil_v5\ARM\ARM_Compiler_5.06u6\Bin\..\include\string.h
 standard_tpye_c\remote_control.o: ..\application\detect_task.h
 standard_tpye_c\remote_control.o: ..\application\referee_usart_task.h
-standard_tpye_c\remote_control.o: ..\application\usb_task.h

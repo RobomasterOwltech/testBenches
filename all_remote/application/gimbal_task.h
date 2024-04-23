@@ -87,7 +87,7 @@
 //yaw,pitch����ͨ���Լ�״̬����ͨ��
 #define YAW_CHANNEL   0
 #define PITCH_CHANNEL 2
-#define GIMBAL_MODE_CHANNEL 0
+#define GIMBAL_MODE_CHANNEL 5//rc.sc[0]
 
 //turn 180��
 //��ͷ180 ����

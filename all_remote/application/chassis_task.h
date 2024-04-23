@@ -42,7 +42,7 @@
 
 //the channel of choosing chassis mode,
 //ѡ�����״̬ ����ͨ����
-#define CHASSIS_MODE_CHANNEL 0
+#define CHASSIS_MODE_CHANNEL 6//rc.sc[1] //todo:sera???
 //rocker value (max 660) change to vertial speed (m/s) 
 //ң����ǰ��ҡ�ˣ�max 660��ת���ɳ���ǰ���ٶȣ�m/s���ı���
 #define CHASSIS_VX_RC_SEN 0.006f

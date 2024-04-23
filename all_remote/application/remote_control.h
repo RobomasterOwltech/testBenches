@@ -24,7 +24,7 @@
 
 #define SBUS_RX_BUF_NUM 36u
 
-#define RC_FRAME_LENGTH 18u
+#define RC_FRAME_LENGTH 10u//18u (original)
 
 #define RC_CH_VALUE_MIN         ((uint16_t)364)
 #define RC_CH_VALUE_OFFSET      ((uint16_t)1024)
@@ -36,15 +36,15 @@
 #define RC_SW_DOWN              ((uint16_t)2)
 #define USING_FLYSKY
 //using FLYSKY
-#ifdef USING_FLYSKY
-        #define switch_is_down(s)       (s <= -10)
-        #define switch_is_mid(s)        (s >= -10 && s <= 10)
-        #define switch_is_up(s)         (s >= 10)
-#else
-        #define switch_is_down(s)       (s == RC_SW_DOWN)
-        #define switch_is_mid(s)        (s == RC_SW_MID)
-        #define switch_is_up(s)         (s == RC_SW_UP)
-#endif
+// #ifdef USING_FLYSKY
+         #define switch_is_down(s)       (s <= 128)
+         #define switch_is_mid(s)        (s >= -10 && s <= 10)
+         #define switch_is_up(s)         (s >= 128)
+// #else
+//        #define switch_is_down(s)       (s == RC_SW_DOWN)
+//        #define switch_is_mid(s)        (s == RC_SW_MID)
+//        #define switch_is_up(s)         (s == RC_SW_UP)
+// #endif
 /* ----------------------- PC Key Definition-------------------------------- */
 #define KEY_PRESSED_OFFSET_W            ((uint16_t)1 << 0)
 #define KEY_PRESSED_OFFSET_S            ((uint16_t)1 << 1)

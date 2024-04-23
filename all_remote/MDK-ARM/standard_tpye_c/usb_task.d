@@ -73,7 +73,7 @@ standard_tpye_c\usb_task.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/
 standard_tpye_c\usb_task.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 standard_tpye_c\usb_task.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
 standard_tpye_c\usb_task.o: C:\Keil_v5\ARM\ARM_Compiler_5.06u6\Bin\..\include\stdarg.h
-standard_tpye_c\usb_task.o: ..\application\detect_task.h
-standard_tpye_c\usb_task.o: ..\application\voltage_task.h
 standard_tpye_c\usb_task.o: ..\application\remote_control.h
 standard_tpye_c\usb_task.o: ..\bsp\boards\bsp_rc.h
+standard_tpye_c\usb_task.o: ..\application\detect_task.h
+standard_tpye_c\usb_task.o: ..\application\voltage_task.h
