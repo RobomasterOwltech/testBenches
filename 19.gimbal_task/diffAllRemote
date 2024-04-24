@@ -1,0 +1,1362 @@
+
+---
+33,34d32
+< extern I2C_HandleTypeDef hi2c1;
+< extern I2C_HandleTypeDef hi2c2;
+41,42d38
+< void MX_I2C1_Init(void);
+< void MX_I2C2_Init(void);
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/Inc/main.h ./Inc/main.h
+10c10
+---
+71,72d70
+< #define ADC_BAT_Pin GPIO_PIN_10
+< #define ADC_BAT_GPIO_Port GPIOF
+77,86d74
+< #define HW0_Pin GPIO_PIN_0
+< #define HW0_GPIO_Port GPIOC
+< #define HW1_Pin GPIO_PIN_1
+< #define HW1_GPIO_Port GPIOC
+< #define HW2_Pin GPIO_PIN_2
+< #define HW2_GPIO_Port GPIOC
+< #define BUZZER_Pin GPIO_PIN_14
+< #define BUZZER_GPIO_Port GPIOD
+< #define KEY_Pin GPIO_PIN_0
+< #define KEY_GPIO_Port GPIOA
+95,96d82
+< #define SPI2_CS_Pin GPIO_PIN_12
+< #define SPI2_CS_GPIO_Port GPIOB
+---
+34d33
+< extern SPI_HandleTypeDef hspi2;
+41d39
+< void MX_SPI2_Init(void);
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/Inc/stm32f4xx_hal_conf.h ./Inc/stm32f4xx_hal_conf.h
+39c39
+<   #define HAL_ADC_MODULE_ENABLED
+---
+>   /* #define HAL_ADC_MODULE_ENABLED   */
+42c42
+< #define HAL_CRC_MODULE_ENABLED
+---
+> /* #define HAL_CRC_MODULE_ENABLED   */
+58c58
+< #define HAL_RNG_MODULE_ENABLED
+---
+> /* #define HAL_RNG_MODULE_ENABLED   */
+70c70
+< #define HAL_PCD_MODULE_ENABLED
+---
+> /* #define HAL_PCD_MODULE_ENABLED   */
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/Inc/stm32f4xx_it.h ./Inc/stm32f4xx_it.h
+9c9
+---
+62d61
+< void DMA2_Stream1_IRQHandler(void);
+64,66d62
+< void OTG_FS_IRQHandler(void);
+< void DMA2_Stream6_IRQHandler(void);
+< void DMA2_Stream7_IRQHandler(void);
+---
+33d32
+< extern UART_HandleTypeDef huart1;
+35d33
+< extern UART_HandleTypeDef huart6;
+41d38
+< void MX_USART1_UART_Init(void);
+43d39
+< void MX_USART6_UART_Init(void);
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/Src/dma.c ./Src/dma.c
+9c9
+---
+47,52d46
+<   /* DMA1_Stream7_IRQn interrupt configuration */
+<   HAL_NVIC_SetPriority(DMA1_Stream7_IRQn, 5, 0);
+<   HAL_NVIC_EnableIRQ(DMA1_Stream7_IRQn);
+<   /* DMA2_Stream1_IRQn interrupt configuration */
+<   HAL_NVIC_SetPriority(DMA2_Stream1_IRQn, 5, 0);
+<   HAL_NVIC_EnableIRQ(DMA2_Stream1_IRQn);
+59,64d52
+<   /* DMA2_Stream6_IRQn interrupt configuration */
+<   HAL_NVIC_SetPriority(DMA2_Stream6_IRQn, 5, 0);
+<   HAL_NVIC_EnableIRQ(DMA2_Stream6_IRQn);
+<   /* DMA2_Stream7_IRQn interrupt configuration */
+<   HAL_NVIC_SetPriority(DMA2_Stream7_IRQn, 5, 0);
+<   HAL_NVIC_EnableIRQ(DMA2_Stream7_IRQn);
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/Src/freertos.c ./Src/freertos.c
+31d30
+< #include "chassis_task.h"
+36,40d34
+< #include "oled_task.h"
+< #include "referee_usart_task.h"
+< #include "usb_task.h"
+< #include "voltage_task.h"
+< #include "servo_task.h"
+47d40
+< osThreadId chassisTaskHandle;
+52,56d44
+< osThreadId oled_handle;
+< osThreadId referee_usart_task_handle;
+< osThreadId usb_task_handle;
+< osThreadId battery_voltage_handle;
+< osThreadId servo_task_handle;
+84d71
+< extern void MX_USB_DEVICE_Init(void);
+147,148c134,135
+< 		//osThreadDef(test, test_task, osPriorityNormal, 0, 128);
+< 		//testHandle = osThreadCreate(osThread(test), NULL);
+---
+>   osThreadDef(test, test_task, osPriorityNormal, 0, 128);
+>   testHandle = osThreadCreate(osThread(test), NULL);
+155,156d141
+<     osThreadDef(ChassisTask, chassis_task, osPriorityAboveNormal, 0, 512);
+<     chassisTaskHandle = osThreadCreate(osThread(ChassisTask), NULL);
+171,172d155
+<     osThreadDef(OLED, oled_task, osPriorityLow, 0, 256);
+<     oled_handle = osThreadCreate(osThread(OLED), NULL);
+175,176d157
+<     osThreadDef(REFEREE, referee_usart_task, osPriorityNormal, 0, 128);
+<     referee_usart_task_handle = osThreadCreate(osThread(REFEREE), NULL);
+178,189d158
+< 
+<     osThreadDef(USBTask, usb_task, osPriorityNormal, 0, 128);
+<     usb_task_handle = osThreadCreate(osThread(USBTask), NULL);
+< 
+<     osThreadDef(BATTERY_VOLTAGE, battery_voltage_task, osPriorityNormal, 0, 128);
+<     battery_voltage_handle = osThreadCreate(osThread(BATTERY_VOLTAGE), NULL);
+< 
+<     osThreadDef(SERVO, servo_task, osPriorityNormal, 0, 128);
+<     servo_task_handle = osThreadCreate(osThread(SERVO), NULL);
+< 
+< 
+< 
+203,204d171
+<   /* init code for USB_DEVICE */
+<   MX_USB_DEVICE_Init();
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/Src/gpio.c ./Src/gpio.c
+9c9
+---
+47d46
+<   __HAL_RCC_GPIOG_CLK_ENABLE();
+52d50
+<   __HAL_RCC_GPIOF_CLK_ENABLE();
+53a52,53
+>   __HAL_RCC_GPIOG_CLK_ENABLE();
+>   __HAL_RCC_GPIOF_CLK_ENABLE();
+63c63
+<   HAL_GPIO_WritePin(GPIOB, SPI2_CS_Pin|CS1_GYRO_Pin, GPIO_PIN_SET);
+---
+>   HAL_GPIO_WritePin(CS1_GYRO_GPIO_Port, CS1_GYRO_Pin, GPIO_PIN_SET);
+84,89d83
+<   /*Configure GPIO pins : PCPin PCPin PCPin */
+<   GPIO_InitStruct.Pin = HW0_Pin|HW1_Pin|HW2_Pin;
+<   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+<   GPIO_InitStruct.Pull = GPIO_NOPULL;
+<   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+< 
+91,96d84
+<   GPIO_InitStruct.Pin = KEY_Pin;
+<   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+<   GPIO_InitStruct.Pull = GPIO_PULLUP;
+<   HAL_GPIO_Init(KEY_GPIO_Port, &GPIO_InitStruct);
+< 
+<   /*Configure GPIO pin : PtPin */
+108,114d95
+< 
+<   /*Configure GPIO pin : PtPin */
+<   GPIO_InitStruct.Pin = SPI2_CS_Pin;
+<   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+<   GPIO_InitStruct.Pull = GPIO_PULLUP;
+<   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
+<   HAL_GPIO_Init(SPI2_CS_GPIO_Port, &GPIO_InitStruct);
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/Src/i2c.c ./Src/i2c.c
+9c9
+---
+27,28d26
+< I2C_HandleTypeDef hi2c1;
+< I2C_HandleTypeDef hi2c2;
+30d27
+< DMA_HandleTypeDef hdma_i2c2_tx;
+32,69d28
+< /* I2C1 init function */
+< void MX_I2C1_Init(void)
+< {
+< 
+<   hi2c1.Instance = I2C1;
+<   hi2c1.Init.ClockSpeed = 400000;
+<   hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
+<   hi2c1.Init.OwnAddress1 = 0;
+<   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+<   hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+<   hi2c1.Init.OwnAddress2 = 0;
+<   hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+<   hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+<   if (HAL_I2C_Init(&hi2c1) != HAL_OK)
+<   {
+<     Error_Handler();
+<   }
+< 
+< }
+< /* I2C2 init function */
+< void MX_I2C2_Init(void)
+< {
+< 
+<   hi2c2.Instance = I2C2;
+<   hi2c2.Init.ClockSpeed = 400000;
+<   hi2c2.Init.DutyCycle = I2C_DUTYCYCLE_2;
+<   hi2c2.Init.OwnAddress1 = 0;
+<   hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+<   hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+<   hi2c2.Init.OwnAddress2 = 0;
+<   hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+<   hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+<   if (HAL_I2C_Init(&hi2c2) != HAL_OK)
+<   {
+<     Error_Handler();
+<   }
+< 
+< }
+94c53
+<   if(i2cHandle->Instance==I2C1)
+---
+>   if(i2cHandle->Instance==I2C3)
+96,164d54
+<   /* USER CODE BEGIN I2C1_MspInit 0 */
+< 
+<   /* USER CODE END I2C1_MspInit 0 */
+<   
+<     __HAL_RCC_GPIOB_CLK_ENABLE();
+<     /**I2C1 GPIO Configuration    
+<     PB8     ------> I2C1_SCL
+<     PB9     ------> I2C1_SDA 
+<     */
+<     GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9;
+<     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+<     GPIO_InitStruct.Pull = GPIO_PULLUP;
+<     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+<     GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
+<     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+< 
+<     /* I2C1 clock enable */
+<     __HAL_RCC_I2C1_CLK_ENABLE();
+<   /* USER CODE BEGIN I2C1_MspInit 1 */
+< 
+<   /* USER CODE END I2C1_MspInit 1 */
+<   }
+<   else if(i2cHandle->Instance==I2C2)
+<   {
+<   /* USER CODE BEGIN I2C2_MspInit 0 */
+< 
+<   /* USER CODE END I2C2_MspInit 0 */
+<   
+<     __HAL_RCC_GPIOF_CLK_ENABLE();
+<     /**I2C2 GPIO Configuration    
+<     PF0     ------> I2C2_SDA
+<     PF1     ------> I2C2_SCL 
+<     */
+<     GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
+<     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+<     GPIO_InitStruct.Pull = GPIO_PULLUP;
+<     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+<     GPIO_InitStruct.Alternate = GPIO_AF4_I2C2;
+<     HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
+< 
+<     /* I2C2 clock enable */
+<     __HAL_RCC_I2C2_CLK_ENABLE();
+<   
+<     /* I2C2 DMA Init */
+<     /* I2C2_TX Init */
+<     hdma_i2c2_tx.Instance = DMA1_Stream7;
+<     hdma_i2c2_tx.Init.Channel = DMA_CHANNEL_7;
+<     hdma_i2c2_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
+<     hdma_i2c2_tx.Init.PeriphInc = DMA_PINC_DISABLE;
+<     hdma_i2c2_tx.Init.MemInc = DMA_MINC_ENABLE;
+<     hdma_i2c2_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+<     hdma_i2c2_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+<     hdma_i2c2_tx.Init.Mode = DMA_NORMAL;
+<     hdma_i2c2_tx.Init.Priority = DMA_PRIORITY_HIGH;
+<     hdma_i2c2_tx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+<     if (HAL_DMA_Init(&hdma_i2c2_tx) != HAL_OK)
+<     {
+<       Error_Handler();
+<     }
+< 
+<     __HAL_LINKDMA(i2cHandle,hdmatx,hdma_i2c2_tx);
+< 
+<   /* USER CODE BEGIN I2C2_MspInit 1 */
+<     SET_BIT(hi2c2.Instance->CR2, I2C_CR2_DMAEN);
+< 
+<   /* USER CODE END I2C2_MspInit 1 */
+<   }
+<   else if(i2cHandle->Instance==I2C3)
+<   {
+200,238c90
+<   if(i2cHandle->Instance==I2C1)
+<   {
+<   /* USER CODE BEGIN I2C1_MspDeInit 0 */
+< 
+<   /* USER CODE END I2C1_MspDeInit 0 */
+<     /* Peripheral clock disable */
+<     __HAL_RCC_I2C1_CLK_DISABLE();
+<   
+<     /**I2C1 GPIO Configuration    
+<     PB8     ------> I2C1_SCL
+<     PB9     ------> I2C1_SDA 
+<     */
+<     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_8|GPIO_PIN_9);
+< 
+<   /* USER CODE BEGIN I2C1_MspDeInit 1 */
+< 
+<   /* USER CODE END I2C1_MspDeInit 1 */
+<   }
+<   else if(i2cHandle->Instance==I2C2)
+<   {
+<   /* USER CODE BEGIN I2C2_MspDeInit 0 */
+< 
+<   /* USER CODE END I2C2_MspDeInit 0 */
+<     /* Peripheral clock disable */
+<     __HAL_RCC_I2C2_CLK_DISABLE();
+<   
+<     /**I2C2 GPIO Configuration    
+<     PF0     ------> I2C2_SDA
+<     PF1     ------> I2C2_SCL 
+<     */
+<     HAL_GPIO_DeInit(GPIOF, GPIO_PIN_0|GPIO_PIN_1);
+< 
+<     /* I2C2 DMA DeInit */
+<     HAL_DMA_DeInit(i2cHandle->hdmatx);
+<   /* USER CODE BEGIN I2C2_MspDeInit 1 */
+< 
+<   /* USER CODE END I2C2_MspDeInit 1 */
+<   }
+<   else if(i2cHandle->Instance==I2C3)
+---
+>   if(i2cHandle->Instance==I2C3)
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/Src/main.c ./Src/main.c
+24d23
+< #include "adc.h"
+26d24
+< #include "crc.h"
+29d26
+< #include "rng.h"
+34d30
+< #include "usb_device.h"
+41d36
+< #include "bsp_usart.h"
+45d39
+< #include "chassis_task.h"
+50,53d43
+< #include "oled_task.h"
+< #include "referee_usart_task.h"
+< #include "usb_task.h"
+< #include "voltage_task.h"
+123,124d112
+<   MX_ADC1_Init();
+<   MX_ADC3_Init();
+127d114
+<   MX_I2C1_Init();
+133,135d119
+<   MX_CRC_Init();
+<   MX_RNG_Init();
+<   MX_I2C2_Init();
+138d121
+<   MX_SPI2_Init();
+142,143d124
+<   MX_USART1_UART_Init();
+<   MX_USART6_UART_Init();
+149d129
+<     usart1_tx_dma_init();
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/Src/spi.c ./Src/spi.c
+9c9
+---
+28d27
+< SPI_HandleTypeDef hspi2;
+54,56d52
+< /* SPI2 init function */
+< void MX_SPI2_Init(void)
+< {
+58,76d53
+<   hspi2.Instance = SPI2;
+<   hspi2.Init.Mode = SPI_MODE_MASTER;
+<   hspi2.Init.Direction = SPI_DIRECTION_2LINES;
+<   hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
+<   hspi2.Init.CLKPolarity = SPI_POLARITY_HIGH;
+<   hspi2.Init.CLKPhase = SPI_PHASE_2EDGE;
+<   hspi2.Init.NSS = SPI_NSS_SOFT;
+<   hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
+<   hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
+<   hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
+<   hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+<   hspi2.Init.CRCPolynomial = 10;
+<   if (HAL_SPI_Init(&hspi2) != HAL_OK)
+<   {
+<     Error_Handler();
+<   }
+< 
+< }
+< 
+151,175d127
+<   else if(spiHandle->Instance==SPI2)
+<   {
+<   /* USER CODE BEGIN SPI2_MspInit 0 */
+< 
+<   /* USER CODE END SPI2_MspInit 0 */
+<     /* SPI2 clock enable */
+<     __HAL_RCC_SPI2_CLK_ENABLE();
+<   
+<     __HAL_RCC_GPIOB_CLK_ENABLE();
+<     /**SPI2 GPIO Configuration    
+<     PB13     ------> SPI2_SCK
+<     PB14     ------> SPI2_MISO
+<     PB15     ------> SPI2_MOSI 
+<     */
+<     GPIO_InitStruct.Pin = GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15;
+<     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+<     GPIO_InitStruct.Pull = GPIO_PULLUP;
+<     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+<     GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+<     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+< 
+<   /* USER CODE BEGIN SPI2_MspInit 1 */
+< 
+<   /* USER CODE END SPI2_MspInit 1 */
+<   }
+204,222d155
+<   }
+<   else if(spiHandle->Instance==SPI2)
+<   {
+<   /* USER CODE BEGIN SPI2_MspDeInit 0 */
+< 
+<   /* USER CODE END SPI2_MspDeInit 0 */
+<     /* Peripheral clock disable */
+<     __HAL_RCC_SPI2_CLK_DISABLE();
+<   
+<     /**SPI2 GPIO Configuration    
+<     PB13     ------> SPI2_SCK
+<     PB14     ------> SPI2_MISO
+<     PB15     ------> SPI2_MOSI 
+<     */
+<     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15);
+< 
+<   /* USER CODE BEGIN SPI2_MspDeInit 1 */
+< 
+<   /* USER CODE END SPI2_MspDeInit 1 */
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/Src/stm32f4xx_it.c ./Src/stm32f4xx_it.c
+60d59
+< extern PCD_HandleTypeDef hpcd_USB_OTG_FS;
+63,65d61
+< extern DMA_HandleTypeDef hdma_usart1_tx;
+< extern DMA_HandleTypeDef hdma_usart6_rx;
+< extern DMA_HandleTypeDef hdma_usart6_tx;
+252,265d247
+<   */
+< void DMA2_Stream1_IRQHandler(void)
+< {
+<   /* USER CODE BEGIN DMA2_Stream1_IRQn 0 */
+< 
+<   /* USER CODE END DMA2_Stream1_IRQn 0 */
+<   HAL_DMA_IRQHandler(&hdma_usart6_rx);
+<   /* USER CODE BEGIN DMA2_Stream1_IRQn 1 */
+< 
+<   /* USER CODE END DMA2_Stream1_IRQn 1 */
+< }
+< 
+< /**
+277,318d258
+< }
+< 
+< /**
+<   */
+< void OTG_FS_IRQHandler(void)
+< {
+<   /* USER CODE BEGIN OTG_FS_IRQn 0 */
+< 
+<   /* USER CODE END OTG_FS_IRQn 0 */
+<   HAL_PCD_IRQHandler(&hpcd_USB_OTG_FS);
+<   /* USER CODE BEGIN OTG_FS_IRQn 1 */
+< 
+<   /* USER CODE END OTG_FS_IRQn 1 */
+< }
+< 
+< /**
+<   */
+< void DMA2_Stream6_IRQHandler(void)
+< {
+<   /* USER CODE BEGIN DMA2_Stream6_IRQn 0 */
+< 
+<   /* USER CODE END DMA2_Stream6_IRQn 0 */
+<   HAL_DMA_IRQHandler(&hdma_usart6_tx);
+<   /* USER CODE BEGIN DMA2_Stream6_IRQn 1 */
+< 
+<   /* USER CODE END DMA2_Stream6_IRQn 1 */
+< }
+< 
+< /**
+<   */
+< void DMA2_Stream7_IRQHandler(void)
+< {
+<   /* USER CODE BEGIN DMA2_Stream7_IRQn 0 */
+< 
+<   /* USER CODE END DMA2_Stream7_IRQn 0 */
+<   HAL_DMA_IRQHandler(&hdma_usart1_tx);
+<   /* USER CODE BEGIN DMA2_Stream7_IRQn 1 */
+< 
+<   /* USER CODE END DMA2_Stream7_IRQn 1 */
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/Src/tim.c ./Src/tim.c
+9c9
+---
+181c181
+<   sConfigOC.Pulse = 0;
+---
+>   sConfigOC.Pulse = 1000;
+473c473
+<     GPIO_InitStruct.Pin = BUZZER_Pin;
+---
+>     GPIO_InitStruct.Pin = GPIO_PIN_14;
+475,476c475,476
+<     GPIO_InitStruct.Pull = GPIO_PULLUP;
+<     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+---
+>     GPIO_InitStruct.Pull = GPIO_NOPULL;
+>     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+478c478
+<     HAL_GPIO_Init(BUZZER_GPIO_Port, &GPIO_InitStruct);
+---
+>     HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+481,482d480
+<     HAL_TIM_Base_Start(&htim4);
+<     HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_3);
+488a487,488
+>     HAL_TIM_Base_Start(&htim4);
+>     HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_3);
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/Src/usart.c ./Src/usart.c
+9c9
+---
+27d26
+< UART_HandleTypeDef huart1;
+29,30d27
+< UART_HandleTypeDef huart6;
+< DMA_HandleTypeDef hdma_usart1_tx;
+32,33d28
+< DMA_HandleTypeDef hdma_usart6_rx;
+< DMA_HandleTypeDef hdma_usart6_tx;
+35,53d29
+< /* USART1 init function */
+< 
+< void MX_USART1_UART_Init(void)
+< {
+< 
+<   huart1.Instance = USART1;
+<   huart1.Init.BaudRate = 115200;
+<   huart1.Init.WordLength = UART_WORDLENGTH_8B;
+<   huart1.Init.StopBits = UART_STOPBITS_1;
+<   huart1.Init.Parity = UART_PARITY_NONE;
+<   huart1.Init.Mode = UART_MODE_TX_RX;
+<   huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+<   huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+<   if (HAL_UART_Init(&huart1) != HAL_OK)
+<   {
+<     Error_Handler();
+<   }
+< 
+< }
+73d48
+< /* USART6 init function */
+75,92d49
+< void MX_USART6_UART_Init(void)
+< {
+< 
+<   huart6.Instance = USART6;
+<   huart6.Init.BaudRate = 115200;
+<   huart6.Init.WordLength = UART_WORDLENGTH_8B;
+<   huart6.Init.StopBits = UART_STOPBITS_1;
+<   huart6.Init.Parity = UART_PARITY_NONE;
+<   huart6.Init.Mode = UART_MODE_TX_RX;
+<   huart6.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+<   huart6.Init.OverSampling = UART_OVERSAMPLING_16;
+<   if (HAL_UART_Init(&huart6) != HAL_OK)
+<   {
+<     Error_Handler();
+<   }
+< 
+< }
+< 
+97c54
+<   if(uartHandle->Instance==USART1)
+---
+>   if(uartHandle->Instance==USART3)
+99,149d55
+<   /* USER CODE BEGIN USART1_MspInit 0 */
+< 
+<   /* USER CODE END USART1_MspInit 0 */
+<     /* USART1 clock enable */
+<     __HAL_RCC_USART1_CLK_ENABLE();
+<   
+<     __HAL_RCC_GPIOB_CLK_ENABLE();
+<     __HAL_RCC_GPIOA_CLK_ENABLE();
+<     /**USART1 GPIO Configuration    
+<     PB7     ------> USART1_RX
+<     PA9     ------> USART1_TX 
+<     */
+<     GPIO_InitStruct.Pin = GPIO_PIN_7;
+<     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+<     GPIO_InitStruct.Pull = GPIO_PULLUP;
+<     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+<     GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
+<     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+< 
+<     GPIO_InitStruct.Pin = GPIO_PIN_9;
+<     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+<     GPIO_InitStruct.Pull = GPIO_PULLUP;
+<     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+<     GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
+<     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+< 
+<     /* USART1 DMA Init */
+<     /* USART1_TX Init */
+<     hdma_usart1_tx.Instance = DMA2_Stream7;
+<     hdma_usart1_tx.Init.Channel = DMA_CHANNEL_4;
+<     hdma_usart1_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
+<     hdma_usart1_tx.Init.PeriphInc = DMA_PINC_DISABLE;
+<     hdma_usart1_tx.Init.MemInc = DMA_MINC_ENABLE;
+<     hdma_usart1_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+<     hdma_usart1_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+<     hdma_usart1_tx.Init.Mode = DMA_NORMAL;
+<     hdma_usart1_tx.Init.Priority = DMA_PRIORITY_MEDIUM;
+<     hdma_usart1_tx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+<     if (HAL_DMA_Init(&hdma_usart1_tx) != HAL_OK)
+<     {
+<       Error_Handler();
+<     }
+< 
+<     __HAL_LINKDMA(uartHandle,hdmatx,hdma_usart1_tx);
+< 
+<   /* USER CODE BEGIN USART1_MspInit 1 */
+< 
+<   /* USER CODE END USART1_MspInit 1 */
+<   }
+<   else if(uartHandle->Instance==USART3)
+<   {
+163c69
+<     GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+---
+>     GPIO_InitStruct.Pull = GPIO_PULLUP;
+194,257d99
+<   else if(uartHandle->Instance==USART6)
+<   {
+<   /* USER CODE BEGIN USART6_MspInit 0 */
+< 
+<   /* USER CODE END USART6_MspInit 0 */
+<     /* USART6 clock enable */
+<     __HAL_RCC_USART6_CLK_ENABLE();
+<   
+<     __HAL_RCC_GPIOG_CLK_ENABLE();
+<     /**USART6 GPIO Configuration    
+<     PG14     ------> USART6_TX
+<     PG9     ------> USART6_RX 
+<     */
+<     GPIO_InitStruct.Pin = GPIO_PIN_14|GPIO_PIN_9;
+<     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+<     GPIO_InitStruct.Pull = GPIO_PULLUP;
+<     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+<     GPIO_InitStruct.Alternate = GPIO_AF8_USART6;
+<     HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
+< 
+<     /* USART6 DMA Init */
+<     /* USART6_RX Init */
+<     hdma_usart6_rx.Instance = DMA2_Stream1;
+<     hdma_usart6_rx.Init.Channel = DMA_CHANNEL_5;
+<     hdma_usart6_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
+<     hdma_usart6_rx.Init.PeriphInc = DMA_PINC_DISABLE;
+<     hdma_usart6_rx.Init.MemInc = DMA_MINC_ENABLE;
+<     hdma_usart6_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+<     hdma_usart6_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+<     hdma_usart6_rx.Init.Mode = DMA_NORMAL;
+<     hdma_usart6_rx.Init.Priority = DMA_PRIORITY_HIGH;
+<     hdma_usart6_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+<     if (HAL_DMA_Init(&hdma_usart6_rx) != HAL_OK)
+<     {
+<       Error_Handler();
+<     }
+< 
+<     __HAL_LINKDMA(uartHandle,hdmarx,hdma_usart6_rx);
+< 
+<     /* USART6_TX Init */
+<     hdma_usart6_tx.Instance = DMA2_Stream6;
+<     hdma_usart6_tx.Init.Channel = DMA_CHANNEL_5;
+<     hdma_usart6_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
+<     hdma_usart6_tx.Init.PeriphInc = DMA_PINC_DISABLE;
+<     hdma_usart6_tx.Init.MemInc = DMA_MINC_ENABLE;
+<     hdma_usart6_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+<     hdma_usart6_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+<     hdma_usart6_tx.Init.Mode = DMA_NORMAL;
+<     hdma_usart6_tx.Init.Priority = DMA_PRIORITY_MEDIUM;
+<     hdma_usart6_tx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+<     if (HAL_DMA_Init(&hdma_usart6_tx) != HAL_OK)
+<     {
+<       Error_Handler();
+<     }
+< 
+<     __HAL_LINKDMA(uartHandle,hdmatx,hdma_usart6_tx);
+< 
+<     /* USART6 interrupt Init */
+<     HAL_NVIC_SetPriority(USART6_IRQn, 5, 0);
+<     HAL_NVIC_EnableIRQ(USART6_IRQn);
+<   /* USER CODE BEGIN USART6_MspInit 1 */
+< 
+<   /* USER CODE END USART6_MspInit 1 */
+<   }
+263c105
+<   if(uartHandle->Instance==USART1)
+---
+>   if(uartHandle->Instance==USART3)
+265,286d106
+<   /* USER CODE BEGIN USART1_MspDeInit 0 */
+< 
+<   /* USER CODE END USART1_MspDeInit 0 */
+<     /* Peripheral clock disable */
+<     __HAL_RCC_USART1_CLK_DISABLE();
+<   
+<     /**USART1 GPIO Configuration    
+<     PB7     ------> USART1_RX
+<     PA9     ------> USART1_TX 
+<     */
+<     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_7);
+< 
+<     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_9);
+< 
+<     /* USART1 DMA DeInit */
+<     HAL_DMA_DeInit(uartHandle->hdmatx);
+<   /* USER CODE BEGIN USART1_MspDeInit 1 */
+< 
+<   /* USER CODE END USART1_MspDeInit 1 */
+<   }
+<   else if(uartHandle->Instance==USART3)
+<   {
+307,330d126
+<   }
+<   else if(uartHandle->Instance==USART6)
+<   {
+<   /* USER CODE BEGIN USART6_MspDeInit 0 */
+< 
+<   /* USER CODE END USART6_MspDeInit 0 */
+<     /* Peripheral clock disable */
+<     __HAL_RCC_USART6_CLK_DISABLE();
+<   
+<     /**USART6 GPIO Configuration    
+<     PG14     ------> USART6_TX
+<     PG9     ------> USART6_RX 
+<     */
+<     HAL_GPIO_DeInit(GPIOG, GPIO_PIN_14|GPIO_PIN_9);
+< 
+<     /* USART6 DMA DeInit */
+<     HAL_DMA_DeInit(uartHandle->hdmarx);
+<     HAL_DMA_DeInit(uartHandle->hdmatx);
+< 
+<     /* USART6 interrupt Deinit */
+<     HAL_NVIC_DisableIRQ(USART6_IRQn);
+<   /* USER CODE BEGIN USART6_MspDeInit 1 */
+< 
+<   /* USER CODE END USART6_MspDeInit 1 */
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/application/CAN_receive.c ./application/CAN_receive.c
+6c6
+---
+22c22
+< 
+---
+> #include "main.h"
+25,28d24
+< #include "main.h"
+< #include "bsp_rng.h"
+< 
+< 
+31,33d26
+< #ifndef CAN_RECEIVE_CPP
+< #define CAN_RECEIVE_CPP
+< 
+48,50c41,43
+< //static motor_measure_t motor_chassis[7];
+---
+> static motor_measure_t motor_chassis[7];
+63,64c56,57
+---
+110,114c103,107
+---
+141c134
+---
+174,178c167,171
+---
+206c199
+---
+208c201
+---
+221c214
+---
+223c216
+---
+237c230
+---
+239c232
+---
+253,255c246,248
+---
+261d253
+< #endif
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/application/CAN_receive.h ./application/CAN_receive.h
+6c6
+---
+29,30d28
+< 
+< 
+57d54
+< static motor_measure_t motor_chassis[7];
+59d55
+< 
+69,73c65,69
+---
+84c80
+---
+99,103c95,99
+---
+114c110
+---
+116c112
+---
+126c122
+---
+128c124
+---
+138c134
+---
+140c136
+---
+150,152c146,148
+---
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/application/INS_task.c ./application/INS_task.c
+598c598
+< 
+---
+>     
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/application/calibrate_task.c ./application/calibrate_task.c
+102d101
+< #include "bsp_adc.h"
+406c405
+<         head_cali.temperature = (int8_t)(cali_get_mcu_temperature()) + 10;
+---
+>         head_cali.temperature = 40.0f;
+631c630
+<     local_cali_t->temperature = (int8_t)(cali_get_mcu_temperature()) + 10;
+---
+>     local_cali_t->temperature = 40.0f;
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/application/detect_task.c ./application/detect_task.c
+6c6
+---
+32,33c32,33
+---
+37c37
+---
+40c40
+---
+46,47c46,47
+---
+63,64c63,64
+---
+86c86
+---
+94c94
+---
+96c96
+---
+111c111
+---
+117c117
+---
+123c123
+---
+129c129
+---
+139c139
+---
+148c148
+---
+155c155
+---
+166c166
+---
+188,190c188,190
+---
+203,204c203,204
+---
+247c247
+---
+249c249
+---
+256,259d255
+< extern uint8_t RC_data_is_error(void);
+< extern void slove_RC_lost(void);
+< extern void slove_data_error(void);
+< 
+263c259
+---
+302,308c298,300
+<     error_list[OLED_TOE].data_is_error_fun = NULL;
+<     error_list[OLED_TOE].solve_lost_fun = OLED_com_reset;
+<     error_list[OLED_TOE].solve_data_error_fun = NULL;
+< 
+<     error_list[DBUS_TOE].data_is_error_fun = RC_data_is_error;
+<     error_list[DBUS_TOE].solve_lost_fun = slove_RC_lost;
+<     error_list[DBUS_TOE].solve_data_error_fun = slove_data_error;
+---
+> //    error_list[DBUSTOE].dataIsErrorFun = RC_data_is_error;
+> //    error_list[DBUSTOE].solveLostFun = slove_RC_lost;
+> //    error_list[DBUSTOE].solveDataErrorFun = slove_data_error;
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/application/gimbal_behaviour.c ./application/gimbal_behaviour.c
+1d0
+< 
+11,14c10,13
+<   *             完成云台控制任务，由于云台使用陀螺仪解算出的角度，其范围在（-pi,pi）
+<   *             故而设置目标角度均为范围，存在许多对角度计算的函数。云台主要分为2种
+<   *             状态，陀螺仪控制状态是利用板载陀螺仪解算的姿态角进行控制，编码器控制
+<   *             状态是通过电机反馈的编码值控制的校准，此外还有校准状态，停止状态等。
+---
+53,54c52,53
+<     如果要添加一个新的行为模式
+<     1.首先，在gimbal_behaviour.h文件中， 添加一个新行为名字在 gimbal_behaviour_e
+---
+59c58
+<         GIMBAL_XXX_XXX, // 新添加的
+---
+62,73c61,72
+<     2. 实现一个新的函数 gimbal_xxx_xxx_control(fp32 *yaw, fp32 *pitch, gimbal_control_t *gimbal_control_set);
+<         "yaw, pitch" 参数是云台运动控制输入量
+<         第一个参数: 'yaw' 通常控制yaw轴移动,通常是角度增量,正值是逆时针运动,负值是顺时针
+<         第二个参数: 'pitch' 通常控制pitch轴移动,通常是角度增量,正值是逆时针运动,负值是顺时针
+<         在这个新的函数, 你能给 "yaw"和"pitch"赋值想要的参数
+<     3.  在"gimbal_behavour_set"这个函数中，添加新的逻辑判断，给gimbal_behaviour赋值成GIMBAL_XXX_XXX
+<         在gimbal_behaviour_mode_set函数最后，添加"else if(gimbal_behaviour == GIMBAL_XXX_XXX)" ,然后选择一种云台控制模式
+<         3种:
+<         GIMBAL_MOTOR_RAW : 使用'yaw' and 'pitch' 作为电机电流设定值,直接发送到CAN总线上.
+<         GIMBAL_MOTOR_ENCONDE : 'yaw' and 'pitch' 是角度增量,  控制编码相对角度.
+<         GIMBAL_MOTOR_GYRO : 'yaw' and 'pitch' 是角度增量,  控制陀螺仪绝对角度.
+<     4.  在"gimbal_behaviour_control_set" 函数的最后，添加
+---
+91c90
+< //当云台在校准, 设置蜂鸣器频率和强度
+---
+103,106c102,105
+---
+132,139c131,138
+---
+162,163c161,162
+---
+178,182c177,181
+<   *                 设定值会直接发送到CAN总线上,这个函数将会设置所有为0.
+---
+197,201c196,200
+<   * @retval         返回空
+---
+216c215
+---
+218,220c217,219
+---
+234,237c233,236
+---
+251,254c250,253
+---
+268c267
+---
+270,272c269,271
+---
+277c276
+< //云台行为状态机
+---
+287,288c286,287
+---
+299c298
+<     //云台行为状态机设置
+---
+303c302
+<     //根据云台行为状态机设置电机状态机
+---
+345,348c344,347
+---
+393c392
+---
+416c415
+---
+440,441c439,440
+---
+451c450
+<     //校准行为，return 不会设置其他的模式
+---
+457c456
+<     //如果外部使得校准步骤从0 变成 start，则进入校准模式
+---
+465c464
+<     //初始化模式判断是否到达中值位置
+---
+490c489
+<         //超过初始化最大时间，或者已经稳定到中值一段时间，退出初始化状态开关打下档，或者掉线
+---
+503c502
+<     //开关控制 云台状态
+---
+523c522
+<     //判断进入init状态机
+---
+547,551c546,550
+<   *                 设定值会直接发送到CAN总线上,这个函数将会设置所有为0.
+---
+574c573
+---
+576,579c575,578
+<   * @retval         返回空
+---
+588c587
+<     //初始化状态控制量计算
+---
+612c611
+---
+614,616c613,615
+---
+633c632
+<         //判断陀螺仪数据， 并记录最大最小角度数据
+---
+682,685c681,684
+---
+714c713
+<                 //保存掉头的目标值
+---
+722c721
+<             //不断控制到掉头的目标值，正转，反装是随机
+---
+732c731
+<         //到达pi （180°）后停止
+---
+750,753c749,752
+---
+782c781
+---
+784,786c783,785
+---
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/application/gimbal_task.c ./application/gimbal_task.c
+41d40
+< #include "shoot.h"
+303c302
+< static int16_t yaw_can_set_current = 0, pitch_can_set_current = 0, shoot_can_set_current = 0;
+---
+> static int16_t yaw_can_set_current = 0, pitch_can_set_current = 0;
+324,326c323
+<     //shoot init
+<     shoot_init();
+---
+> 
+342c339
+---
+> 
+363c360
+<                 CAN_cmd_gimbal(yaw_can_set_current, pitch_can_set_current, shoot_can_set_current, 0);
+---
+>                 CAN_cmd_gimbal(yaw_can_set_current, pitch_can_set_current, 0, 0);
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/application/gimbal_task.h ./application/gimbal_task.h
+10,13c10,13
+---
+35,36c35,36
+< #define PITCH_SPEED_PID_KP        1900.0f
+---
+> #define PITCH_SPEED_PID_KP        2900.0f
+39,40c39,40
+< #define PITCH_SPEED_PID_MAX_OUT   3000.0f
+< #define PITCH_SPEED_PID_MAX_IOUT  1000.0f
+---
+> #define PITCH_SPEED_PID_MAX_OUT   30000.0f
+> #define PITCH_SPEED_PID_MAX_IOUT  10000.0f
+43,44c43,44
+< #define YAW_SPEED_PID_KP        2600.0f
+---
+> #define YAW_SPEED_PID_KP        3600.0f
+47,48c47,48
+< #define YAW_SPEED_PID_MAX_OUT   3000.0f
+< #define YAW_SPEED_PID_MAX_IOUT  500.0f
+---
+> #define YAW_SPEED_PID_MAX_OUT   30000.0f
+> #define YAW_SPEED_PID_MAX_IOUT  5000.0f
+51c51
+---
+60c60
+---
+68c68
+---
+77c77
+---
+81c81
+< #define YAW_ENCODE_RELATIVE_PID_MAX_OUT   5.0f
+---
+> #define YAW_ENCODE_RELATIVE_PID_MAX_OUT   10.0f
+85c85
+---
+87,90c87,90
+< #define YAW_CHANNEL   3
+< #define PITCH_CHANNEL 2
+< #define GIMBAL_MODE_CHANNEL 1
+---
+> #define YAW_CHANNEL   2
+> #define PITCH_CHANNEL 3
+> #define GIMBAL_MODE_CHANNEL 0
+92,93c92,93
+---
+96c96
+---
+98c98
+---
+101c101
+---
+117c117
+---
+120c120
+< #define PITCH_TURN  0
+---
+> #define PITCH_TURN  1
+123c123
+---
+126c126
+---
+131c131
+---
+138c138
+---
+151c151
+---
+155c155
+---
+162,164c162,164
+---
+241c241
+---
+243c243
+---
+253c253
+---
+265,266c265,266
+---
+283,291c283,291
+---
+306,314c306,314
+---
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/application/remote_control.c ./application/remote_control.c
+4,7c4,7
+
+---
+97,101c93
+<         if (rc_ctrl.rc.ch[0] > 0){
+<             rc_ctrl.rc.ch[0] = RC_CHANNAL_ERROR_VALUE;  
+<         }else {
+<             rc_ctrl.rc.ch[0] = -RC_CHANNAL_ERROR_VALUE;
+<         }
+---
+>         goto error;
+105,109c97
+<         if (rc_ctrl.rc.ch[1] > 0){
+<             rc_ctrl.rc.ch[1] = RC_CHANNAL_ERROR_VALUE;  
+<         }else {
+<             rc_ctrl.rc.ch[1] = -RC_CHANNAL_ERROR_VALUE;
+<         }
+---
+>         goto error;
+113,117c101
+<         if (rc_ctrl.rc.ch[2] > 0){
+<             rc_ctrl.rc.ch[2] = RC_CHANNAL_ERROR_VALUE;  
+<         }else {
+<             rc_ctrl.rc.ch[2] = -RC_CHANNAL_ERROR_VALUE;
+<         }
+---
+>         goto error;
+121,125c105
+<         if (rc_ctrl.rc.ch[3] > 0){
+<             rc_ctrl.rc.ch[3] = RC_CHANNAL_ERROR_VALUE;  
+<         }else {
+<             rc_ctrl.rc.ch[3] = -RC_CHANNAL_ERROR_VALUE;
+<         }
+---
+>         goto error;
+127,132c107,114
+<     rc_ctrl.mouse.x = 0;
+<     rc_ctrl.mouse.y = 0;
+<     rc_ctrl.mouse.z = 0;
+<     rc_ctrl.mouse.press_l = 0;
+<     rc_ctrl.mouse.press_r = 0;
+<     rc_ctrl.key.v = 0;
+---
+>     if (rc_ctrl.rc.s[0] == 0)
+>     {
+>         goto error;
+>     }
+>     if (rc_ctrl.rc.s[1] == 0)
+>     {
+>         goto error;
+>     }
+161c143
+---
+164c146
+---
+183c165
+---
+187c169
+---
+191c173
+---
+195c177
+---
+198,199c180,181
+<             //if(this_time_rx_len == RC_FRAME_LENGTH)
+<             //{
+---
+>             if(this_time_rx_len == RC_FRAME_LENGTH)
+>             {
+201c183
+---
+203,204c185
+<                 sbus_to_usart1(sbus_rx_buf[0]);
+<             //}
+---
+>             }
+214c195
+---
+218c199
+---
+222c203
+---
+226c207
+---
+229,231c210,212
+<             //if(this_time_rx_len == RC_FRAME_LENGTH)
+<             //{
+---
+>             if(this_time_rx_len == RC_FRAME_LENGTH)
+>             {
+233c214
+---
+235,236c216
+<                 sbus_to_usart1(sbus_rx_buf[1]);
+<            // }
+---
+>             }
+242c222
+---
+261,263c241,243
+---
+266,272d245
+< 
+<   
+<   //uint8_t sbus_buf_reverse[2][SBUS_RX_BUF_NUM];
+< 
+<   // Comment if using other controller remote_control.h
+< 
+< 
+279a253,266
+>     rc_ctrl->rc.ch[0] = (sbus_buf[0] | (sbus_buf[1] << 8)) & 0x07ff;        //!< Channel 0
+>     rc_ctrl->rc.ch[1] = ((sbus_buf[1] >> 3) | (sbus_buf[2] << 5)) & 0x07ff; //!< Channel 1
+>     rc_ctrl->rc.ch[2] = ((sbus_buf[2] >> 6) | (sbus_buf[3] << 2) |          //!< Channel 2
+>                          (sbus_buf[4] << 10)) &0x07ff;
+>     rc_ctrl->rc.ch[3] = ((sbus_buf[4] >> 1) | (sbus_buf[5] << 7)) & 0x07ff; //!< Channel 3
+>     rc_ctrl->rc.s[0] = ((sbus_buf[5] >> 4) & 0x0003);                  //!< Switch left
+>     rc_ctrl->rc.s[1] = ((sbus_buf[5] >> 4) & 0x000C) >> 2;                       //!< Switch right
+>     rc_ctrl->mouse.x = sbus_buf[6] | (sbus_buf[7] << 8);                    //!< Mouse X axis
+>     rc_ctrl->mouse.y = sbus_buf[8] | (sbus_buf[9] << 8);                    //!< Mouse Y axis
+>     rc_ctrl->mouse.z = sbus_buf[10] | (sbus_buf[11] << 8);                  //!< Mouse Z axis
+>     rc_ctrl->mouse.press_l = sbus_buf[12];                                  //!< Mouse Left Is Press ?
+>     rc_ctrl->mouse.press_r = sbus_buf[13];                                  //!< Mouse Right Is Press ?
+>     rc_ctrl->key.v = sbus_buf[14] | (sbus_buf[15] << 8);                    //!< KeyBoard value
+>     rc_ctrl->rc.ch[4] = sbus_buf[16] | (sbus_buf[17] << 8);                 //NULL
+281,312d267
+<     #ifdef USING_FLYSKY
+< 
+<         //rc_ctrl->rc.ch[0] = (sbus_buf[0] | (sbus_buf[1] << 8)) & 0x0ff;        	//!< Channel 0
+<         rc_ctrl->rc.ch[0] = ((sbus_buf[1] >> 3) | (sbus_buf[2] << 5)) & 0x0ff;		//!< Channel 0
+<         rc_ctrl->rc.ch[1] = ((sbus_buf[2] >> 6) | (sbus_buf[3] << 2) |          	//!< Channel 1
+<                             (sbus_buf[4] << 10)) &0x0ff;
+<         rc_ctrl->rc.ch[2] = ((sbus_buf[4] >> 1) | (sbus_buf[5] << 7)) & 0x0ff; 		//!< Channel 2
+<         rc_ctrl->rc.ch[3] = ((sbus_buf[5] >> 4) |(sbus_buf[6] << 4)) & 0x0ff;     //!< Channel 3
+<         rc_ctrl->rc.s[0] = ((sbus_buf[6] >> 1) & 0x0A) >> 2 ;                 	//!< Switch right
+<         rc_ctrl->rc.s[1] = ((sbus_buf[8] >> 6) & 0x0A) ;                 	//!< Switch right
+<         
+<         //rc_ctrl->rc.ch[4] = sbus_buf[11] | (sbus_buf[12] << 8);                 //NULL
+< 
+< 
+<     #else
+<         rc_ctrl->rc.ch[0] = (sbus_buf[0] | (sbus_buf[1] << 8)) & 0x07ff;        //!< Channel 0
+<         rc_ctrl->rc.ch[1] = ((sbus_buf[1] >> 3) | (sbus_buf[2] << 5)) & 0x07ff; //!< Channel 1
+<         rc_ctrl->rc.ch[2] = ((sbus_buf[2] >> 6) | (sbus_buf[3] << 2) |          //!< Channel 2
+<                             (sbus_buf[4] << 10)) &0x07ff;
+<         rc_ctrl->rc.ch[3] = ((sbus_buf[4] >> 1) | (sbus_buf[5] << 7)) & 0x07ff; //!< Channel 3
+<         rc_ctrl->rc.s[0] = ((sbus_buf[5] >> 4) & 0x0003);                  //!< Switch left
+<         rc_ctrl->rc.s[1] = ((sbus_buf[5] >> 4) & 0x000C) >> 2;                       //!< Switch right
+<         rc_ctrl->mouse.x = sbus_buf[6] | (sbus_buf[7] << 8);                    //!< Mouse X axis
+<         rc_ctrl->mouse.y = sbus_buf[8] | (sbus_buf[9] << 8);                    //!< Mouse Y axis
+<         rc_ctrl->mouse.z = sbus_buf[10] | (sbus_buf[11] << 8);                  //!< Mouse Z axis
+<         rc_ctrl->mouse.press_l = sbus_buf[12];                                  //!< Mouse Left Is Press ?
+<         rc_ctrl->mouse.press_r = sbus_buf[13];                                  //!< Mouse Right Is Press ?
+<         rc_ctrl->key.v = sbus_buf[14] | (sbus_buf[15] << 8);                    //!< KeyBoard value
+<         rc_ctrl->rc.ch[4] = sbus_buf[16] | (sbus_buf[17] << 8);                 //NULL
+< 
+<     #endif
+<     
+317,340c272
+<     rc_ctrl->rc.ch[4] -= RC_CH_VALUE_OFFSET;    
+< }
+< 
+< /**
+<   * @retval         none
+<   */
+< /**
+<   * @retval         none
+<   */
+< void sbus_to_usart1(uint8_t *sbus)
+< {
+<     static uint8_t usart_tx_buf[20];
+<     static uint8_t i =0;
+<     usart_tx_buf[0] = 0xA6;
+<     memcpy(usart_tx_buf + 1, sbus, 18);
+<     for(i = 0, usart_tx_buf[19] = 0; i < 19; i++)
+<     {
+<         usart_tx_buf[19] += usart_tx_buf[i];
+<     }
+<     usart1_tx_dma_enable(usart_tx_buf, 20);
+---
+>     rc_ctrl->rc.ch[4] -= RC_CH_VALUE_OFFSET;
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/application/remote_control.h ./application/remote_control.h
+4,6c4,6
+---
+27c27
+< #define RC_FRAME_LENGTH 12u//18u (original)
+---
+> #define RC_FRAME_LENGTH 18u
+30c30
+< #define RC_CH_VALUE_OFFSET      ((uint16_t)0x80)
+---
+> #define RC_CH_VALUE_OFFSET      ((uint16_t)1024)
+37,48c37,39
+< #define USING_FLYSKY
+< #define USING_FLYSKY
+< //using FLYSKY
+< #ifdef USING_FLYSKY
+<          #define switch_is_down(s)       (s == 0)
+<          #define switch_is_mid(s)        (s == 1)
+<          #define switch_is_up(s)         (s == 2)
+< #else
+<        #define switch_is_down(s)       (s == RC_SW_DOWN)
+<        #define switch_is_mid(s)        (s == RC_SW_MID)
+<        #define switch_is_up(s)         (s == RC_SW_UP)
+< #endif
+---
+> #define switch_is_down(s)       (s == RC_SW_DOWN)
+> #define switch_is_mid(s)        (s == RC_SW_MID)
+> #define switch_is_up(s)         (s == RC_SW_UP)
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/application/test_task.c ./application/test_task.c
+52c52
+<         for(error_num = 0; error_num < REFEREE_TOE; error_num++)
+---
+>         for(error_num = YAW_GIMBAL_MOTOR_TOE; error_num < BOARD_MAG_TOE; error_num++)
+diff -dr /Users/jperezch/Documents/code/testBenches/all_remote/components/devices/ist8310driver_middleware.c ./components/devices/ist8310driver_middleware.c
+23d22
+< #include "bsp_i2c.h"
