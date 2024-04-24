@@ -31,18 +31,18 @@
 
 //the channel num of controlling vertial speed 
 //ǰ���ң����ͨ������
-#define CHASSIS_X_CHANNEL 3
+#define CHASSIS_X_CHANNEL 1
 //the channel num of controlling horizontal speed
 //���ҵ�ң����ͨ������
-#define CHASSIS_Y_CHANNEL 1
+#define CHASSIS_Y_CHANNEL 0
 
 //in some mode, can use remote control to control rotation speed
 //������ģʽ�£�����ͨ��ң����������ת
-#define CHASSIS_WZ_CHANNEL 0
+#define CHASSIS_WZ_CHANNEL 3
 
 //the channel of choosing chassis mode,
 //ѡ�����״̬ ����ͨ����
-#define CHASSIS_MODE_CHANNEL 6//rc.sc[1] //todo:sera???
+#define CHASSIS_MODE_CHANNEL 0
 //rocker value (max 660) change to vertial speed (m/s) 
 //ң����ǰ��ҡ�ˣ�max 660��ת���ɳ���ǰ���ٶȣ�m/s���ı���
 #define CHASSIS_VX_RC_SEN 0.006f

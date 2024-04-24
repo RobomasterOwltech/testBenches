@@ -3,7 +3,7 @@
   * @file       can_receive.c/h
   * @brief      there is CAN interrupt function  to receive motor data,
   *             and CAN send function to send motor current to control motor.
-  *             ÕâÀïÊÇCANÖÐ¶Ï½ÓÊÕº¯Êý£¬½ÓÊÕµç»úÊý¾Ý,CAN·¢ËÍº¯Êý·¢ËÍµç»úµçÁ÷¿ØÖÆµç»ú.
+  *             ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CANï¿½Ð¶Ï½ï¿½ï¿½Õºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,CANï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½.
   * @note       
   * @history
   *  Version    Date            Author          Modification
@@ -28,6 +28,9 @@
 
 #include "detect_task.h"
 
+#ifndef CAN_RECEIVE_CPP
+#define CAN_RECEIVE_CPP
+
 extern CAN_HandleTypeDef hcan1;
 extern CAN_HandleTypeDef hcan2;
 //motor data read
@@ -42,9 +45,9 @@ extern CAN_HandleTypeDef hcan2;
 /*
 motor data,  0:chassis motor1 3508;1:chassis motor3 3508;2:chassis motor3 3508;3:chassis motor4 3508;
 4:yaw gimbal motor 6020;5:pitch gimbal motor 6020;6:trigger motor 2006;
-µç»úÊý¾Ý, 0:µ×ÅÌµç»ú1 3508µç»ú,  1:µ×ÅÌµç»ú2 3508µç»ú,2:µ×ÅÌµç»ú3 3508µç»ú,3:µ×ÅÌµç»ú4 3508µç»ú;
-4:yawÔÆÌ¨µç»ú 6020µç»ú; 5:pitchÔÆÌ¨µç»ú 6020µç»ú; 6:²¦µ¯µç»ú 2006µç»ú*/
-static motor_measure_t motor_chassis[7];
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, 0:ï¿½ï¿½ï¿½Ìµï¿½ï¿½1 3508ï¿½ï¿½ï¿½,  1:ï¿½ï¿½ï¿½Ìµï¿½ï¿½2 3508ï¿½ï¿½ï¿½,2:ï¿½ï¿½ï¿½Ìµï¿½ï¿½3 3508ï¿½ï¿½ï¿½,3:ï¿½ï¿½ï¿½Ìµï¿½ï¿½4 3508ï¿½ï¿½ï¿½;
+4:yawï¿½ï¿½Ì¨ï¿½ï¿½ï¿½ 6020ï¿½ï¿½ï¿½; 5:pitchï¿½ï¿½Ì¨ï¿½ï¿½ï¿½ 6020ï¿½ï¿½ï¿½; 6:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2006ï¿½ï¿½ï¿½*/
+//static motor_measure_t motor_chassis[7];
 
 static CAN_TxHeaderTypeDef  gimbal_tx_message;
 static uint8_t              gimbal_can_send_data[8];
@@ -57,8 +60,8 @@ static uint8_t              chassis_can_send_data[8];
   * @retval         none
   */
 /**
-  * @brief          hal¿âCAN»Øµ÷º¯Êý,½ÓÊÕµç»úÊý¾Ý
-  * @param[in]      hcan:CAN¾ä±úÖ¸Õë
+  * @brief          halï¿½ï¿½CANï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  * @param[in]      hcan:CANï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
   * @retval         none
   */
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
@@ -104,11 +107,11 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
   * @retval         none
   */
 /**
-  * @brief          ·¢ËÍµç»ú¿ØÖÆµçÁ÷(0x205,0x206,0x207,0x208)
-  * @param[in]      yaw: (0x205) 6020µç»ú¿ØÖÆµçÁ÷, ·¶Î§ [-30000,30000]
-  * @param[in]      pitch: (0x206) 6020µç»ú¿ØÖÆµçÁ÷, ·¶Î§ [-30000,30000]
-  * @param[in]      shoot: (0x207) 2006µç»ú¿ØÖÆµçÁ÷, ·¶Î§ [-10000,10000]
-  * @param[in]      rev: (0x208) ±£Áô£¬µç»ú¿ØÖÆµçÁ÷
+  * @brief          ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½(0x205,0x206,0x207,0x208)
+  * @param[in]      yaw: (0x205) 6020ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½, ï¿½ï¿½Î§ [-30000,30000]
+  * @param[in]      pitch: (0x206) 6020ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½, ï¿½ï¿½Î§ [-30000,30000]
+  * @param[in]      shoot: (0x207) 2006ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½, ï¿½ï¿½Î§ [-10000,10000]
+  * @param[in]      rev: (0x208) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½
   * @retval         none
   */
 void CAN_cmd_gimbal(int16_t yaw, int16_t pitch, int16_t shoot, int16_t rev)
@@ -135,7 +138,7 @@ void CAN_cmd_gimbal(int16_t yaw, int16_t pitch, int16_t shoot, int16_t rev)
   * @retval         none
   */
 /**
-  * @brief          ·¢ËÍIDÎª0x700µÄCAN°ü,Ëü»áÉèÖÃ3508µç»ú½øÈë¿ìËÙÉèÖÃID
+  * @brief          ï¿½ï¿½ï¿½ï¿½IDÎª0x700ï¿½ï¿½CANï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3508ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
   * @param[in]      none
   * @retval         none
   */
@@ -168,11 +171,11 @@ void CAN_cmd_chassis_reset_ID(void)
   * @retval         none
   */
 /**
-  * @brief          ·¢ËÍµç»ú¿ØÖÆµçÁ÷(0x201,0x202,0x203,0x204)
-  * @param[in]      motor1: (0x201) 3508µç»ú¿ØÖÆµçÁ÷, ·¶Î§ [-16384,16384]
-  * @param[in]      motor2: (0x202) 3508µç»ú¿ØÖÆµçÁ÷, ·¶Î§ [-16384,16384]
-  * @param[in]      motor3: (0x203) 3508µç»ú¿ØÖÆµçÁ÷, ·¶Î§ [-16384,16384]
-  * @param[in]      motor4: (0x204) 3508µç»ú¿ØÖÆµçÁ÷, ·¶Î§ [-16384,16384]
+  * @brief          ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½(0x201,0x202,0x203,0x204)
+  * @param[in]      motor1: (0x201) 3508ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½, ï¿½ï¿½Î§ [-16384,16384]
+  * @param[in]      motor2: (0x202) 3508ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½, ï¿½ï¿½Î§ [-16384,16384]
+  * @param[in]      motor3: (0x203) 3508ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½, ï¿½ï¿½Î§ [-16384,16384]
+  * @param[in]      motor4: (0x204) 3508ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½, ï¿½ï¿½Î§ [-16384,16384]
   * @retval         none
   */
 void CAN_cmd_chassis(int16_t motor1, int16_t motor2, int16_t motor3, int16_t motor4)
@@ -200,9 +203,9 @@ void CAN_cmd_chassis(int16_t motor1, int16_t motor2, int16_t motor3, int16_t mot
   * @retval         motor data point
   */
 /**
-  * @brief          ·µ»Øyaw 6020µç»úÊý¾ÝÖ¸Õë
+  * @brief          ï¿½ï¿½ï¿½ï¿½yaw 6020ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
   * @param[in]      none
-  * @retval         µç»úÊý¾ÝÖ¸Õë
+  * @retval         ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
   */
 const motor_measure_t *get_yaw_gimbal_motor_measure_point(void)
 {
@@ -215,9 +218,9 @@ const motor_measure_t *get_yaw_gimbal_motor_measure_point(void)
   * @retval         motor data point
   */
 /**
-  * @brief          ·µ»Øpitch 6020µç»úÊý¾ÝÖ¸Õë
+  * @brief          ï¿½ï¿½ï¿½ï¿½pitch 6020ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
   * @param[in]      none
-  * @retval         µç»úÊý¾ÝÖ¸Õë
+  * @retval         ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
   */
 const motor_measure_t *get_pitch_gimbal_motor_measure_point(void)
 {
@@ -231,9 +234,9 @@ const motor_measure_t *get_pitch_gimbal_motor_measure_point(void)
   * @retval         motor data point
   */
 /**
-  * @brief          ·µ»Ø²¦µ¯µç»ú 2006µç»úÊý¾ÝÖ¸Õë
+  * @brief          ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2006ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
   * @param[in]      none
-  * @retval         µç»úÊý¾ÝÖ¸Õë
+  * @retval         ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
   */
 const motor_measure_t *get_trigger_motor_measure_point(void)
 {
@@ -247,11 +250,12 @@ const motor_measure_t *get_trigger_motor_measure_point(void)
   * @retval         motor data point
   */
 /**
-  * @brief          ·µ»Øµ×ÅÌµç»ú 3508µç»úÊý¾ÝÖ¸Õë
-  * @param[in]      i: µç»ú±àºÅ,·¶Î§[0,3]
-  * @retval         µç»úÊý¾ÝÖ¸Õë
+  * @brief          ï¿½ï¿½ï¿½Øµï¿½ï¿½Ìµï¿½ï¿½ 3508ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+  * @param[in]      i: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Î§[0,3]
+  * @retval         ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
   */
 const motor_measure_t *get_chassis_motor_measure_point(uint8_t i)
 {
     return &motor_chassis[(i & 0x03)];
 }
+#endif

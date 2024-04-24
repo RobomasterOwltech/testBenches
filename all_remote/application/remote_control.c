@@ -30,7 +30,7 @@
 
 
 //ң����������������
-#define RC_CHANNAL_ERROR_VALUE 65536//2048(funcino masomenos) //700 (original)
+#define RC_CHANNAL_ERROR_VALUE 700//2048(funcino masomenos) //700 (original)
 
 extern UART_HandleTypeDef huart3;
 extern DMA_HandleTypeDef hdma_usart3_rx;
@@ -94,20 +94,42 @@ uint8_t RC_data_is_error(void)
     //ʹ����go to��� �������ͳһ����ң�����������ݹ���
     if (RC_abs(rc_ctrl.rc.ch[0]) > RC_CHANNAL_ERROR_VALUE)
     {
-        goto error;
+        if (rc_ctrl.rc.ch[0] > 0){
+            rc_ctrl.rc.ch[0] = RC_CHANNAL_ERROR_VALUE;  
+        }else {
+            rc_ctrl.rc.ch[0] = -RC_CHANNAL_ERROR_VALUE;
+        }
     }
     if (RC_abs(rc_ctrl.rc.ch[1]) > RC_CHANNAL_ERROR_VALUE)
     {
-        goto error;
+        if (rc_ctrl.rc.ch[1] > 0){
+            rc_ctrl.rc.ch[1] = RC_CHANNAL_ERROR_VALUE;  
+        }else {
+            rc_ctrl.rc.ch[1] = -RC_CHANNAL_ERROR_VALUE;
+        }
     }
     if (RC_abs(rc_ctrl.rc.ch[2]) > RC_CHANNAL_ERROR_VALUE)
     {
-        goto error;
+        if (rc_ctrl.rc.ch[2] > 0){
+            rc_ctrl.rc.ch[2] = RC_CHANNAL_ERROR_VALUE;  
+        }else {
+            rc_ctrl.rc.ch[2] = -RC_CHANNAL_ERROR_VALUE;
+        }
     }
     if (RC_abs(rc_ctrl.rc.ch[3]) > RC_CHANNAL_ERROR_VALUE)
     {
-        goto error;
+        if (rc_ctrl.rc.ch[3] > 0){
+            rc_ctrl.rc.ch[3] = RC_CHANNAL_ERROR_VALUE;  
+        }else {
+            rc_ctrl.rc.ch[3] = -RC_CHANNAL_ERROR_VALUE;
+        }
     }
+    rc_ctrl.mouse.x = 0;
+    rc_ctrl.mouse.y = 0;
+    rc_ctrl.mouse.z = 0;
+    rc_ctrl.mouse.press_l = 0;
+    rc_ctrl.mouse.press_r = 0;
+    rc_ctrl.key.v = 0;
     return 0;
 
 error:
@@ -265,9 +287,9 @@ static void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl)
         rc_ctrl->rc.ch[2] = ((sbus_buf[4] >> 1) | (sbus_buf[5] << 7)) & 0x0ff; 		//!< Channel 2
         rc_ctrl->rc.ch[3] = ((sbus_buf[5] >> 4) |(sbus_buf[6] << 4)) & 0x0ff;     //!< Channel 3
         rc_ctrl->rc.s[0] = ((sbus_buf[6] >> 1) & 0x0A) >> 2 ;                 	//!< Switch right
-				rc_ctrl->rc.s[1] = ((sbus_buf[8] >> 6) & 0x0A) ;                 	//!< Switch right
-        // TODO: Find if we should use the offset
-        rc_ctrl->rc.ch[4] = sbus_buf[11] | (sbus_buf[12] << 8);                 //NULL
+        rc_ctrl->rc.s[1] = ((sbus_buf[8] >> 6) & 0x0A) ;                 	//!< Switch right
+        
+        //rc_ctrl->rc.ch[4] = sbus_buf[11] | (sbus_buf[12] << 8);                 //NULL
 
 
     #else
@@ -287,7 +309,6 @@ static void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl)
         rc_ctrl->rc.ch[4] = sbus_buf[16] | (sbus_buf[17] << 8);                 //NULL
 
     #endif
-
     
     rc_ctrl->rc.ch[0] -= RC_CH_VALUE_OFFSET;
     rc_ctrl->rc.ch[1] -= RC_CH_VALUE_OFFSET;
