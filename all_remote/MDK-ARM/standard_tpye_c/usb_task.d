@@ -77,3 +77,4 @@ standard_tpye_c\usb_task.o: ..\application\remote_control.h
 standard_tpye_c\usb_task.o: ..\bsp\boards\bsp_rc.h
 standard_tpye_c\usb_task.o: ..\application\detect_task.h
 standard_tpye_c\usb_task.o: ..\application\voltage_task.h
+standard_tpye_c\usb_task.o: ..\application\CAN_receive.h
