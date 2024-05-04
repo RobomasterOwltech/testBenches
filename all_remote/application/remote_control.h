@@ -68,8 +68,8 @@ typedef __packed struct
 {
         __packed struct
         {
-                int16_t ch[5];
-                char s[2];
+                int16_t ch[7];
+                char s[3];
         } rc;
         __packed struct
         {
