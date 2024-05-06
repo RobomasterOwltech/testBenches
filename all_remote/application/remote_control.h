@@ -28,6 +28,7 @@
 
 #define RC_CH_VALUE_MIN         ((uint16_t)364)
 #define RC_CH_VALUE_OFFSET      ((uint16_t)0x80)
+#define RC_KNOB_VALUE_OFFSET      ((uint16_t)0x1E)
 #define RC_CH_VALUE_MAX         ((uint16_t)1684)
 
 /* ----------------------- RC Switch Definition----------------------------- */
@@ -69,7 +70,7 @@ typedef __packed struct
         __packed struct
         {
                 int16_t ch[7];
-                char s[3];
+                char s[4];
         } rc;
         __packed struct
         {

@@ -297,19 +297,37 @@ static void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl)
 
 
     #ifdef USING_FLYSKY
-
-        //rc_ctrl->rc.ch[0] = (sbus_buf[0] | (sbus_buf[1] << 8)) & 0x0ff;        	//!< Channel 0
+        /*       
         rc_ctrl->rc.ch[0] = ((sbus_buf[1] >> 3) | (sbus_buf[2] << 5)) & 0x0ff;		//!< Channel 0
         rc_ctrl->rc.ch[1] = ((sbus_buf[2] >> 6) | (sbus_buf[3] << 2) |          	//!< Channel 1
                             (sbus_buf[4] << 10)) &0x0ff;
         rc_ctrl->rc.ch[2] = ((sbus_buf[4] >> 1) | (sbus_buf[5] << 7)) & 0x0ff; 		//!< Channel 2
-        rc_ctrl->rc.ch[3] = ((sbus_buf[5] >> 4) |(sbus_buf[6] << 4)) & 0x0ff;     //!< Channel 3
-        rc_ctrl->rc.ch[4] = ((sbus_buf[6] >> 7) |(sbus_buf[7] << 1)) & 0x0ff;     //!< Channel 4
-        rc_ctrl->rc.ch[5] = ((sbus_buf[7] >> 4) |(sbus_buf[8] << 4) |(sbus_buf[9])) & 0x0ff;     //!< Channel 5
-        rc_ctrl->rc.s[0] = ((sbus_buf[9] >> 1) & 0x0A) >> 2 ;                 	//!< Switch A
+        rc_ctrl->rc.ch[3] = ((sbus_buf[5] >> 4) |(sbus_buf[6] << 4)) & 0x0ff;       //!< Channel 3
+        
+        rc_ctrl->rc.ch[4] = ((sbus_buf[6] >> 7) |(sbus_buf[7] << 1)) &0x0ff; // recuerda offset
+
+        rc_ctrl->rc.s[0] = ((sbus_buf[9] >> 1) & 0x0A) >> 2;               //!< Switch A
         rc_ctrl->rc.s[1] = ((sbus_buf[10] >> 6) & 0x0A) ;                 	//!< Switch B
-        rc_ctrl->rc.s[2] = ((sbus_buf[11] >> 8) & 0x0A) ;                 	//!< Switch B
-        rc_ctrl->rc.s[3] = ((sbus_buf[12] >> 6) & 0x0A) ;                 	//!< Switch B
+        rc_ctrl->rc.s[2] = ((sbus_buf[13] >> 6) & 0x0A) ;                 	//!< Switch D
+        
+        
+        */
+
+         rc_ctrl->rc.ch[0] = ((sbus_buf[1] >> 3) | (sbus_buf[2] << 5)) & 0x0ff;		//!< Channel 0
+        rc_ctrl->rc.ch[1] = ((sbus_buf[2] >> 6) | (sbus_buf[3] << 2) |          	//!< Channel 1
+                            (sbus_buf[4] << 10)) &0x0ff;
+        rc_ctrl->rc.ch[2] = ((sbus_buf[4] >> 1) | (sbus_buf[5] << 7)) & 0x0ff; 		//!< Channel 2
+        rc_ctrl->rc.ch[3] = ((sbus_buf[5] >> 4) |(sbus_buf[6] << 4)) & 0x0ff;       //!< Channel 3
+        
+        //Knobs
+        rc_ctrl->rc.ch[4] = ((sbus_buf[6] >> 7) |(sbus_buf[7] << 1)) &0x0ff;        // Knob left
+        // We decided to not map knob right :D
+
+
+        rc_ctrl->rc.s[0] = ((sbus_buf[12] >> 2) & 0x07);               //!< Switch A
+        rc_ctrl->rc.s[1] = ((sbus_buf[12] >> 1) & 0xFF);                	//!< Switch B
+        rc_ctrl->rc.s[2] = ((sbus_buf[12]) & 0x0FF) ;                 	//!< Switch C
+        rc_ctrl->rc.s[3] = ((sbus_buf[12] >> 3) & 0x03);                 	//!< Switch D
         
         rc_ctrl->rc.ch[6] = sbus_buf[13] | (sbus_buf[15] << 8);                 //NULL
 
@@ -335,10 +353,10 @@ static void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl)
     rc_ctrl->rc.ch[0] -= RC_CH_VALUE_OFFSET;
     rc_ctrl->rc.ch[1] -= RC_CH_VALUE_OFFSET;
     rc_ctrl->rc.ch[2] -= RC_CH_VALUE_OFFSET;
-    rc_ctrl->rc.ch[3] -= RC_CH_VALUE_OFFSET;
-    rc_ctrl->rc.ch[4] -= RC_CH_VALUE_OFFSET;
-    rc_ctrl->rc.ch[5] -= RC_CH_VALUE_OFFSET;
-    rc_ctrl->rc.ch[6] -= RC_CH_VALUE_OFFSET;    
+    rc_ctrl->rc.ch[3] -= 0;
+    // rc_ctrl->rc.ch[4] -= RC_CH_VALUE_OFFSET;
+    // rc_ctrl->rc.ch[5] -= RC_CH_VALUE_OFFSET;
+    // rc_ctrl->rc.ch[6] -= RC_CH_VALUE_OFFSET;    
 }
 
 /**
