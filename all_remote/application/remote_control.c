@@ -324,10 +324,11 @@ static void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl)
         // We decided to not map knob right :D
 
 
-        rc_ctrl->rc.s[0] = ((sbus_buf[12] >> 2) & 0x07);               //!< Switch A
-        rc_ctrl->rc.s[1] = ((sbus_buf[12] >> 1) & 0xFF);                	//!< Switch B
-        rc_ctrl->rc.s[2] = ((sbus_buf[12]) & 0x0FF) ;                 	//!< Switch C
-        rc_ctrl->rc.s[3] = ((sbus_buf[12] >> 3) & 0x03);                 	//!< Switch D
+        rc_ctrl->rc.s[0] = ((sbus_buf[9] >> 1) & 0x07) >> 2;                //!< Switch A
+        rc_ctrl->rc.s[1] = ((sbus_buf[10]) & 0x20) >> 5 ;                 	//!< Switch B
+        
+        rc_ctrl->rc.s[2] = ((sbus_buf[12] >> 3) & 0x03) ;                 	//!< Switch C
+        rc_ctrl->rc.s[3] = ((sbus_buf[13] & 0x08) >> 3) ;                 	//!< Switch D
         
         rc_ctrl->rc.ch[6] = sbus_buf[13] | (sbus_buf[15] << 8);                 //NULL
 
