@@ -124,6 +124,23 @@ uint8_t RC_data_is_error(void)
             rc_ctrl.rc.ch[3] = -RC_CHANNAL_ERROR_VALUE;
         }
     }
+    if (RC_abs(rc_ctrl.rc.ch[4]) > RC_CHANNAL_ERROR_VALUE)
+    {
+        if (rc_ctrl.rc.ch[4] > 0){
+            rc_ctrl.rc.ch[4] = RC_CHANNAL_ERROR_VALUE;  
+        }else {
+            rc_ctrl.rc.ch[4] = -RC_CHANNAL_ERROR_VALUE;
+        }
+    }
+    if (RC_abs(rc_ctrl.rc.ch[5]) > RC_CHANNAL_ERROR_VALUE)
+    {
+        if (rc_ctrl.rc.ch[5] > 0){
+            rc_ctrl.rc.ch[5] = RC_CHANNAL_ERROR_VALUE;  
+        }else {
+            rc_ctrl.rc.ch[5] = -RC_CHANNAL_ERROR_VALUE;
+        }
+    }
+    
     rc_ctrl.mouse.x = 0;
     rc_ctrl.mouse.y = 0;
     rc_ctrl.mouse.z = 0;
@@ -138,6 +155,7 @@ error:
     rc_ctrl.rc.ch[2] = 0;
     rc_ctrl.rc.ch[3] = 0;
     rc_ctrl.rc.ch[4] = 0;
+    rc_ctrl.rc.ch[5] = 0;
     rc_ctrl.rc.s[0] = RC_SW_DOWN;
     rc_ctrl.rc.s[1] = RC_SW_DOWN;
     rc_ctrl.mouse.x = 0;
@@ -279,24 +297,40 @@ static void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl)
 
 
     #ifdef USING_FLYSKY
+        /*       
+        rc_ctrl->rc.ch[0] = ((sbus_buf[1] >> 3) | (sbus_buf[2] << 5)) & 0x0ff;		//!< Channel 0
+        rc_ctrl->rc.ch[1] = ((sbus_buf[2] >> 6) | (sbus_buf[3] << 2) |          	//!< Channel 1
+                            (sbus_buf[4] << 10)) &0x0ff;
+        rc_ctrl->rc.ch[2] = ((sbus_buf[4] >> 1) | (sbus_buf[5] << 7)) & 0x0ff; 		//!< Channel 2
+        rc_ctrl->rc.ch[3] = ((sbus_buf[5] >> 4) |(sbus_buf[6] << 4)) & 0x0ff;       //!< Channel 3
+        
+        rc_ctrl->rc.ch[4] = ((sbus_buf[6] >> 7) |(sbus_buf[7] << 1)) &0x0ff; // recuerda offset
+
+        rc_ctrl->rc.s[0] = ((sbus_buf[9] >> 1) & 0x0A) >> 2;               //!< Switch A
+        rc_ctrl->rc.s[1] = ((sbus_buf[10] >> 6) & 0x0A) ;                 	//!< Switch B
+        rc_ctrl->rc.s[2] = ((sbus_buf[13] >> 6) & 0x0A) ;                 	//!< Switch D
+        
+        
+        */
 
         rc_ctrl->rc.ch[0] = ((sbus_buf[1] >> 3) | (sbus_buf[2] << 5)) & 0x0ff;		//!< Channel 0
         rc_ctrl->rc.ch[1] = ((sbus_buf[2] >> 6) | (sbus_buf[3] << 2) |          	//!< Channel 1
                             (sbus_buf[4] << 10)) &0x0ff;
         rc_ctrl->rc.ch[2] = ((sbus_buf[4] >> 1) | (sbus_buf[5] << 7)) & 0x0ff; 		//!< Channel 2
-        rc_ctrl->rc.ch[3] = ((sbus_buf[5] >> 4) |(sbus_buf[6] << 4)) & 0x0ff;     //!< Channel 3
+        rc_ctrl->rc.ch[3] = ((sbus_buf[5] >> 4) |(sbus_buf[6] << 4)) & 0x0ff;       //!< Channel 3
         
-        rc_ctrl->rc.s[0] = ((sbus_buf[6] >> 1) & 0x0A) >> 2 ;               //!< Switch right
-        rc_ctrl->rc.s[1] = ((sbus_buf[8] >> 6) & 0x0A) ;                 	//!< Switch right
-        
-        // Additions
-        rc_ctrl->rc.s[3] = ((sbus_buf[10] >> 1) & 0x0A) >> 2 ;               //!< Switch right
-        rc_ctrl->rc.s[4] = ((sbus_buf[12] >> 6) & 0x0A) ;                 	//!< Switch right
+        //Knobs
+        rc_ctrl->rc.ch[4] = ((sbus_buf[6] >> 7) |(sbus_buf[7] << 1)) &0x0ff;        // Knob left
+        rc_ctrl->rc.ch[4] = ((sbus_buf[7]) |(sbus_buf[8])) &0x0ff;        // Knob left
+        // We decided to not map knob right :D
 
 
-        rc_ctrl->rc.knb[0] = ((sbus_buf[13] >> 3) | (sbus_buf[14] << 5)) & 0x0ff ;               //!< Switch right
-        rc_ctrl->rc.knb[1] = ((sbus_buf[15] >> 1) | (sbus_buf[16] << 7)) & 0x0ff ;                 	//!< Switch right
-        //rc_ctrl->rc.ch[4] = sbus_buf[11] | (sbus_buf[12] << 8);                 //NULL
+        rc_ctrl->rc.s[0] = ((sbus_buf[9] >> 1) & 0x07) >> 2;                //!< Switch A
+        rc_ctrl->rc.s[1] = ((sbus_buf[10]) & 0x20) >> 5 ;                 	//!< Switch B
+        rc_ctrl->rc.s[2] = ((sbus_buf[12] >> 3) & 0x03) ;                 	//!< Switch C
+        rc_ctrl->rc.s[3] = ((sbus_buf[13] & 0x08) >> 3) ;                 	//!< Switch D
+        
+        rc_ctrl->rc.ch[6] = sbus_buf[13] | (sbus_buf[15] << 8);                 //NULL
 
 
     #else
@@ -320,8 +354,10 @@ static void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl)
     rc_ctrl->rc.ch[0] -= RC_CH_VALUE_OFFSET;
     rc_ctrl->rc.ch[1] -= RC_CH_VALUE_OFFSET;
     rc_ctrl->rc.ch[2] -= RC_CH_VALUE_OFFSET;
-    rc_ctrl->rc.ch[3] -= RC_CH_VALUE_OFFSET;
-    rc_ctrl->rc.ch[4] -= RC_CH_VALUE_OFFSET;    
+    rc_ctrl->rc.ch[3] -= 0;
+    // rc_ctrl->rc.ch[4] -= RC_CH_VALUE_OFFSET;
+    // rc_ctrl->rc.ch[5] -= RC_CH_VALUE_OFFSET;
+    // rc_ctrl->rc.ch[6] -= RC_CH_VALUE_OFFSET;    
 }
 
 /**

@@ -26,9 +26,10 @@
 
 #define RC_FRAME_LENGTH 12u//18u (original)
 
-#define RC_CH_VALUE_MIN         ((uint16_t)364)
-#define RC_CH_VALUE_OFFSET      ((uint16_t)0x80)
-#define RC_CH_VALUE_MAX         ((uint16_t)1684)
+#define RC_CH_VALUE_MIN                 ((uint16_t)364)
+#define RC_CH_VALUE_OFFSET              ((uint16_t)0x80)
+#define RC_KNOB_VALUE_OFFSET            ((uint16_t)0x1E)
+#define RC_CH_VALUE_MAX                 ((uint16_t)1684)
 
 /* ----------------------- RC Switch Definition----------------------------- */
 #define RC_SW_UP                ((uint16_t)1)
@@ -74,8 +75,8 @@ typedef __packed struct
 {
         __packed struct
         {
-                int16_t ch[5];
-                char s[2];
+                int16_t ch[7];
+                char s[4];
         } rc;
         __packed struct
         {

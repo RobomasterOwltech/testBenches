@@ -488,7 +488,22 @@ static void gimbal_behavour_set(gimbal_control_t *gimbal_mode_set)
         }
 
         //超过初始化最大时间，或者已经稳定到中值一段时间，退出初始化状态开关打下档，或者掉线
-        if (init_time < GIMBAL_INIT_TIME && init_stop_time < GIMBAL_INIT_STOP_TIME &&
+        /*Se ha superado el tiempo máximo de inicialización o se ha estabilizado en el valor medio durante un período de tiempo. 
+        El interruptor para salir del estado de inicialización está desactivado o desconectado.*/
+#ifdef USING_FLYSKY
+  if (init_time < GIMBAL_INIT_TIME && init_stop_time < GIMBAL_INIT_STOP_TIME &&
+            !switch_is_up(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL]) && !toe_is_error(DBUS_TOE))
+        {
+            return;
+        }
+        else
+        {
+            init_stop_time = 0;
+            init_time = 0;
+        }
+    }
+#else
+    if (init_time < GIMBAL_INIT_TIME && init_stop_time < GIMBAL_INIT_STOP_TIME &&
             !switch_is_down(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL]) && !toe_is_error(DBUS_TOE))
         {
             return;
@@ -499,11 +514,13 @@ static void gimbal_behavour_set(gimbal_control_t *gimbal_mode_set)
             init_time = 0;
         }
     }
+#endif
+        
 
     //开关控制 云台状态
     if (switch_is_down(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL]))
     {
-        gimbal_behaviour = GIMBAL_ZERO_FORCE;
+        gimbal_behaviour = GIMBAL_RELATIVE_ANGLE; 
     }
     else if (switch_is_mid(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL]))
     {
@@ -511,7 +528,7 @@ static void gimbal_behavour_set(gimbal_control_t *gimbal_mode_set)
     }
     else if (switch_is_up(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL]))
     {
-        gimbal_behaviour = GIMBAL_RELATIVE_ANGLE;
+        gimbal_behaviour = GIMBAL_ZERO_FORCE;
     }
 
     if( toe_is_error(DBUS_TOE))
