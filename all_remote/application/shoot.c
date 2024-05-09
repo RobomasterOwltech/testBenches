@@ -207,20 +207,33 @@ static void shoot_set_mode(void)
 {
     static int8_t last_s = RC_SW_UP;
 
-    //�ϲ��жϣ� һ�ο������ٴιر�
-    if ((switch_is_up(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]) && !switch_is_up(last_s) ))
-    {
-        shoot_control.shoot_mode = SHOOT_READY_FRIC;
-    }
+    #ifdef USING_FLYSKY
+        // TODO: VERIFY
+        if ((switch_is_up(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) && !switch_is_up(last_s) ))
+        {
+            shoot_control.shoot_mode = SHOOT_READY_FRIC;
+        }
 
-    //�����е��� ����ʹ�ü��̿���Ħ����
-    if (switch_is_mid(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]) && (shoot_control.shoot_rc->key.v & SHOOT_ON_KEYBOARD) )
-    {
-        shoot_control.shoot_mode = SHOOT_READY_FRIC;
-    }
+        if (switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) && (shoot_control.shoot_rc->key.v & SHOOT_ON_KEYBOARD) )
+        {
+            shoot_control.shoot_mode = SHOOT_READY_FRIC;
+        }
+    #else
+
+        //�ϲ��жϣ� һ�ο������ٴιر�
+        if ((switch_is_up(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]) && !switch_is_up(last_s) ))
+        {
+            shoot_control.shoot_mode = SHOOT_READY_FRIC;
+        }
+
+        //�����е��� ����ʹ�ü��̿���Ħ����
+        if (switch_is_mid(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]) && (shoot_control.shoot_rc->key.v & SHOOT_ON_KEYBOARD) )
+        {
+            shoot_control.shoot_mode = SHOOT_READY_FRIC;
+        }
+    
+    #endif
     //�����е��� ����ʹ�ü��̹ر�Ħ����
-  
-
     if(shoot_control.shoot_mode == SHOOT_READY_FRIC && shoot_control.fric1_ramp.out == shoot_control.fric1_ramp.max_value && shoot_control.fric2_ramp.out == shoot_control.fric2_ramp.max_value)
     {
         shoot_control.shoot_mode = SHOOT_READY_BULLET;
@@ -235,11 +248,19 @@ static void shoot_set_mode(void)
     }
     else if(shoot_control.shoot_mode == SHOOT_READY)
     {
+        #ifdef USING_FLYSKY
+        // TODO: VERIFY
+        if switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B]) && !switch_is_down(last_s)) || (shoot_control.press_l && shoot_control.last_press_l == 0) || (shoot_control.press_r && shoot_control.last_press_r == 0))
+        {
+            shoot_control.shoot_mode = SHOOT_BULLET;
+        }
+        #else
         //�²�һ�λ�����갴��һ�Σ��������״̬
         if ((switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]) && !switch_is_down(last_s)) || (shoot_control.press_l && shoot_control.last_press_l == 0) || (shoot_control.press_r && shoot_control.last_press_r == 0))
         {
             shoot_control.shoot_mode = SHOOT_BULLET;
         }
+        #endif
     }
     else if(shoot_control.shoot_mode == SHOOT_DONE)
     {
@@ -287,8 +308,21 @@ static void shoot_set_mode(void)
     {
         shoot_control.shoot_mode = SHOOT_STOP;
     }
+    #ifdef USING_FLYSKY
+    // TODO: VERIFY
+    
+    if (switch_is_down(SHOOT_RC_MODE_CHANNEL_A)) {
+        last_s = RC_SW_MID; // This should be middle
+    }else if (switch_is_down(SHOOT_RC_MODE_CHANNEL_B)) {
+        last_s = RC_SW_DOWN; // This should be down
+    }else {
+        last_s = RC_SW_UP; // This should be up
+    }
+    
+    #else
 
-    last_s = shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL];
+        last_s = shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL];
+    #endif
 }
 /**
   * @brief          ������ݸ���
@@ -365,19 +399,34 @@ static void shoot_feedback_update(void)
     }
 
     //��������µ�ʱ���ʱ
-    if (shoot_control.shoot_mode != SHOOT_STOP && switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]))
-    {
-
-        if (shoot_control.rc_s_time < RC_S_LONG_TIME)
+    #ifdef USING_FLYSKY
+        if (shoot_control.shoot_mode != SHOOT_STOP && switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B]))
         {
-            shoot_control.rc_s_time++;
-        }
-    }
-    else
-    {
-        shoot_control.rc_s_time = 0;
-    }
 
+            if (shoot_control.rc_s_time < RC_S_LONG_TIME)
+            {
+                shoot_control.rc_s_time++;
+            }
+        }
+        else
+        {
+            shoot_control.rc_s_time = 0;
+        }
+    #else
+        
+        if (shoot_control.shoot_mode != SHOOT_STOP && switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]))
+        {
+
+            if (shoot_control.rc_s_time < RC_S_LONG_TIME)
+            {
+                shoot_control.rc_s_time++;
+            }
+        }
+        else
+        {
+            shoot_control.rc_s_time = 0;
+        }
+    #endif
     //����Ҽ����¼���Ħ���֣�ʹ�������������� �Ҽ��������
     static uint16_t up_time = 0;
     if (shoot_control.press_r)

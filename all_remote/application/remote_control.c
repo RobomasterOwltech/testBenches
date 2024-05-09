@@ -280,15 +280,22 @@ static void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl)
 
     #ifdef USING_FLYSKY
 
-        //rc_ctrl->rc.ch[0] = (sbus_buf[0] | (sbus_buf[1] << 8)) & 0x0ff;        	//!< Channel 0
         rc_ctrl->rc.ch[0] = ((sbus_buf[1] >> 3) | (sbus_buf[2] << 5)) & 0x0ff;		//!< Channel 0
         rc_ctrl->rc.ch[1] = ((sbus_buf[2] >> 6) | (sbus_buf[3] << 2) |          	//!< Channel 1
                             (sbus_buf[4] << 10)) &0x0ff;
         rc_ctrl->rc.ch[2] = ((sbus_buf[4] >> 1) | (sbus_buf[5] << 7)) & 0x0ff; 		//!< Channel 2
         rc_ctrl->rc.ch[3] = ((sbus_buf[5] >> 4) |(sbus_buf[6] << 4)) & 0x0ff;     //!< Channel 3
-        rc_ctrl->rc.s[0] = ((sbus_buf[6] >> 1) & 0x0A) >> 2 ;                 	//!< Switch right
+        
+        rc_ctrl->rc.s[0] = ((sbus_buf[6] >> 1) & 0x0A) >> 2 ;               //!< Switch right
         rc_ctrl->rc.s[1] = ((sbus_buf[8] >> 6) & 0x0A) ;                 	//!< Switch right
         
+        // Additions
+        rc_ctrl->rc.s[3] = ((sbus_buf[10] >> 1) & 0x0A) >> 2 ;               //!< Switch right
+        rc_ctrl->rc.s[4] = ((sbus_buf[12] >> 6) & 0x0A) ;                 	//!< Switch right
+
+
+        rc_ctrl->rc.knb[0] = ((sbus_buf[13] >> 3) | (sbus_buf[14] << 5)) & 0x0ff ;               //!< Switch right
+        rc_ctrl->rc.knb[1] = ((sbus_buf[15] >> 1) | (sbus_buf[16] << 7)) & 0x0ff ;                 	//!< Switch right
         //rc_ctrl->rc.ch[4] = sbus_buf[11] | (sbus_buf[12] << 8);                 //NULL
 
 

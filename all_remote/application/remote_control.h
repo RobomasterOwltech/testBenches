@@ -34,18 +34,24 @@
 #define RC_SW_UP                ((uint16_t)1)
 #define RC_SW_MID               ((uint16_t)3)
 #define RC_SW_DOWN              ((uint16_t)2)
+// LEAVE ON
 #define USING_FLYSKY
+
 #define USING_FLYSKY
 //using FLYSKY
 #ifdef USING_FLYSKY
-         #define switch_is_down(s)       (s == 0)
-         #define switch_is_mid(s)        (s == 1)
-         #define switch_is_up(s)         (s == 2)
+        #define RC_SW_UP                ((uint16_t)2)
+        #define RC_SW_MID               ((uint16_t)0)
+        #define RC_SW_DOWN              ((uint16_t)1)
 #else
-       #define switch_is_down(s)       (s == RC_SW_DOWN)
-       #define switch_is_mid(s)        (s == RC_SW_MID)
-       #define switch_is_up(s)         (s == RC_SW_UP)
+        #define RC_SW_UP                ((uint16_t)1)
+        #define RC_SW_MID               ((uint16_t)3)
+        #define RC_SW_DOWN              ((uint16_t)2)
 #endif
+
+#define switch_is_down(s)       (s == RC_SW_DOWN)
+#define switch_is_mid(s)        (s == RC_SW_MID)
+#define switch_is_up(s)         (s == RC_SW_UP)
 /* ----------------------- PC Key Definition-------------------------------- */
 #define KEY_PRESSED_OFFSET_W            ((uint16_t)1 << 0)
 #define KEY_PRESSED_OFFSET_S            ((uint16_t)1 << 1)
@@ -85,6 +91,17 @@ typedef __packed struct
         } key;
 
 } RC_ctrl_t;
+
+typedef __packed struct
+{
+        // TODO: CHECK THAT THE LAST CHANNEL IS NOT BEING USED
+        int16_t ch[5];
+        // KNOBS
+        int16_t knb[2];
+        // ADDED CHANNELS
+        char s[4];
+
+} Flysky_ctrl_t;
 
 /* ----------------------- Internal Data ----------------------------------- */
 
