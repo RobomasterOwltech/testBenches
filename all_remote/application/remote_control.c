@@ -313,7 +313,7 @@ static void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl)
         
         */
 
-         rc_ctrl->rc.ch[0] = ((sbus_buf[1] >> 3) | (sbus_buf[2] << 5)) & 0x0ff;		//!< Channel 0
+        rc_ctrl->rc.ch[0] = ((sbus_buf[1] >> 3) | (sbus_buf[2] << 5)) & 0x0ff;		//!< Channel 0
         rc_ctrl->rc.ch[1] = ((sbus_buf[2] >> 6) | (sbus_buf[3] << 2) |          	//!< Channel 1
                             (sbus_buf[4] << 10)) &0x0ff;
         rc_ctrl->rc.ch[2] = ((sbus_buf[4] >> 1) | (sbus_buf[5] << 7)) & 0x0ff; 		//!< Channel 2
@@ -321,12 +321,12 @@ static void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl)
         
         //Knobs
         rc_ctrl->rc.ch[4] = ((sbus_buf[6] >> 7) |(sbus_buf[7] << 1)) &0x0ff;        // Knob left
+        rc_ctrl->rc.ch[4] = ((sbus_buf[7]) |(sbus_buf[8])) &0x0ff;        // Knob left
         // We decided to not map knob right :D
 
 
         rc_ctrl->rc.s[0] = ((sbus_buf[9] >> 1) & 0x07) >> 2;                //!< Switch A
         rc_ctrl->rc.s[1] = ((sbus_buf[10]) & 0x20) >> 5 ;                 	//!< Switch B
-        
         rc_ctrl->rc.s[2] = ((sbus_buf[12] >> 3) & 0x03) ;                 	//!< Switch C
         rc_ctrl->rc.s[3] = ((sbus_buf[13] & 0x08) >> 3) ;                 	//!< Switch D
         

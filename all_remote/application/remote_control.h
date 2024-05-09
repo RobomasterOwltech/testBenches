@@ -26,10 +26,10 @@
 
 #define RC_FRAME_LENGTH 12u//18u (original)
 
-#define RC_CH_VALUE_MIN         ((uint16_t)364)
-#define RC_CH_VALUE_OFFSET      ((uint16_t)0x80)
-#define RC_KNOB_VALUE_OFFSET      ((uint16_t)0x1E)
-#define RC_CH_VALUE_MAX         ((uint16_t)1684)
+#define RC_CH_VALUE_MIN                 ((uint16_t)364)
+#define RC_CH_VALUE_OFFSET              ((uint16_t)0x80)
+#define RC_KNOB_VALUE_OFFSET            ((uint16_t)0x1E)
+#define RC_CH_VALUE_MAX                 ((uint16_t)1684)
 
 /* ----------------------- RC Switch Definition----------------------------- */
 #define RC_SW_UP                ((uint16_t)1)
@@ -39,8 +39,8 @@
 #define USING_FLYSKY
 //using FLYSKY
 #ifdef USING_FLYSKY
-         #define switch_is_down(s)       (s == 0)
-         #define switch_is_mid(s)        (s == 1)
+         #define switch_is_down(s)       (s == 1)
+         #define switch_is_mid(s)        (s == 0)
          #define switch_is_up(s)         (s == 2)
 #else
        #define switch_is_down(s)       (s == RC_SW_DOWN)
