@@ -492,8 +492,9 @@ static void gimbal_behavour_set(gimbal_control_t *gimbal_mode_set)
         El interruptor para salir del estado de inicialización está desactivado o desconectado.*/
 #ifdef USING_FLYSKY
   if (init_time < GIMBAL_INIT_TIME && init_stop_time < GIMBAL_INIT_STOP_TIME &&
-            !switch_is_up(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL]) && !toe_is_error(DBUS_TOE))
+            !switch_is_up(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL_A]) && !toe_is_error(DBUS_TOE))
         {
+        // This is up
             return;
         }
         else
@@ -501,6 +502,21 @@ static void gimbal_behavour_set(gimbal_control_t *gimbal_mode_set)
             init_stop_time = 0;
             init_time = 0;
         }
+    }
+    if (switch_is_down(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL_B]))
+    {   
+        // This is down
+        gimbal_behaviour = GIMBAL_RELATIVE_ANGLE; 
+    }
+    else if (switch_is_down(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL_A]))
+    {
+        // This is middle
+        gimbal_behaviour = GIMBAL_ABSOLUTE_ANGLE;
+    }
+    else if (switch_is_up(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL_A]))
+    {
+        // This is up
+        gimbal_behaviour = GIMBAL_ZERO_FORCE;
     }
 #else
     if (init_time < GIMBAL_INIT_TIME && init_stop_time < GIMBAL_INIT_STOP_TIME &&
@@ -513,24 +529,23 @@ static void gimbal_behavour_set(gimbal_control_t *gimbal_mode_set)
             init_stop_time = 0;
             init_time = 0;
         }
-    }
-#endif
-        
+    }    
 
     //开关控制 云台状态
-    if (switch_is_down(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL]))
+    if (switch_is_down(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL_B]))
     {
         gimbal_behaviour = GIMBAL_RELATIVE_ANGLE; 
     }
-    else if (switch_is_mid(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL]))
+    else if (switch_is_down(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL_A]))
     {
         gimbal_behaviour = GIMBAL_ABSOLUTE_ANGLE;
     }
-    else if (switch_is_up(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL]))
+    else if (switch_is_up(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL_A]))
     {
         gimbal_behaviour = GIMBAL_ZERO_FORCE;
     }
 
+#endif
     if( toe_is_error(DBUS_TOE))
     {
         gimbal_behaviour = GIMBAL_ZERO_FORCE;
