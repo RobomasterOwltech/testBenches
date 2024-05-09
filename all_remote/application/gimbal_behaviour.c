@@ -520,7 +520,7 @@ static void gimbal_behavour_set(gimbal_control_t *gimbal_mode_set)
     //开关控制 云台状态
     if (switch_is_down(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL]))
     {
-        gimbal_behaviour = GIMBAL_RELATIVE_ANGLE; 
+        gimbal_behaviour = GIMBAL_ZERO_FORCE;
     }
     else if (switch_is_mid(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL]))
     {
@@ -528,7 +528,7 @@ static void gimbal_behavour_set(gimbal_control_t *gimbal_mode_set)
     }
     else if (switch_is_up(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL]))
     {
-        gimbal_behaviour = GIMBAL_ZERO_FORCE;
+        gimbal_behaviour = GIMBAL_RELATIVE_ANGLE; 
     }
 
     if( toe_is_error(DBUS_TOE))
