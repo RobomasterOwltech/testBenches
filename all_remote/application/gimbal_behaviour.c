@@ -514,7 +514,7 @@ static void gimbal_behavour_set(gimbal_control_t *gimbal_mode_set)
         // This is middle
         gimbal_behaviour = GIMBAL_ABSOLUTE_ANGLE;
     }
-    else if (switch_is_up(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL_A]))
+    else if (switch_is_mid(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL_A]))
     {
         // This is up
         gimbal_behaviour = GIMBAL_ZERO_FORCE;

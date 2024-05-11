@@ -209,7 +209,7 @@ static void shoot_set_mode(void)
 
     #ifdef USING_FLYSKY
         // TODO: VERIFY
-        if ((switch_is_up(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) && !switch_is_up(last_s) ))
+        if ((switch_is_mid(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) && !switch_is_up(last_s) ))
         {
             shoot_control.shoot_mode = SHOOT_READY_FRIC;
         }
@@ -311,9 +311,9 @@ static void shoot_set_mode(void)
     #ifdef USING_FLYSKY
     // TODO: VERIFY
     
-    if (switch_is_down(SHOOT_RC_MODE_CHANNEL_A)) {
+    if (switch_is_down(SHOOT_RC_MODE_CHANNEL_A) && switch_is_mid(SHOOT_RC_MODE_CHANNEL_B)) {
         last_s = RC_SW_MID; // This should be middle
-    }else if (switch_is_down(SHOOT_RC_MODE_CHANNEL_B)) {
+    }else if (switch_is_down(SHOOT_RC_MODE_CHANNEL_A) && switch_is_down(SHOOT_RC_MODE_CHANNEL_B)) {
         last_s = RC_SW_DOWN; // This should be down
     }else {
         last_s = RC_SW_UP; // This should be up
