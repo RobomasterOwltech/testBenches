@@ -87,8 +87,13 @@
 //yaw,pitch����ͨ���Լ�״̬����ͨ��
 #define YAW_CHANNEL   3
 #define PITCH_CHANNEL 2
-#define GIMBAL_MODE_CHANNEL 1
 
+#ifdef USING_FLYSKY
+  #define GIMBAL_MODE_CHANNEL_A 0
+  #define GIMBAL_MODE_CHANNEL_B 3
+#else
+  #define GIMBAL_MODE_CHANNEL 1
+#endif
 //turn 180��
 //��ͷ180 ����
 #define TURN_KEYBOARD KEY_PRESSED_OFFSET_F

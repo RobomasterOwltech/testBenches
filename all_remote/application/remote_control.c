@@ -321,7 +321,7 @@ static void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl)
         
         //Knobs
         rc_ctrl->rc.ch[4] = ((sbus_buf[6] >> 7) |(sbus_buf[7] << 1)) &0x0ff;        // Knob left
-        rc_ctrl->rc.ch[4] = ((sbus_buf[7]) |(sbus_buf[8])) &0x0ff;        // Knob left
+        //rc_ctrl->rc.ch[5] = ((sbus_buf[7]) |(sbus_buf[8])) &0x0ff;        // Knob right
         // We decided to not map knob right :D
 
 

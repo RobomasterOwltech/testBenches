@@ -250,7 +250,7 @@ static void shoot_set_mode(void)
     {
         #ifdef USING_FLYSKY
         // TODO: VERIFY
-        if switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B]) && !switch_is_down(last_s)) || (shoot_control.press_l && shoot_control.last_press_l == 0) || (shoot_control.press_r && shoot_control.last_press_r == 0))
+        if ((switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B]) && !switch_is_down(last_s)) || (shoot_control.press_l && shoot_control.last_press_l == 0) || (shoot_control.press_r && shoot_control.last_press_r == 0))
         {
             shoot_control.shoot_mode = SHOOT_BULLET;
         }
