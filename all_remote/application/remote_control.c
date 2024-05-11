@@ -354,8 +354,8 @@ static void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl)
     rc_ctrl->rc.ch[0] -= RC_CH_VALUE_OFFSET;
     rc_ctrl->rc.ch[1] -= RC_CH_VALUE_OFFSET;
     rc_ctrl->rc.ch[2] -= RC_CH_VALUE_OFFSET;
-    rc_ctrl->rc.ch[3] -= 0;
-    // rc_ctrl->rc.ch[4] -= RC_CH_VALUE_OFFSET;
+    rc_ctrl->rc.ch[3] -= RC_CH_VALUE_OFFSET;
+    rc_ctrl->rc.ch[4] -= 30; // TODO: VERIFY
     // rc_ctrl->rc.ch[5] -= RC_CH_VALUE_OFFSET;
     // rc_ctrl->rc.ch[6] -= RC_CH_VALUE_OFFSET;    
 }

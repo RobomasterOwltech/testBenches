@@ -563,8 +563,6 @@ static void gimbal_behavour_set(gimbal_control_t *gimbal_mode_set)
         last_gimbal_behaviour = gimbal_behaviour;
     }
 
-
-
 }
 
 /**
