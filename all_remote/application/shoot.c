@@ -84,7 +84,7 @@ void shoot_init(void)
 {
 
     static const fp32 Trigger_speed_pid[3] = {TRIGGER_ANGLE_PID_KP, TRIGGER_ANGLE_PID_KI, TRIGGER_ANGLE_PID_KD};
-    shoot_control.shoot_mode = SHOOT_READY_FRIC;
+    shoot_control.shoot_mode = SHOOT_STOP;
     //ң����ָ��
     shoot_control.shoot_rc = get_remote_control_point();
     //���ָ��
@@ -205,6 +205,7 @@ int16_t shoot_control_loop(void)
   */
 static void shoot_set_mode(void)
 {
+    // TODO: SEE IF THIS SHOULD CHANGE
     static int8_t last_s = RC_SW_UP;
 
     #ifdef USING_FLYSKY
@@ -216,20 +217,40 @@ static void shoot_set_mode(void)
 
         if (switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) && (shoot_control.shoot_rc->key.v & SHOOT_ON_KEYBOARD) )
         {
+            shoot_control.shoot_mode = SHOOT_STOP;
+        }
+
+        // TODO: FOR THIS MID, VERIFY THAT THE SWITCH B IS UP (MIDDLE)
+        if (switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) && (shoot_control.shoot_rc->key.v & SHOOT_ON_KEYBOARD) && shoot_control.shoot_mode == SHOOT_STOP)
+        {
             shoot_control.shoot_mode = SHOOT_READY_FRIC;
+        }
+        //�����е��� ����ʹ�ü��̹ر�Ħ����
+        else if (switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) && (shoot_control.shoot_rc->key.v & SHOOT_OFF_KEYBOARD) && shoot_control.shoot_mode != SHOOT_STOP)
+        {
+            shoot_control.shoot_mode = SHOOT_STOP;
         }
     #else
 
         //�ϲ��жϣ� һ�ο������ٴιر�
-        if ((switch_is_up(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]) && !switch_is_up(last_s) ))
+        if ((switch_is_up(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]) && !switch_is_up(last_s) && shoot_control.shoot_mode == SHOOT_STOP))
         {
             shoot_control.shoot_mode = SHOOT_READY_FRIC;
         }
+        else if ((switch_is_up(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]) && !switch_is_up(last_s) && shoot_control.shoot_mode != SHOOT_STOP))
+        {
+            shoot_control.shoot_mode = SHOOT_STOP;
+        }
 
         //�����е��� ����ʹ�ü��̿���Ħ����
-        if (switch_is_mid(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]) && (shoot_control.shoot_rc->key.v & SHOOT_ON_KEYBOARD) )
+        if (switch_is_mid(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]) && (shoot_control.shoot_rc->key.v & SHOOT_ON_KEYBOARD) && shoot_control.shoot_mode == SHOOT_STOP)
         {
             shoot_control.shoot_mode = SHOOT_READY_FRIC;
+        }
+        //�����е��� ����ʹ�ü��̹ر�Ħ����
+        else if (switch_is_mid(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]) && (shoot_control.shoot_rc->key.v & SHOOT_OFF_KEYBOARD) && shoot_control.shoot_mode != SHOOT_STOP)
+        {
+            shoot_control.shoot_mode = SHOOT_STOP;
         }
     
     #endif
@@ -309,15 +330,15 @@ static void shoot_set_mode(void)
         shoot_control.shoot_mode = SHOOT_STOP;
     }
     #ifdef USING_FLYSKY
-    // TODO: VERIFY
-    
-    if (switch_is_down(SHOOT_RC_MODE_CHANNEL_A) && switch_is_mid(SHOOT_RC_MODE_CHANNEL_B)) {
-        last_s = RC_SW_MID; // This should be middle
-    }else if (switch_is_down(SHOOT_RC_MODE_CHANNEL_A) && switch_is_down(SHOOT_RC_MODE_CHANNEL_B)) {
-        last_s = RC_SW_DOWN; // This should be down
-    }else {
-        last_s = RC_SW_UP; // This should be up
-    }
+        // TODO: VERIFY
+        
+        if (switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) && switch_is_mid(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B])) {
+            last_s = RC_SW_MID; // This should be middle
+        }else if (switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) && switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B])) {
+            last_s = RC_SW_DOWN; // This should be down
+        }else {
+            last_s = RC_SW_UP; // This should be up
+        }
     
     #else
 
@@ -400,6 +421,7 @@ static void shoot_feedback_update(void)
 
     //��������µ�ʱ���ʱ
     #ifdef USING_FLYSKY
+        // TODO: VERIFY
         if (shoot_control.shoot_mode != SHOOT_STOP && switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B]))
         {
 

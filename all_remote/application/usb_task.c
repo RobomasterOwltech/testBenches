@@ -36,17 +36,6 @@ static uint8_t usb_buf[256];
 static const char status[2][7] = {"OK", "ERROR!"};
 const error_t *error_list_usb_local;
 
-void intToBinaryString(int num, char *binaryString) {
-    int index = 0;
-    for (int i = sizeof(num) * 8 - 1; i >= 0; i--) {
-
-        binaryString[index++] = ((num >> i) & 1) + '0';
-    }
-    binaryString[index] = '\0'; // Agrega el carácter nulo al final de la cadena
-    // usb_printf("num: %d bin: %s", num, binaryString);
-
-}
-
 void usb_task(void const * argument)
 {
     MX_USB_DEVICE_Init();
@@ -61,33 +50,33 @@ void usb_task(void const * argument)
 
         osDelay(500);
         usb_printf(
-            // "******************************\r\n\
-            // voltage percentage:%d%% \r\n\
-            // DBUS:%s\r\n\
-            // chassis motor1:%s\r\n\
-            // chassis motor2:%s\r\n\
-            // chassis motor3:%s\r\n\
-            // chassis motor4:%s\r\n\
-            // yaw motor:%s\r\n\
-            // pitch motor:%s\r\n\
-            // trigger motor:%s\r\n\
-            // gyro sensor:%s\r\n\
-            // accel sensor:%s\r\n\
-            // mag sensor:%s\r\n\
-            // referee usart:%s\r\n",
-            // get_battery_percentage(), 
-            // status[error_list_usb_local[DBUS_TOE].error_exist],
-            // status[error_list_usb_local[CHASSIS_MOTOR1_TOE].error_exist],
-            // status[error_list_usb_local[CHASSIS_MOTOR2_TOE].error_exist],
-            // status[error_list_usb_local[CHASSIS_MOTOR3_TOE].error_exist],
-            // status[error_list_usb_local[CHASSIS_MOTOR4_TOE].error_exist],
-            // status[error_list_usb_local[YAW_GIMBAL_MOTOR_TOE].error_exist],
-            // status[error_list_usb_local[PITCH_GIMBAL_MOTOR_TOE].error_exist],
-            // status[error_list_usb_local[TRIGGER_MOTOR_TOE].error_exist],
-            // status[error_list_usb_local[BOARD_GYRO_TOE].error_exist],
-            // status[error_list_usb_local[BOARD_ACCEL_TOE].error_exist],
-            // status[error_list_usb_local[BOARD_MAG_TOE].error_exist],
-            // status[error_list_usb_local[REFEREE_TOE].error_exist]);
+            "******************************\r\n\
+            voltage percentage:%d%% \r\n\
+            DBUS:%s\r\n\
+            chassis motor1:%s\r\n\
+            chassis motor2:%s\r\n\
+            chassis motor3:%s\r\n\
+            chassis motor4:%s\r\n\
+            yaw motor:%s\r\n\
+            pitch motor:%s\r\n\
+            trigger motor:%s\r\n\
+            gyro sensor:%s\r\n\
+            accel sensor:%s\r\n\
+            mag sensor:%s\r\n\
+            referee usart:%s\r\n",
+            get_battery_percentage(), 
+            status[error_list_usb_local[DBUS_TOE].error_exist],
+            status[error_list_usb_local[CHASSIS_MOTOR1_TOE].error_exist],
+            status[error_list_usb_local[CHASSIS_MOTOR2_TOE].error_exist],
+            status[error_list_usb_local[CHASSIS_MOTOR3_TOE].error_exist],
+            status[error_list_usb_local[CHASSIS_MOTOR4_TOE].error_exist],
+            status[error_list_usb_local[YAW_GIMBAL_MOTOR_TOE].error_exist],
+            status[error_list_usb_local[PITCH_GIMBAL_MOTOR_TOE].error_exist],
+            status[error_list_usb_local[TRIGGER_MOTOR_TOE].error_exist],
+            status[error_list_usb_local[BOARD_GYRO_TOE].error_exist],
+            status[error_list_usb_local[BOARD_ACCEL_TOE].error_exist],
+            status[error_list_usb_local[BOARD_MAG_TOE].error_exist],
+            status[error_list_usb_local[REFEREE_TOE].error_exist]);
             
             // =======================    
             // "******************************\r\n\
@@ -110,33 +99,33 @@ void usb_task(void const * argument)
             //     get_remote_control_point()->rc.s[1]); 
             
             // ==============================
-            "******************************\r\n\
-            voltage percentage:%d%% \r\n\
-            DBUS:%s\r\n\
-            channel 0: %d \r\n\
-            channel 1: %d \r\n\
-            channel 2: %d \r\n\
-            channel 3: %d \r\n\
-            channel 4: %d \r\n\
-            channel 5: %d \r\n\
-            switch 1:%x\r\n\
-            switch 2:%x\r\n\
-            switch 3:%x\r\n\
-            switch 4:%x\r\n\
-            ******************************\r\n",
-                        get_battery_percentage(), 
-                        status[error_list_usb_local[DBUS_TOE].error_exist],
-                        get_remote_control_point()->rc.ch[0], // motor_chassis.speed_rpm
-                        get_remote_control_point()->rc.ch[1], // 
-                        get_remote_control_point()->rc.ch[2], // 
-                        get_remote_control_point()->rc.ch[3], // 
-                        get_remote_control_point()->rc.ch[4], // 
-                        get_remote_control_point()->rc.ch[5], // 
+            // "******************************\r\n\
+            // voltage percentage:%d%% \r\n\
+            // DBUS:%s\r\n\
+            // channel 0: %d \r\n\
+            // channel 1: %d \r\n\
+            // channel 2: %d \r\n\
+            // channel 3: %d \r\n\
+            // channel 4: %d \r\n\
+            // channel 5: %d \r\n\
+            // switch 1:%x\r\n\
+            // switch 2:%x\r\n\
+            // switch 3:%x\r\n\
+            // switch 4:%x\r\n\
+            // ******************************\r\n",
+            //             get_battery_percentage(), 
+            //             status[error_list_usb_local[DBUS_TOE].error_exist],
+            //             get_remote_control_point()->rc.ch[0], // motor_chassis.speed_rpm
+            //             get_remote_control_point()->rc.ch[1], // 
+            //             get_remote_control_point()->rc.ch[2], // 
+            //             get_remote_control_point()->rc.ch[3], // 
+            //             get_remote_control_point()->rc.ch[4], // 
+            //             get_remote_control_point()->rc.ch[5], // 
 
-                        get_remote_control_point()->rc.s[0],
-                        get_remote_control_point()->rc.s[1],
-                        get_remote_control_point()->rc.s[2],
-                        get_remote_control_point()->rc.s[3]); 
+            //             get_remote_control_point()->rc.s[0],
+            //             get_remote_control_point()->rc.s[1],
+            //             get_remote_control_point()->rc.s[2],
+            //             get_remote_control_point()->rc.s[3]); 
 
     }
 

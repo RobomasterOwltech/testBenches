@@ -38,13 +38,16 @@
 
 //in some mode, can use remote control to control rotation speed
 //������ģʽ�£�����ͨ��ң����������ת
-#define CHASSIS_WZ_CHANNEL 3
+
 
 //the channel of choosing chassis mode,
 //ѡ�����״̬ ����ͨ����
 #ifdef USING_FLYSKY
+  #define CHASSIS_WZ_CHANNEL 3
   #define CHASSIS_MODE_CHANNEL 2
+
 #else
+  #define CHASSIS_WZ_CHANNEL 2
   #define CHASSIS_MODE_CHANNEL 0
 #endif
 

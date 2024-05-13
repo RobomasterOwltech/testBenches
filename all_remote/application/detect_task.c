@@ -253,6 +253,7 @@ const error_t *get_error_list_point(void)
     return error_list;
 }
 
+// TODO: SPECIFY WHY WE ADDED THIS 
 extern uint8_t RC_data_is_error(void);
 extern void slove_RC_lost(void);
 extern void slove_data_error(void);
@@ -303,6 +304,8 @@ static void detect_init(uint32_t time)
     error_list[OLED_TOE].solve_lost_fun = OLED_com_reset;
     error_list[OLED_TOE].solve_data_error_fun = NULL;
 
+    // TODO: COMMENT
+    // Why we uncommented this
     error_list[DBUS_TOE].data_is_error_fun = RC_data_is_error;
     error_list[DBUS_TOE].solve_lost_fun = slove_RC_lost;
     error_list[DBUS_TOE].solve_data_error_fun = slove_data_error;

@@ -85,14 +85,18 @@
 //�����ʼ�� ����һ��ʱ��
 #define GIMBAL_TASK_INIT_TIME 201
 //yaw,pitch����ͨ���Լ�״̬����ͨ��
-#define YAW_CHANNEL   3
-#define PITCH_CHANNEL 2
 
 #ifdef USING_FLYSKY
+  #define YAW_CHANNEL   3
+  #define PITCH_CHANNEL 2
+
   #define GIMBAL_MODE_CHANNEL_A 0
   #define GIMBAL_MODE_CHANNEL_B 3
 #else
-  #define GIMBAL_MODE_CHANNEL 1
+  #define YAW_CHANNEL   2
+  #define PITCH_CHANNEL 3
+
+  #define GIMBAL_MODE_CHANNEL 0
 #endif
 //turn 180��
 //��ͷ180 ����
@@ -122,7 +126,8 @@
 //��̨����ģʽ �궨�� 0 Ϊ��ʹ�ò���ģʽ
 #define GIMBAL_TEST_MODE 0
 
-#define PITCH_TURN  0
+// TODO: WHY WAS THIS CHANGED!!!
+#define PITCH_TURN  1 //ORIGINAL 1, us 0
 #define YAW_TURN    0
 
 //�������ֵ����Լ���ֵ
