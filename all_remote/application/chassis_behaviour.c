@@ -239,7 +239,7 @@ void chassis_behaviour_mode_set(chassis_move_t *chassis_move_mode)
     }
 
 
-    //remote control  set chassis behaviour mode
+    //remote control set chassis behaviour mode
     //遥控器设置模式
     #ifdef USING_FLYSKY
       // TODO: VERIFY

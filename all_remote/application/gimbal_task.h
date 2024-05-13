@@ -164,7 +164,7 @@
 
 //�������ֵת���ɽǶ�ֵ
 #ifndef MOTOR_ECD_TO_RAD
-#define MOTOR_ECD_TO_RAD 0.000766990394f //      2*  PI  /8192
+  #define MOTOR_ECD_TO_RAD 0.000766990394f //      2*  PI  /8192
 #endif
 
 typedef enum

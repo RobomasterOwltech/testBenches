@@ -215,18 +215,22 @@ static void shoot_set_mode(void)
             shoot_control.shoot_mode = SHOOT_READY_FRIC;
         }
 
-        if (switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) && (shoot_control.shoot_rc->key.v & SHOOT_ON_KEYBOARD) )
+        if (switch_is_mid(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) && (shoot_control.shoot_rc->key.v & SHOOT_ON_KEYBOARD) )
         {
             shoot_control.shoot_mode = SHOOT_STOP;
         }
 
         // TODO: FOR THIS MID, VERIFY THAT THE SWITCH B IS UP (MIDDLE)
-        if (switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) && (shoot_control.shoot_rc->key.v & SHOOT_ON_KEYBOARD) && shoot_control.shoot_mode == SHOOT_STOP)
+        if (switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) &&
+            switch_is_mid(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B])
+            && (shoot_control.shoot_rc->key.v & SHOOT_ON_KEYBOARD) && shoot_control.shoot_mode == SHOOT_STOP)
         {
             shoot_control.shoot_mode = SHOOT_READY_FRIC;
         }
         //�����е��� ����ʹ�ü��̹ر�Ħ����
-        else if (switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) && (shoot_control.shoot_rc->key.v & SHOOT_OFF_KEYBOARD) && shoot_control.shoot_mode != SHOOT_STOP)
+        else if (switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) &&
+            switch_is_mid(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B])
+            && (shoot_control.shoot_rc->key.v & SHOOT_OFF_KEYBOARD) && shoot_control.shoot_mode != SHOOT_STOP)
         {
             shoot_control.shoot_mode = SHOOT_STOP;
         }
@@ -271,7 +275,9 @@ static void shoot_set_mode(void)
     {
         #ifdef USING_FLYSKY
         // TODO: VERIFY
-        if ((switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B]) && !switch_is_down(last_s)) || (shoot_control.press_l && shoot_control.last_press_l == 0) || (shoot_control.press_r && shoot_control.last_press_r == 0))
+        if ((switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) &&
+        switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B])
+        && !switch_is_down(last_s)) || (shoot_control.press_l && shoot_control.last_press_l == 0) || (shoot_control.press_r && shoot_control.last_press_r == 0))
         {
             shoot_control.shoot_mode = SHOOT_BULLET;
         }
@@ -422,7 +428,9 @@ static void shoot_feedback_update(void)
     //��������µ�ʱ���ʱ
     #ifdef USING_FLYSKY
         // TODO: VERIFY
-        if (shoot_control.shoot_mode != SHOOT_STOP && switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B]))
+        if (shoot_control.shoot_mode != SHOOT_STOP && 
+        switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) && 
+        switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B]))
         {
 
             if (shoot_control.rc_s_time < RC_S_LONG_TIME)
