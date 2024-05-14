@@ -95,18 +95,6 @@ typedef __packed struct
 
 } RC_ctrl_t;
 
-// TODO: USE OR REMOVE
-typedef __packed struct
-{
-        // TODO: CHECK THAT THE LAST CHANNEL IS NOT BEING USED
-        int16_t ch[5];
-        // KNOBS
-        int16_t knb[2];
-        // ADDED CHANNELS
-        char s[4];
-
-} Flysky_ctrl_t;
-
 /* ----------------------- Internal Data ----------------------------------- */
 
 extern void remote_control_init(void);
