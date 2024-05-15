@@ -157,8 +157,10 @@ error:
     rc_ctrl.rc.ch[3] = 0;
     rc_ctrl.rc.ch[4] = 0;
     rc_ctrl.rc.ch[5] = 0;
-    rc_ctrl.rc.s[0] = RC_SW_DOWN;
-    rc_ctrl.rc.s[1] = RC_SW_DOWN;
+    rc_ctrl.rc.s[0] = RC_SW_MID;
+    rc_ctrl.rc.s[1] = RC_SW_MID;
+    rc_ctrl.rc.s[2] = RC_SW_UP;
+    rc_ctrl.rc.s[3] = RC_SW_MID;
     rc_ctrl.mouse.x = 0;
     rc_ctrl.mouse.y = 0;
     rc_ctrl.mouse.z = 0;
@@ -302,7 +304,7 @@ static void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl)
         rc_ctrl->rc.ch[3] = ((sbus_buf[5] >> 4) |(sbus_buf[6] << 4)) & 0x0ff;       //!< Channel 3
         
         //Knobs
-        rc_ctrl->rc.ch[4] = ((sbus_buf[6] >> 7) |(sbus_buf[7] << 1)) &0x0ff;        // Knob left
+        rc_ctrl->rc.ch[5] = ((sbus_buf[6] >> 7) |(sbus_buf[7] << 1)) &0x0ff;        // Knob left
         // We decided to not map knob right :D
         //rc_ctrl->rc.ch[5] = ((sbus_buf[7]) |(sbus_buf[8])) &0x0ff;        // Knob right
 
@@ -337,10 +339,10 @@ static void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl)
     rc_ctrl->rc.ch[3] -= RC_CH_VALUE_OFFSET;
     // TODO: SEE IF NOT HAVING THE CORRECT OFFSET ON CH4 AFFECTS OR NOT
     // Original
-    // rc_ctrl->rc.ch[4] -= RC_CH_VALUE_OFFSET;
+    rc_ctrl->rc.ch[4] -= 1024;
     
-    rc_ctrl->rc.ch[4] -= RC_KNOB_VALUE_OFFSET;
-    rc_ctrl->rc.ch[5] -= RC_KNOB_VALUE_OFFSET; 
+    //rc_ctrl->rc.ch[4] -= RC_KNOB_VALUE_OFFSET;
+    rc_ctrl->rc.ch[5] -= RC_KNOB_VALUE_OFFSET;//0; 
   
 }
 
