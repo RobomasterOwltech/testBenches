@@ -258,6 +258,8 @@ void chassis_behaviour_mode_set(chassis_move_t *chassis_move_mode)
           chassis_behaviour_mode =  CHASSIS_NO_FOLLOW_YAW;
       }
     #else
+          //remote control  set chassis behaviour mode
+      //遥控器设置模式
       if (switch_is_mid(chassis_move_mode->chassis_RC->rc.s[CHASSIS_MODE_CHANNEL]))
       {
           //can change to CHASSIS_ZERO_FORCE,CHASSIS_NO_MOVE,CHASSIS_INFANTRY_FOLLOW_GIMBAL_YAW,
