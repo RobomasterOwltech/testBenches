@@ -28,10 +28,6 @@
 
 #include "detect_task.h"
 
-// TODO: SEE IF THIS CAN BE DELETED
-#ifndef CAN_RECEIVE_CPP
-#define CAN_RECEIVE_CPP
-
 extern CAN_HandleTypeDef hcan1;
 extern CAN_HandleTypeDef hcan2;
 //motor data read
@@ -48,8 +44,7 @@ motor data,  0:chassis motor1 3508;1:chassis motor3 3508;2:chassis motor3 3508;3
 4:yaw gimbal motor 6020;5:pitch gimbal motor 6020;6:trigger motor 2006;
 �������, 0:���̵��1 3508���,  1:���̵��2 3508���,2:���̵��3 3508���,3:���̵��4 3508���;
 4:yaw��̨��� 6020���; 5:pitch��̨��� 6020���; 6:������� 2006���*/
-// TODO: WHY WE PLACED THIS HERE? CAN IT BE DELETED?
-//static motor_measure_t motor_chassis[7];
+
 
 static CAN_TxHeaderTypeDef  gimbal_tx_message;
 static uint8_t              gimbal_can_send_data[8];
@@ -260,4 +255,4 @@ const motor_measure_t *get_chassis_motor_measure_point(uint8_t i)
 {
     return &motor_chassis[(i & 0x03)];
 }
-#endif
+

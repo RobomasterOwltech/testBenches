@@ -54,8 +54,6 @@ typedef struct
     int16_t last_ecd;
 } motor_measure_t;
 
-// TODO: GIVE IT A USE
-static motor_measure_t motor_chassis[7];
 
 
 /**
