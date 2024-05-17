@@ -126,8 +126,8 @@
 //��̨����ģʽ �궨�� 0 Ϊ��ʹ�ò���ģʽ
 #define GIMBAL_TEST_MODE 0
 
-// TODO: WHY WAS THIS CHANGED!!!
-#define PITCH_TURN  0 //ORIGINAL 1, us 0
+// invierte el sentido del motor
+#define PITCH_TURN  1 //ORIGINAL 1, us 0
 #define YAW_TURN    0
 
 //�������ֵ����Լ���ֵ

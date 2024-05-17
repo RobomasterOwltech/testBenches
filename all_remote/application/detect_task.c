@@ -253,7 +253,7 @@ const error_t *get_error_list_point(void)
     return error_list;
 }
 
-// TODO: SPECIFY WHY WE ADDED THIS 
+// Added to help debug the numbers of remote control
 extern uint8_t RC_data_is_error(void);
 extern void slove_RC_lost(void);
 extern void slove_data_error(void);
@@ -304,10 +304,9 @@ static void detect_init(uint32_t time)
     error_list[OLED_TOE].solve_lost_fun = OLED_com_reset;
     error_list[OLED_TOE].solve_data_error_fun = NULL;
 
-    // TODO: COMMENT
-    // Why we uncommented this
-    error_list[DBUS_TOE].data_is_error_fun = RC_data_is_error;
-    error_list[DBUS_TOE].solve_lost_fun = slove_RC_lost;
-    error_list[DBUS_TOE].solve_data_error_fun = slove_data_error;
+    //debug que los datos de control remoto se estan enviando correctamente.
+    error_list[DBUS_TOE].data_is_error_fun = RC_data_is_error; //revisa que los canales del control 0-5 no sean mayor o menor a 700. Remote_control.c
+    error_list[DBUS_TOE].solve_lost_fun = slove_RC_lost; //configurar adecuadamente datos a tranmitir via UART y DMA
+    error_list[DBUS_TOE].solve_data_error_fun = slove_data_error; //configurar adecuadamente datos a tranmitir via UART y DMA
 
 }

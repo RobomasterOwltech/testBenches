@@ -3,7 +3,7 @@
   * @file       detect_task.c/h
   * @brief      detect error task, judged by receiving data time. provide detect
                 hook function, error exist function.
-  *             ¼ì²â´íÎóÈÎÎñ£¬ Í¨¹ý½ÓÊÕÊý¾ÝÊ±¼äÀ´ÅÐ¶Ï.Ìá¹© ¼ì²â¹³×Óº¯Êý,´íÎó´æÔÚº¯Êý.
+  *             ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½.ï¿½á¹© ï¿½ï¿½â¹³ï¿½Óºï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½.
   * @note       
   * @history
   *  Version    Date            Author          Modification
@@ -29,22 +29,22 @@
     3. if XXX_TOE has data_is_error_fun ,solve_lost_fun,solve_data_error_fun function, 
         please assign to function pointer.
     4. when XXX_TOE sensor data come, add the function detect_hook(XXX_TOE) function.
-    Èç¹ûÒªÌí¼ÓÒ»¸öÐÂÉè±¸
-    1.µÚÒ»²½ÔÚdetect_task.h£¬Ìí¼ÓÉè±¸Ãû×ÖÔÚerrorListµÄ×îºó£¬Ïñ
+    ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½è±¸
+    1.ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½detect_task.hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½errorListï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     enum errorList
     {
         ...
-        XXX_TOE,    //ÐÂÉè±¸
+        XXX_TOE,    //ï¿½ï¿½ï¿½è±¸
         ERROR_LIST_LENGHT,
     };
-    2.ÔÚdetect_initº¯Êý,Ìí¼ÓofflineTime, onlinetime, priority²ÎÊý
+    2.ï¿½ï¿½detect_initï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½offlineTime, onlinetime, priorityï¿½ï¿½ï¿½ï¿½
         uint16_t set_item[ERROR_LIST_LENGHT][3] =
         {
             ...
             {n,n,n}, //XX_TOE
         };
-    3.Èç¹ûÓÐdata_is_error_fun ,solve_lost_fun,solve_data_error_funº¯Êý£¬¸³Öµµ½º¯ÊýÖ¸Õë
-    4.ÔÚXXX_TOEÉè±¸Êý¾ÝÀ´µÄÊ±ºò, Ìí¼Óº¯Êýdetect_hook(XXX_TOE).
+    3.ï¿½ï¿½ï¿½ï¿½ï¿½data_is_error_fun ,solve_lost_fun,solve_data_error_funï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+    4.ï¿½ï¿½XXX_TOEï¿½è±¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½, ï¿½ï¿½ï¿½Óºï¿½ï¿½ï¿½detect_hook(XXX_TOE).
   ==============================================================================
   @endverbatim
   ****************************(C) COPYRIGHT 2019 DJI****************************
@@ -58,7 +58,7 @@
 #define DETECT_TASK_INIT_TIME 57
 #define DETECT_CONTROL_TIME 10
 
-//´íÎóÂëÒÔ¼°¶ÔÓ¦Éè±¸Ë³Ðò
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½Ó¦ï¿½è±¸Ë³ï¿½ï¿½
 enum errorList
 {
     DBUS_TOE = 0,
@@ -105,7 +105,7 @@ typedef __packed struct
   * @retval         none
   */
 /**
-  * @brief          ¼ì²âÈÎÎñ
+  * @brief          ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   * @param[in]      pvParameters: NULL
   * @retval         none
   */
@@ -117,9 +117,9 @@ extern void detect_task(void const *pvParameters);
   * @retval         true (eror) or false (no error)
   */
 /**
-  * @brief          »ñÈ¡Éè±¸¶ÔÓ¦µÄ´íÎó×´Ì¬
-  * @param[in]      toe:Éè±¸Ä¿Â¼
-  * @retval         true(´íÎó) »òÕßfalse(Ã»´íÎó)
+  * @brief          ï¿½ï¿½È¡ï¿½è±¸ï¿½ï¿½Ó¦ï¿½Ä´ï¿½ï¿½ï¿½×´Ì¬
+  * @param[in]      toe:ï¿½è±¸Ä¿Â¼
+  * @retval         true(ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½false(Ã»ï¿½ï¿½ï¿½ï¿½)
   */
 extern bool_t toe_is_error(uint8_t err);
 
@@ -129,8 +129,8 @@ extern bool_t toe_is_error(uint8_t err);
   * @retval         none
   */
 /**
-  * @brief          ¼ÇÂ¼Ê±¼ä
-  * @param[in]      toe:Éè±¸Ä¿Â¼
+  * @brief          ï¿½ï¿½Â¼Ê±ï¿½ï¿½
+  * @param[in]      toe:ï¿½è±¸Ä¿Â¼
   * @retval         none
   */
 extern void detect_hook(uint8_t toe);
@@ -141,9 +141,9 @@ extern void detect_hook(uint8_t toe);
   * @retval         the point of error_list
   */
 /**
-  * @brief          µÃµ½´íÎóÁÐ±í
+  * @brief          ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
   * @param[in]      none
-  * @retval         error_listµÄÖ¸Õë
+  * @retval         error_listï¿½ï¿½Ö¸ï¿½ï¿½
   */
 extern const error_t *get_error_list_point(void);
 

@@ -493,6 +493,8 @@ static void gimbal_behavour_set(gimbal_control_t *gimbal_mode_set)
         }
 
         //超过初始化最大时间，或者已经稳定到中值一段时间，退出初始化状态开关打下档，或者掉线
+        /*Se ha excedido el tiempo máximo de inicialización, o ya se ha estabilizado en el valor medio durante un tiempo.
+        Salga del estado de inicialización, apague el interruptor, o desconéctese.*/
         if (init_time < GIMBAL_INIT_TIME && init_stop_time < GIMBAL_INIT_STOP_TIME &&
             !(switch_is_down(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL_A])  && 
             switch_is_down(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL_B])) && 
