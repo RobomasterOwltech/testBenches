@@ -105,6 +105,7 @@
 
 #include "can_receive.h"
 #include "remote_control.h"
+#include "shoot.h"
 #include "INS_task.h"
 #include "gimbal_task.h"
 #include "chassis_task.h"

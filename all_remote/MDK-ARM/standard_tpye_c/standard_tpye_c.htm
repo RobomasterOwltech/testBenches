@@ -3,7 +3,7 @@
 <title>Static Call Graph - [standard_tpye_c\standard_tpye_c.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image standard_tpye_c\standard_tpye_c.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon May 13 08:42:55 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri May 17 23:52:22 2024
 <BR><P>
 <H3>Maximum Stack Usage =        512 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -708,15 +708,15 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[110]"></a>arm_cos_f32</STRONG> (Thumb, 108 bytes, Stack size 0 bytes, arm_cos_f32.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[2c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_feedback_update
-<LI><a href="#[2a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_set_contorl
+<BR><BR>[Called By]<UL><LI><a href="#[2a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_set_contorl
+<LI><a href="#[2c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_feedback_update
 <LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AHRS_cosf
 </UL>
 
 <P><STRONG><a name="[118]"></a>arm_sin_f32</STRONG> (Thumb, 104 bytes, Stack size 0 bytes, arm_sin_f32.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[2c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_feedback_update
-<LI><a href="#[2a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_set_contorl
+<BR><BR>[Called By]<UL><LI><a href="#[2a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_set_contorl
 <LI><a href="#[28b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_infantry_follow_gimbal_yaw_control
+<LI><a href="#[2c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_feedback_update
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AHRS_sinf
 </UL>
 
@@ -1726,13 +1726,13 @@ Global Symbols
 <LI><a href="#[201]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_ADC3_Init
 <LI><a href="#[1ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_ADC1_Init
 <LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
-<LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_I2C_reset
-<LI><a href="#[26e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adcx_get_chx_value
 <LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_Init
 <LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PCD_ResetCallback
 <LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_MspInit
 <LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_MspInit
 <LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2C_MspInit
+<LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_I2C_reset
+<LI><a href="#[26e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adcx_get_chx_value
 </UL>
 
 <P><STRONG><a name="[167]"></a>FLASH_Erase_Sector</STRONG> (Thumb, 86 bytes, Stack size 8 bytes, stm32f4xx_hal_flash_ex.o(i.FLASH_Erase_Sector))
@@ -2066,6 +2066,10 @@ Global Symbols
 <LI><a href="#[1cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_OscConfig
 <LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_ClockConfig
 <LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCCEx_PeriphCLKConfig
+<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
+<LI><a href="#[236]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_WaitFlagStateUntilTimeout
+<LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_EnterInitMode
+<LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RTC_WaitForSynchro
 <LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Init
 <LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_PollForConversion
@@ -2078,10 +2082,6 @@ Global Symbols
 <LI><a href="#[175]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_WaitOnFlagUntilTimeout
 <LI><a href="#[178]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_WaitOnBTFFlagUntilTimeout
 <LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_Start
-<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
-<LI><a href="#[236]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_WaitFlagStateUntilTimeout
-<LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_EnterInitMode
-<LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RTC_WaitForSynchro
 <LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FLASH_WaitForLastOperation
 </UL>
 
@@ -2511,9 +2511,9 @@ Global Symbols
 <P><STRONG><a name="[1cf]"></a>HAL_RTC_Init</STRONG> (Thumb, 212 bytes, Stack size 8 bytes, stm32f4xx_hal_rtc.o(i.HAL_RTC_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = HAL_RTC_Init &rArr; RTC_EnterInitMode
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RTC_MspInit
-<LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_EnterInitMode
+<BR>[Calls]<UL><LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_EnterInitMode
 <LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RTC_WaitForSynchro
+<LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RTC_MspInit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[20d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_RTC_Init
 </UL>
@@ -2554,8 +2554,8 @@ Global Symbols
 <P><STRONG><a name="[132]"></a>HAL_SPI_TransmitReceive</STRONG> (Thumb, 554 bytes, Stack size 56 bytes, stm32f4xx_hal_spi.o(i.HAL_SPI_TransmitReceive))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
-<LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_EndRxTxTransaction
+<BR>[Calls]<UL><LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_EndRxTxTransaction
+<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 </UL>
 <BR>[Called By]<UL><LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMI088_read_write_byte
 </UL>
@@ -3557,8 +3557,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PCD_EP_Open
 <LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_Get_USB_Status
 </UL>
-<BR>[Called By]<UL><LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_Init
-<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_Reset
+<BR>[Called By]<UL><LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_Reset
+<LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_Init
 </UL>
 
 <P><STRONG><a name="[241]"></a>USBD_LL_PrepareReceive</STRONG> (Thumb, 48 bytes, Stack size 32 bytes, usbd_conf.o(i.USBD_LL_PrepareReceive))
@@ -3567,10 +3567,10 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PCD_EP_Receive
 <LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_Get_USB_Status
 </UL>
-<BR>[Called By]<UL><LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_Init
-<LI><a href="#[243]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlPrepareRx
-<LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_ReceivePacket
+<BR>[Called By]<UL><LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_ReceivePacket
 <LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_DataInStage
+<LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_Init
+<LI><a href="#[243]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlPrepareRx
 <LI><a href="#[24a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlReceiveStatus
 <LI><a href="#[247]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlContinueRx
 </UL>
@@ -3624,10 +3624,10 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[197]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PCD_EP_SetStall
 <LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_Get_USB_Status
 </UL>
-<BR>[Called By]<UL><LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlError
-<LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_SetupStage
+<BR>[Called By]<UL><LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_SetupStage
 <LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_DataOutStage
 <LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_DataInStage
+<LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlError
 <LI><a href="#[25b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_StdEPReq
 </UL>
 
@@ -3650,9 +3650,9 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[19a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PCD_EP_Transmit
 <LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_Get_USB_Status
 </UL>
-<BR>[Called By]<UL><LI><a href="#[17]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_DataIn
+<BR>[Called By]<UL><LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_TransmitPacket
+<LI><a href="#[17]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_DataIn
 <LI><a href="#[242]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlSendData
-<LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_TransmitPacket
 <LI><a href="#[246]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlSendStatus
 <LI><a href="#[248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlContinueSendData
 </UL>
@@ -3701,11 +3701,11 @@ Global Symbols
 <P><STRONG><a name="[25b]"></a>USBD_StdEPReq</STRONG> (Thumb, 568 bytes, Stack size 24 bytes, usbd_ctlreq.o(i.USBD_StdEPReq))
 <BR><BR>[Stack]<UL><LI>Max Depth = 156<LI>Call Chain = USBD_StdEPReq &rArr; USBD_CtlSendData &rArr; USBD_LL_Transmit &rArr; HAL_PCD_EP_Transmit &rArr; USB_EPStartXfer &rArr; USB_WritePacket
 </UL>
-<BR>[Calls]<UL><LI><a href="#[242]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlSendData
-<LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlError
-<LI><a href="#[249]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_StallEP
+<BR>[Calls]<UL><LI><a href="#[249]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_StallEP
 <LI><a href="#[262]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_IsStallEP
 <LI><a href="#[251]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_ClearStallEP
+<LI><a href="#[242]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlSendData
+<LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlError
 <LI><a href="#[246]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlSendStatus
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_SetupStage
@@ -4365,7 +4365,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[283]"></a>get_remote_control_point</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, remote_control.o(i.get_remote_control_point))
-<BR><BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_task
+<BR><BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;usb_task
+<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_task
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calibrate_task
 <LI><a href="#[29b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_init
 <LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shoot_init
@@ -4435,8 +4436,6 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[284]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxTaskGetStackHighWaterMark
-<LI><a href="#[2c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_feedback_update
-<LI><a href="#[2c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_control_loop
 <LI><a href="#[2a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;toe_is_error
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_cmd_gimbal
 <LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shoot_init
@@ -4445,6 +4444,8 @@ Global Symbols
 <LI><a href="#[2cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_set_control
 <LI><a href="#[2d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_mode_change_control_transit
 <LI><a href="#[2c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_init
+<LI><a href="#[2c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_feedback_update
+<LI><a href="#[2c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_control_loop
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> freertos.o(.constdata)
 </UL>
@@ -4551,13 +4552,13 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> freertos.o(.constdata)
 </UL>
 <P><STRONG><a name="[299]"></a>loop_fp32_constrain</STRONG> (Thumb, 96 bytes, Stack size 0 bytes, user_lib.o(i.loop_fp32_constrain))
-<BR><BR>[Called By]<UL><LI><a href="#[2b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_absolute_angle_limit
-<LI><a href="#[2b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_PID_calc
+<BR><BR>[Called By]<UL><LI><a href="#[2b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_PID_calc
 <LI><a href="#[2b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_absolute_angle_control
 <LI><a href="#[2a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_set_contorl
 <LI><a href="#[29a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_feedback_update
 <LI><a href="#[28c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_engineer_follow_chassis_yaw_control
 <LI><a href="#[321]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shoot_bullet_control
+<LI><a href="#[2b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_absolute_angle_limit
 </UL>
 
 <P><STRONG><a name="[c7]"></a>main</STRONG> (Thumb, 132 bytes, Stack size 0 bytes, main.o(i.main))
@@ -4851,13 +4852,14 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;referee_usart_task
 </UL>
 
-<P><STRONG><a name="[90]"></a>usb_task</STRONG> (Thumb, 294 bytes, Stack size 40 bytes, usb_task.o(i.usb_task))
-<BR><BR>[Stack]<UL><LI>Max Depth = 220 + Unknown Stack Size
+<P><STRONG><a name="[90]"></a>usb_task</STRONG> (Thumb, 156 bytes, Stack size 48 bytes, usb_task.o(i.usb_task))
+<BR><BR>[Stack]<UL><LI>Max Depth = 228 + Unknown Stack Size
 <LI>Call Chain = usb_task &rArr; usb_printf &rArr; CDC_Transmit_FS &rArr; USBD_CDC_TransmitPacket &rArr; USBD_LL_Transmit &rArr; HAL_PCD_EP_Transmit &rArr; USB_EPStartXfer &rArr; USB_WritePacket
 </UL>
 <BR>[Calls]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 <LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USB_DEVICE_Init
 <LI><a href="#[2e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_error_list_point
+<LI><a href="#[283]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_remote_control_point
 <LI><a href="#[32f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;usb_printf
 <LI><a href="#[2e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_battery_percentage
 </UL>
@@ -5351,11 +5353,11 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[34d]"></a>_dadd</STRONG> (Thumb, 580 bytes, Stack size 16 bytes, daddsub_clz.o(x$fpl$dadd), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[34e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dsub1
-<LI><a href="#[348]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_exception
+<BR><BR>[Calls]<UL><LI><a href="#[348]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_exception
 <LI><a href="#[34a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dnaninf
 <LI><a href="#[34f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dsub_zerodenorm
 <LI><a href="#[350]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;daddsub_denorm
+<LI><a href="#[34e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dsub1
 </UL>
 
 <P><STRONG><a name="[352]"></a>__fpl_dcmp_Inf</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, dcmpi.o(x$fpl$dcmpinf), UNUSED)
@@ -5416,12 +5418,12 @@ Global Symbols
 <P><STRONG><a name="[39d]"></a>__aeabi_dsub</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, daddsub_clz.o(x$fpl$dsub), UNUSED)
 
 <P><STRONG><a name="[356]"></a>_dsub</STRONG> (Thumb, 664 bytes, Stack size 32 bytes, daddsub_clz.o(x$fpl$dsub), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[359]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dadd_zerodenorm
-<LI><a href="#[357]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dadd1
-<LI><a href="#[348]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_exception
+<BR><BR>[Calls]<UL><LI><a href="#[348]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_exception
 <LI><a href="#[353]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__dunder_d
 <LI><a href="#[358]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__dunder
 <LI><a href="#[34a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dnaninf
+<LI><a href="#[359]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dadd_zerodenorm
+<LI><a href="#[357]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dadd1
 </UL>
 
 <P><STRONG><a name="[358]"></a>__dunder</STRONG> (Thumb, 314 bytes, Stack size 4 bytes, dunder_clz.o(x$fpl$dunder), UNUSED)
@@ -6103,8 +6105,8 @@ Local Symbols
 <P><STRONG><a name="[25d]"></a>USBD_SetAddress</STRONG> (Thumb, 90 bytes, Stack size 16 bytes, usbd_ctlreq.o(i.USBD_SetAddress))
 <BR><BR>[Stack]<UL><LI>Max Depth = 140<LI>Call Chain = USBD_SetAddress &rArr; USBD_CtlSendStatus &rArr; USBD_LL_Transmit &rArr; HAL_PCD_EP_Transmit &rArr; USB_EPStartXfer &rArr; USB_WritePacket
 </UL>
-<BR>[Calls]<UL><LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlError
-<LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_SetUSBAddress
+<BR>[Calls]<UL><LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_SetUSBAddress
+<LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlError
 <LI><a href="#[246]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlSendStatus
 </UL>
 <BR>[Called By]<UL><LI><a href="#[259]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_StdDevReq
@@ -6484,9 +6486,7 @@ Local Symbols
 <P><STRONG><a name="[2c5]"></a>gimbal_init</STRONG> (Thumb, 310 bytes, Stack size 8 bytes, gimbal_task.o(i.gimbal_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = gimbal_init &rArr; gimbal_feedback_update
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_feedback_update
-<LI><a href="#[2c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_PID_init
-<LI><a href="#[2ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_PID_clear
+<BR>[Calls]<UL><LI><a href="#[2ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_PID_clear
 <LI><a href="#[29c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_INS_angle_point
 <LI><a href="#[1f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_init
 <LI><a href="#[2c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_yaw_gimbal_motor_measure_point
@@ -6494,6 +6494,8 @@ Local Symbols
 <LI><a href="#[283]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_remote_control_point
 <LI><a href="#[2c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_gyro_data_point
 <LI><a href="#[2cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_clear
+<LI><a href="#[2c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_feedback_update
+<LI><a href="#[2c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_PID_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_task
 </UL>
@@ -6531,9 +6533,9 @@ Local Symbols
 <P><STRONG><a name="[2cd]"></a>gimbal_set_control</STRONG> (Thumb, 154 bytes, Stack size 16 bytes, gimbal_task.o(i.gimbal_set_control))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = gimbal_set_control &rArr; gimbal_behaviour_control_set &rArr; gimbal_absolute_angle_control &rArr; __aeabi_cdcmple
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_absolute_angle_limit
-<LI><a href="#[2b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behaviour_control_set
+<BR>[Calls]<UL><LI><a href="#[2b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behaviour_control_set
 <LI><a href="#[2ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_relative_angle_limit
+<LI><a href="#[2b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_absolute_angle_limit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_task
 </UL>
@@ -6547,8 +6549,8 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[277]"></a>motor_ecd_to_angle_change</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, gimbal_task.o(i.motor_ecd_to_angle_change))
-<BR><BR>[Called By]<UL><LI><a href="#[2c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_feedback_update
-<LI><a href="#[276]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc_gimbal_cali
+<BR><BR>[Called By]<UL><LI><a href="#[276]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc_gimbal_cali
+<LI><a href="#[2c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_feedback_update
 </UL>
 
 <P><STRONG><a name="[1f4]"></a>imu_cali_slove</STRONG> (Thumb, 274 bytes, Stack size 20 bytes, ins_task.o(i.imu_cali_slove))
@@ -6593,7 +6595,7 @@ Local Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC_data_is_error
 </UL>
 
-<P><STRONG><a name="[23a]"></a>sbus_to_rc</STRONG> (Thumb, 180 bytes, Stack size 0 bytes, remote_control.o(i.sbus_to_rc))
+<P><STRONG><a name="[23a]"></a>sbus_to_rc</STRONG> (Thumb, 182 bytes, Stack size 0 bytes, remote_control.o(i.sbus_to_rc))
 <BR><BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
 </UL>
 
@@ -6615,7 +6617,7 @@ Local Symbols
 <LI><a href="#[2d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shoot_control_loop
 </UL>
 
-<P><STRONG><a name="[323]"></a>shoot_set_mode</STRONG> (Thumb, 588 bytes, Stack size 8 bytes, shoot.o(i.shoot_set_mode))
+<P><STRONG><a name="[323]"></a>shoot_set_mode</STRONG> (Thumb, 146 bytes, Stack size 8 bytes, shoot.o(i.shoot_set_mode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = shoot_set_mode
 </UL>
 <BR>[Calls]<UL><LI><a href="#[32e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_cmd_to_shoot_stop

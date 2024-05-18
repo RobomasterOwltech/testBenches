@@ -34,8 +34,6 @@
 
 // LEAVE ON
 #define USING_FLYSKY
-
-#define USING_FLYSKY
 //using FLYSKY
 #ifdef USING_FLYSKY
         #define RC_CH_VALUE_OFFSET              ((uint16_t)0x80)

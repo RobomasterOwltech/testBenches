@@ -54,7 +54,7 @@ typedef struct
     int16_t last_ecd;
 } motor_measure_t;
 
-
+static motor_measure_t motor_chassis[7];
 
 /**
   * @brief          send control current of motor (0x205, 0x206, 0x207, 0x208)

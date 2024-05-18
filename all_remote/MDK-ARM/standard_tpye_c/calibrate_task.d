@@ -24,6 +24,9 @@ standard_tpye_c\calibrate_task.o: ..\bsp\boards\bsp_flash.h
 standard_tpye_c\calibrate_task.o: ..\application\can_receive.h
 standard_tpye_c\calibrate_task.o: ..\application\remote_control.h
 standard_tpye_c\calibrate_task.o: ..\bsp\boards\bsp_rc.h
-standard_tpye_c\calibrate_task.o: ..\application\INS_task.h
+standard_tpye_c\calibrate_task.o: ..\application\shoot.h
 standard_tpye_c\calibrate_task.o: ..\application\gimbal_task.h
 standard_tpye_c\calibrate_task.o: ..\components\controller\pid.h
+standard_tpye_c\calibrate_task.o: ..\components\algorithm\user_lib.h
+standard_tpye_c\calibrate_task.o: ..\application\INS_task.h
+standard_tpye_c\calibrate_task.o: ..\application\chassis_task.h
