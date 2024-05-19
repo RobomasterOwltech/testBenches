@@ -5,6 +5,8 @@
 
 #include "protocol.h"
 
+#define LENGTH_CUSTOM_DATA 0
+#define MAX_ROBOT_INTERACTION 113
 typedef enum
 {
     RED_HERO        = 1,
@@ -59,11 +61,16 @@ typedef __packed struct
     uint16_t blue_7_robot_HP;
     uint16_t blue_base_HP;
 } ext_game_robot_HP_t;
+/*
+interaction_figure_t;
 typedef __packed struct //0101
 {
     uint32_t event_type;
 } ext_event_data_t;
+*/
 
+/*
+interaction_figure_2_t;
 typedef __packed struct //0x0102
 {
     uint8_t supply_projectile_id;
@@ -71,14 +78,18 @@ typedef __packed struct //0x0102
     uint8_t supply_projectile_step;
     uint8_t supply_projectile_num;
 } ext_supply_projectile_action_t;
+*/
 
 
+/*
+interaction_figure_3_t;
 typedef __packed struct //0x0103
 {
     uint8_t supply_projectile_id;
     uint8_t supply_robot_id;
     uint8_t supply_num;
 } ext_supply_projectile_booking_t;
+*/
 
 typedef __packed struct
 {
@@ -145,14 +156,16 @@ typedef __packed struct
 {
     uint8_t bullet_remaining_num;
 } ext_bullet_remaining_t;
-typedef __packed struct //0x0301
+
+//robot_interaction_data_t;
+/*typedef __packed struct //0x0301
 {
     uint16_t send_ID;
     uint16_t receiver_ID;
     uint16_t data_cmd_id;
     uint16_t data_len;
     uint8_t *data;
-} ext_student_interactive_data_t;
+} ext_student_interactive_data_t;*/
 
 typedef __packed struct
 {
@@ -173,6 +186,146 @@ typedef __packed struct
     uint8_t data[32];
 } ext_download_stream_data_t;
 
+//EMPIEZA NUEVO REFEREE MANUAL - SOFIA
+typedef _packed struct //0x020C
+{
+ uint8_t mark_hero_progress;
+ uint8_t mark_engineer_progress;
+ uint8_t mark_standard_3_progress;
+ uint8_t mark_standard_4_progress;
+ uint8_t mark_standard_5_progress;
+ uint8_t mark_sentry_progress;
+}radar_mark_data_t;
+typedef _packed struct //0x020D
+{
+ uint32_t sentry_info; 
+} sentry_info_t;
+
+typedef _packed struct  //0x020E
+{
+ uint8_t radar_info;
+} radar_info_t;
+
+typedef _packed struct //0x0301
+{
+ uint16_t data_cmd_id;
+ uint16_t sender_id;
+ uint16_t receiver_id;
+ uint8_t user_data[MAX_ROBOT_INTERACTION]; 
+}robot_interaction_data_t;
+
+typedef _packed struct //0x0100
+{
+uint8_t delete_type;
+uint8_t layer;
+}interaction_layer_delete_t;
+
+typedef _packed struct //0x0101
+{
+uint8_t figure_name[3];
+uint32_t operate_tpye:3;
+uint32_t figure_tpye:3;
+uint32_t layer:4;
+uint32_t color:4;
+uint32_t details_a:9;
+uint32_t details_b:9;
+uint32_t width:10;
+uint32_t start_x:11;
+uint32_t start_y:11;
+uint32_t details_c:10;
+uint32_t details_d:11;
+uint32_t details_e:11;
+}interaction_figure_t;
+
+typedef _packed struct //0x0102
+{
+ interaction_figure_t interaction_figure[2];
+}interaction_figure_2_t;
+
+typedef _packed struct //0x0103
+{
+interaction_figure_t interaction_figure[5];
+}interaction_figure_3_t;
+
+typedef _packed struct //0x0104
+{
+interaction_figure_t interaction_figure[7];
+}interaction_figure_4_t;
+
+typedef _packed struct //0x0110
+{
+graphic_data_struct_t grapic_data_struct;
+uint8_t data[30];
+} ext_client_custom_character_t;
+
+typedef _packed struct //0x0120
+{
+uint32_t sentry_cmd;
+} sentry_cmd_t;
+
+typedef _packed struct //0x0121
+{
+uint8_t radar_cmd;
+} radar_cmd_t;
+
+typedef _packed struct //0x0303
+{
+float target_position_x;
+float target_position_y;
+uint8_t cmd_keyboard;
+uint8_t target_robot_id;
+uint8_t cmd_source;
+}map_command_t;
+
+typedef _packed struct //0x0305
+{
+uint16_t target_robot_id;
+float target_position_x;
+float target_position_y;
+}map_robot_data_t;
+
+typedef _packed struct //0x0307
+{
+uint8_t intention;
+uint16_t start_position_x;
+uint16_t start_position_y;
+int8_t delta_x[49];
+int8_t delta_y[49];
+uint16_t sender_id;
+}map_data_t;
+
+typedef _packed struct //0x0308
+{
+uint16_t sender_id;
+uint16_t receiver_id;
+uint8_t user_data[30];
+} custom_info_t;
+
+typedef _packed struct //0x0302
+{
+uint8_t data[x];
+}custom_robot_data_t; 
+
+typedef _packed struct //0x0304
+{
+int16_t mouse_x;
+int16_t mouse_y;
+int16_t mouse_z;
+int8 left_button_down;
+int8 right_button_down;
+uint16_t keyboard_value;
+uint16_t reserved;
+}remote_control_t;
+
+typedef _packed struct //0x0306
+{
+uint16_t key_value;
+ uint16_t x_position:12;
+ uint16_t mouse_left:4;
+ uint16_t y_position:12;
+ uint16_t mouse_right:4;
+ uint16_t reserved;
+}custom_client_data_t;
 
 
 extern void init_referee_struct_data(void);
