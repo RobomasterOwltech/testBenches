@@ -41,7 +41,7 @@ typedef _packed struct
     uint8_t game_progress : 4;
     uint16_t stage_remain_time;
     uint64_t SyncTimeStamp;
-} game_status_t
+} game_status_t;
 //Old name was: ext_game_state_t;
 
 //0002
@@ -374,8 +374,8 @@ typedef _packed struct //0x0304
 int16_t mouse_x;
 int16_t mouse_y;
 int16_t mouse_z;
-int8 left_button_down;
-int8 right_button_down;
+int8_t left_button_down;
+int8_t right_button_down;
 uint16_t keyboard_value;
 uint16_t reserved;
 }remote_control_t;
