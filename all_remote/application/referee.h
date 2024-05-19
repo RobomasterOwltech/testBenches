@@ -228,7 +228,7 @@ typedef __packed struct //0x0301
     uint16_t data_cmd_id;
     uint16_t data_len;
     uint8_t *data;
-} ext_student_interactive_data_t;*/
+} ext_student_interactive_data_t;
 
 typedef __packed struct
 {
@@ -366,7 +366,7 @@ uint8_t user_data[30];
 
 typedef _packed struct //0x0302
 {
-uint8_t data[x];
+uint8_t data[LENGTH_CUSTOM_DATA];
 }custom_robot_data_t; 
 
 typedef _packed struct //0x0304
