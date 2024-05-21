@@ -244,22 +244,24 @@ typedef __packed struct
 typedef __packed struct
 {
     uint8_t data[64];
-} ext_up_stream_data_t;
+} up_stream_data_t;
+// Old name was:ext_up_stream_data_t;
 
 typedef __packed struct
 {
     uint8_t data[32];
-} ext_download_stream_data_t;
+} download_stream_data_t;
+// Old name was:ext_download_stream_data_t;
 
 //EMPIEZA NUEVO REFEREE MANUAL - SOFIA
 typedef _packed struct //0x020C
 {
-    uint8_t mark_hero_progress;
-    uint8_t mark_engineer_progress;
-    uint8_t mark_standard_3_progress;
-    uint8_t mark_standard_4_progress;
-    uint8_t mark_standard_5_progress;
-    uint8_t mark_sentry_progress;
+ uint8_t mark_hero_progress;
+ uint8_t mark_engineer_progress;
+ uint8_t mark_standard_3_progress;
+ uint8_t mark_standard_4_progress;
+ uint8_t mark_standard_5_progress;
+ uint8_t mark_sentry_progress;
 } radar_mark_data_t;
 
 typedef _packed struct //0x020D
