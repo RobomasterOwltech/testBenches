@@ -34,7 +34,7 @@ typedef enum
     PROGRESS_CALCULATING    = 5,
 } game_progress_t;
 
-//0001
+//0x0001
 typedef _packed struct 
 {
     uint8_t game_type : 4;
@@ -221,6 +221,43 @@ typedef _packed struct
     uint16_t latest_launch_cmd_time;
 } dart_client_cmd_t;
 
+//0x020B new
+typedef _packed struct
+{
+ float hero_x;
+ float hero_y;
+ float engineer_x;
+ float engineer_y;
+ float standard_3_x;
+ float standard_3_y;
+ float standard_4_x;
+ float standard_4_y; 
+ float standard_5_x;
+ float standard_5_y;
+}ground_robot_position_t;
+
+//0x020C new
+typedef _packed struct
+{
+ uint8_t mark_hero_progress;
+ uint8_t mark_engineer_progress;
+ uint8_t mark_standard_3_progress;
+ uint8_t mark_standard_4_progress;
+ uint8_t mark_standard_5_progress;
+ uint8_t mark_sentry_progress;
+}radar_mark_data_t;
+
+//0x020D new
+typedef _packed struct
+{
+ uint32_t sentry_info;
+} sentry_info_t;
+
+//0x020E new
+typedef _packed struct
+{
+ uint8_t radar_info;
+} radar_info_t;
 
 typedef __packed struct //0x0301
 {
@@ -252,27 +289,6 @@ typedef __packed struct
     uint8_t data[32];
 } download_stream_data_t;
 // Old name was:ext_download_stream_data_t;
-
-//EMPIEZA NUEVO REFEREE MANUAL - SOFIA
-typedef _packed struct //0x020C
-{
-    uint8_t mark_hero_progress;
-    uint8_t mark_engineer_progress;
-    uint8_t mark_standard_3_progress;
-    uint8_t mark_standard_4_progress;
-    uint8_t mark_standard_5_progress;
-    uint8_t mark_sentry_progress;
-} radar_mark_data_t;
-
-typedef _packed struct //0x020D
-{
-    uint32_t sentry_info; 
-} sentry_info_t;
-
-typedef _packed struct  //0x020E
-{
-    uint8_t radar_info;
-} radar_info_t;
 
 typedef _packed struct //0x0301
 {
