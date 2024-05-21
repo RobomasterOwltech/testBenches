@@ -335,7 +335,7 @@ uint32_t start_y:11;
 uint32_t radius:10;
 uint32_t end_x:11;
 uint32_t end_y:11;
-} graphic_data_struct_t
+} graphic_data_struct_t 
 
 typedef _packed struct //0x0110
 {
