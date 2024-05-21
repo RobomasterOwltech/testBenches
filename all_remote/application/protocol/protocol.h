@@ -15,6 +15,7 @@
 
 #pragma pack(push, 1)
 
+// TODO: ADD AND REMOVE OLD IDS
 typedef enum
 {
     GAME_STATE_CMD_ID                 = 0x0001,
