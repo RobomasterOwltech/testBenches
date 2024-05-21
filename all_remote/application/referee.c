@@ -25,9 +25,37 @@ air_support_data_t aerial_robot_energy;
 hurt_data_t robot_hurt;
 shoot_data_t shoot_data;
 projectile_allowance_t projectile_allowance; 
-student_interactive_data_t student_interactive_data;
+
+//change student_interactive_data_t to robot_interaction_data_t
+robot_interaction_data_t student_interactive_data; 
+interaction_layer_delete_t layer_delete; //Semi new
+interaction_figure_t interaction_figure; //Semi new
+interaction_figure_2_t figure_2; //semi new
+interaction_figure_3_t figure_3; //semi new
+interaction_figure_4_t figure_4; //semi new
 
 // New:
+dart_info_t dart; 
+
+map_command_t map_command; 
+map_robot_data_t map_robot_data; 
+map_data_t map_data; 
+
+custom_info_t custom_info; 
+custom_robot_data_t robot_data; 
+remote_control_t remote_control; 
+custom_client_data_t client_data; 
+
+rfid_status_t rfid_status; 
+dart_client_cmd_t dart_client;
+ground_robot_position_t ground_robot_position; 
+radar_mark_data_t radar_mark;
+
+sentry_info_t sentry_info; 
+sentry_cmd_t sentry_cm; 
+radar_info_t radar_info; 
+radar_cmd_t radar_cm; 
+
 
 // Deleted
 //ext_bullet_remaining_t bullet_remaining_t;
@@ -58,7 +86,7 @@ void init_referee_struct_data(void)
     // memset(&supply_projectile_booking, 0, sizeof(ext_supply_projectile_booking_t));
 
 
-    memset(&student_interactive_data, 0, sizeof(student_interactive_data_t));
+    memset(&student_interactive_data, 0, sizeof(robot_interaction_data_t));
 
 }
 

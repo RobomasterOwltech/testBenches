@@ -291,6 +291,7 @@ typedef _packed struct //0x0104
 } interaction_figure_4_t;
 //old name was: ext_client_custom_graphic_seven_t;
 
+//TODO: ESTA SE DECLARA EN UN MEMSET O MEMCPY?
 typedef __packed struct 
 {
 uint8_t graphic_name[3];
@@ -308,7 +309,7 @@ uint32_t end_x:11;
 uint32_t end_y:11;
 } graphic_data_struct_t;
 
-typedef _packed struct //0x0110
+typedef _packed struct //0x0110 
 {
     graphic_data_struct_t grapic_data_struct;
     uint8_t data[30];
