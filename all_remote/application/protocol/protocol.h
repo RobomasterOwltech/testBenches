@@ -15,15 +15,15 @@
 
 #pragma pack(push, 1)
 
-// TODO: ADD AND REMOVE OLD IDS
+// TODO: QUE PASA CON LOS IDs QUE SE REPITEN
 typedef enum
 {
     GAME_STATUS_CMD_ID                = 0x0001,
     GAME_RESULT_CMD_ID                = 0x0002,
     GAME_ROBOT_HP_CMD_ID              = 0x0003,
-    EVENT_DATA_CMD_ID                 = 0x0101,
-    SUPPLY_PROJECTILE_ACTION_CMD_ID   = 0x0102,
-    REFEREE_WARNING_CMD_ID            = 0x0104,
+    EVENT_DATA_CMD_ID                 = 0x0101, //1
+    SUPPLY_PROJECTILE_ACTION_CMD_ID   = 0x0102, //2
+    REFEREE_WARNING_CMD_ID            = 0x0104, //4
     DART_INFO_CMD_ID                  = 0x0105,
     ROBOT_STATUS_CMD_ID               = 0x0201,
     POWER_HEAT_DATA_CMD_ID            = 0x0202,
@@ -39,9 +39,22 @@ typedef enum
     RADAR_MARK_DATA_CMD_ID            = 0x020C,
     SENTRY_INFO_CMD_ID                = 0x020D,
     RADAR_INFO_CMD_ID                 = 0x020E,
-    //me quede checando esto
-    STUDENT_INTERACTIVE_DATA_CMD_ID   = 0x0301,
-    IDCustomData,
+    ROBOT_INTERACTION_DATA_CMD_ID     = 0x0301,
+    INTERACTION_LAYER_DELETE_CMD_ID   = 0x0100,
+    INTERACTION_fIGURE_CMD_ID         = 0x0101, //1
+    INTERACTION_fIGURE_2_CMD_ID       = 0x0102, //2
+    INTERACTION_fIGURE_3_CMD_ID       = 0x0103,
+    INTERACTION_fIGURE_4_CMD_ID       = 0x0104, //4
+    CLIENT_CUSTOM_CHARACTER_CMD_ID    = 0x0110,
+    SENTRY_CMD_ID                     = 0x0120,
+    RADAR_CMD_ID                      = 0x0121,
+    MAP_CMD_ID                        = 0x0303,
+    MAP_ROBOT_DATA_CMD_ID             = 0x0305,
+    MAP_DATA_CMD_ID                   = 0x0307,
+    CUSTOM_INFO_CMD_ID                = 0x0308,
+    CUSTOM_ROBOT_DATA_CMD_ID          = 0x0302,
+    REMOTE_CONTROL_CMD_ID             = 0x0304,
+    CUSTOM_CLIENT_DATA_CMD_ID         = 0x0306,
 }referee_cmd_id_t;
 typedef  struct
 {
