@@ -256,12 +256,12 @@ typedef __packed struct
 //EMPIEZA NUEVO REFEREE MANUAL - SOFIA
 typedef _packed struct //0x020C
 {
- uint8_t mark_hero_progress;
- uint8_t mark_engineer_progress;
- uint8_t mark_standard_3_progress;
- uint8_t mark_standard_4_progress;
- uint8_t mark_standard_5_progress;
- uint8_t mark_sentry_progress;
+    uint8_t mark_hero_progress;
+    uint8_t mark_engineer_progress;
+    uint8_t mark_standard_3_progress;
+    uint8_t mark_standard_4_progress;
+    uint8_t mark_standard_5_progress;
+    uint8_t mark_sentry_progress;
 } radar_mark_data_t;
 
 typedef _packed struct //0x020D
