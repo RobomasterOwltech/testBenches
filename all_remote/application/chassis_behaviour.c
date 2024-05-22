@@ -218,7 +218,8 @@ static void chassis_open_set_control(fp32 *vx_set, fp32 *vy_set, fp32 *wz_set, c
 
 //highlight, the variable chassis behaviour mode 
 //留意，这个底盘行为模式变量
-chassis_behaviour_e chassis_behaviour_mode = CHASSIS_ZERO_FORCE;
+// Moved this to chassis_behaviour.h
+//chassis_behaviour_e chassis_behaviour_mode = CHASSIS_ZERO_FORCE;
 
 
 /**
