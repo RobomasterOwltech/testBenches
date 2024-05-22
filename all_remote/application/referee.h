@@ -207,36 +207,36 @@ typedef _packed struct //0x020A new
 
 typedef _packed struct //0x020B new
 {
- float hero_x;
- float hero_y;
- float engineer_x;
- float engineer_y;
- float standard_3_x;
- float standard_3_y;
- float standard_4_x;
- float standard_4_y; 
- float standard_5_x;
- float standard_5_y;
+    float hero_x;
+    float hero_y;
+    float engineer_x;
+    float engineer_y;
+    float standard_3_x;
+    float standard_3_y;
+    float standard_4_x;
+    float standard_4_y; 
+    float standard_5_x;
+    float standard_5_y;
 }ground_robot_position_t;
 
 typedef _packed struct //0x020C new
 {
- uint8_t mark_hero_progress;
- uint8_t mark_engineer_progress;
- uint8_t mark_standard_3_progress;
- uint8_t mark_standard_4_progress;
- uint8_t mark_standard_5_progress;
- uint8_t mark_sentry_progress;
+    uint8_t mark_hero_progress;
+    uint8_t mark_engineer_progress;
+    uint8_t mark_standard_3_progress;
+    uint8_t mark_standard_4_progress;
+    uint8_t mark_standard_5_progress;
+    uint8_t mark_sentry_progress;
 }radar_mark_data_t;
 
 typedef _packed struct //0x020D new
 {
- uint32_t sentry_info;
+    uint32_t sentry_info;
 } sentry_info_t;
 
 typedef _packed struct //0x020E new
 {
- uint8_t radar_info;
+    uint8_t radar_info;
 } radar_info_t;
 
 typedef _packed struct //0x0301
@@ -291,22 +291,21 @@ typedef _packed struct //0x0104
 } interaction_figure_4_t;
 //old name was: ext_client_custom_graphic_seven_t;
 
-//TODO: ESTA SE DECLARA EN UN MEMSET O MEMCPY?
 typedef __packed struct 
 {
-uint8_t graphic_name[3];
-uint32_t operate_tpye:3;
-uint32_t graphic_tpye:3;
-uint32_t layer:4;
-uint32_t color:4;
-uint32_t start_angle:9;
-uint32_t end_angle:9;
-uint32_t width:10;
-uint32_t start_x:11;
-uint32_t start_y:11;
-uint32_t radius:10;
-uint32_t end_x:11;
-uint32_t end_y:11;
+    uint8_t graphic_name[3];
+    uint32_t operate_tpye:3;
+    uint32_t graphic_tpye:3;
+    uint32_t layer:4;
+    uint32_t color:4;
+    uint32_t start_angle:9;
+    uint32_t end_angle:9;
+    uint32_t width:10;
+    uint32_t start_x:11;
+    uint32_t start_y:11;
+    uint32_t radius:10;
+    uint32_t end_x:11;
+    uint32_t end_y:11;
 } graphic_data_struct_t;
 
 typedef _packed struct //0x0110 
