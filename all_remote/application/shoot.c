@@ -71,8 +71,8 @@ static void trigger_motor_turn_back(void);
 static void shoot_bullet_control(void);
 
 
-
-shoot_control_t shoot_control;          //�������
+// Moved this to shoot.h
+//shoot_control_t shoot_control;          //�������
 
 
 /**

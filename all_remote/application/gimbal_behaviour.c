@@ -275,7 +275,8 @@ static void gimbal_relative_angle_control(fp32 *yaw, fp32 *pitch, gimbal_control
 static void gimbal_motionless_control(fp32 *yaw, fp32 *pitch, gimbal_control_t *gimbal_control_set);
 
 //云台行为状态机
-static gimbal_behaviour_e gimbal_behaviour = GIMBAL_ZERO_FORCE;
+// relocated this to the gimbal_behaviour.h
+//static gimbal_behaviour_e gimbal_behaviour = GIMBAL_ZERO_FORCE;
 
 /**
   * @brief          the function is called by gimbal_set_mode function in gimbal_task.c
