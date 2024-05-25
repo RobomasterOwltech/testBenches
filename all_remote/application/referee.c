@@ -241,7 +241,7 @@ void referee_data_solve(uint8_t *frame)
 void get_chassis_power_and_buffer(fp32 *power, fp32 *buffer)
 {
     *power = power_heat_data.chassis_power;
-    *buffer = power_heat_data.chassis_power_buffer;
+    *buffer = power_heat_data.buffer_energy;
 
 }
 
@@ -253,13 +253,13 @@ uint8_t get_robot_id(void)
 
 void get_shoot_heat0_limit_and_heat0(uint16_t *heat0_limit, uint16_t *heat0)
 {
-    *heat0_limit = robot_state.shooter_heat0_cooling_limit;
-    *heat0 = power_heat_data.shooter_heat0;
+    *heat0_limit = robot_state.shooter_barrel_heat_limit;
+    *heat0 = power_heat_data.shooter_17mm_1_barrel_heat;
 }
 
 void get_shoot_heat1_limit_and_heat1(uint16_t *heat1_limit, uint16_t *heat1)
 {
-    *heat1_limit = robot_state.shooter_heat1_cooling_limit;
-    *heat1 = power_heat_data.shooter_heat1;
+    *heat1_limit = robot_state.shooter_barrel_cooling_value;
+    *heat1 = power_heat_data.shooter_17mm_2_barrel_heat;
 }
 

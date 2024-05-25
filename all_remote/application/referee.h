@@ -5,7 +5,7 @@
 
 #include "protocol.h"
 
-#define LENGTH_CUSTOM_DATA 0
+#define LENGTH_CUSTOM_DATA 2 // TODO: Set the max from manual
 #define MAX_ROBOT_INTERACTION 113
 typedef enum
 {
@@ -22,7 +22,7 @@ typedef enum
     BLUE_STANDARD_2 = 14,
     BLUE_STANDARD_3 = 15,
     BLUE_AERIAL     = 16,
-    BLUE_SENTRY     = 17,
+    BLUE_SENTRY     = 17
 } robot_id_t;
 typedef enum
 {
@@ -31,10 +31,10 @@ typedef enum
     PROGRESS_SELFCHECK      = 2,
     PROGRESS_5sCOUNTDOWN    = 3,
     PROGRESS_BATTLE         = 4,
-    PROGRESS_CALCULATING    = 5,
+    PROGRESS_CALCULATING    = 5
 } game_progress_t;
 
-typedef _packed struct //0x0001
+typedef __packed struct //0x0001
 {
     uint8_t game_type : 4;
     uint8_t game_progress : 4;
@@ -43,14 +43,14 @@ typedef _packed struct //0x0001
 } game_status_t;
 //Old name was: ext_game_state_t;
 
-typedef _packed struct //0x0002
+typedef __packed struct //0x0002
 {
     uint8_t winner;
 } game_result_t;
 // old name was:   ext_game_result_t;
 
 
-typedef _packed struct //0x0003
+typedef __packed struct //0x0003
 {
     uint16_t red_1_robot_HP;
     uint16_t red_2_robot_HP;
@@ -71,13 +71,13 @@ typedef _packed struct //0x0003
 } game_robot_HP_t;
 // Old name was: ext_game_robot_HP_t;
 
-typedef _packed struct //0x0101
+typedef __packed struct //0x0101
 {
     uint32_t event_data;
 } event_data_t;
 // Old name was: ext_event_data_t;
 
-typedef _packed struct //0x0102
+typedef __packed struct //0x0102
 {
     uint8_t reserved;
     uint8_t supply_robot_id;
@@ -88,14 +88,14 @@ typedef _packed struct //0x0102
 
 
 // Deleted
-// typedef __packed struct //0x0103
+// typedef ___packed struct //0x0103
 // {
 //     uint8_t supply_projectile_id;
 //     uint8_t supply_robot_id;
 //     uint8_t supply_num;
 // } ext_supply_projectile_booking_t;
 
-typedef _packed struct // 0x0104
+typedef __packed struct // 0x0104
 {
     uint8_t level;
     uint8_t offending_robot_id;
@@ -103,14 +103,14 @@ typedef _packed struct // 0x0104
 } referee_warning_t;
 // old name was: ext_referee_warning_t;
 
-typedef _packed struct //0x0105
+typedef __packed struct //0x0105
 {
     uint8_t dart_remaining_time;
     uint16_t dart_info;
 } dart_info_t;
 //old name was: ext_referee_warning_t;
 
-typedef _packed struct //0x0201
+typedef __packed struct //0x0201
 {
     uint8_t robot_id;
     uint8_t robot_level;
@@ -125,7 +125,7 @@ typedef _packed struct //0x0201
 } robot_status_t;
 // Old name was: ext_game_robot_status_t;
 
-typedef _packed struct //0x0202
+typedef __packed struct //0x0202
 {
     uint16_t chassis_voltage;
     uint16_t chassis_current;
@@ -137,7 +137,7 @@ typedef _packed struct //0x0202
 } power_heat_data_t;
 // Old name was: ext_power_heat_data_t
 
-typedef _packed struct //0x0203
+typedef __packed struct //0x0203
 {
     float x;
     float y;
@@ -145,7 +145,7 @@ typedef _packed struct //0x0203
 } robot_pos_t;
 // old name was: ext_game_robot_pos_t;
 
-typedef _packed struct //0x0204
+typedef __packed struct //0x0204
 {
     uint8_t recovery_buff;
     uint8_t cooling_buff;
@@ -155,21 +155,21 @@ typedef _packed struct //0x0204
 } buff_t;
 //old name was: ext_buff_musk_t;
 
-typedef _packed struct //0x0205
+typedef __packed struct //0x0205
 {
     uint8_t airforce_status;
     uint8_t time_remain;
 } air_support_data_t;
 //old name was: aerial_robot_energy_t;
 
-typedef _packed struct //0x0206
+typedef __packed struct //0x0206
 {
     uint8_t armor_id : 4;
     uint8_t HP_deduction_reason : 4;
 } hurt_data_t;
 // old name was: ext_robot_hurt_t;
 
-typedef _packed struct //0x0207
+typedef __packed struct //0x0207
 {
     uint8_t bullet_type;
     uint8_t shooter_number;
@@ -180,24 +180,24 @@ typedef _packed struct //0x0207
 
 
 // Think this was deleted
-// typedef __packed struct 0x0208
+// typedef ___packed struct 0x0208
 // {
 //     uint8_t bullet_remaining_num;
 // } ext_bullet_remaining_t;
 
-typedef _packed struct //0x0208
+typedef __packed struct //0x0208
 {
     uint16_t projectile_allowance_17mm;
     uint16_t projectile_allowance_42mm;
     uint16_t remaining_gold_coin;
 } projectile_allowance_t;
 
-typedef _packed struct //0x0209 new
+typedef __packed struct //0x0209 new
 {
     uint32_t rfid_status;
 } rfid_status_t;
 
-typedef _packed struct //0x020A new
+typedef __packed struct //0x020A new
 {
     uint8_t dart_launch_opening_status;
     uint8_t reserved;
@@ -205,7 +205,7 @@ typedef _packed struct //0x020A new
     uint16_t latest_launch_cmd_time;
 } dart_client_cmd_t;
 
-typedef _packed struct //0x020B new
+typedef __packed struct //0x020B new
 {
     float hero_x;
     float hero_y;
@@ -219,7 +219,7 @@ typedef _packed struct //0x020B new
     float standard_5_y;
 }ground_robot_position_t;
 
-typedef _packed struct //0x020C new
+typedef __packed struct //0x020C new
 {
     uint8_t mark_hero_progress;
     uint8_t mark_engineer_progress;
@@ -229,17 +229,17 @@ typedef _packed struct //0x020C new
     uint8_t mark_sentry_progress;
 }radar_mark_data_t;
 
-typedef _packed struct //0x020D new
+typedef __packed struct //0x020D new
 {
     uint32_t sentry_info;
 } sentry_info_t;
 
-typedef _packed struct //0x020E new
+typedef __packed struct //0x020E new
 {
     uint8_t radar_info;
 } radar_info_t;
 
-typedef _packed struct //0x0301
+typedef __packed struct //0x0301
 {
     uint16_t data_cmd_id;
     uint16_t sender_id;
@@ -248,14 +248,14 @@ typedef _packed struct //0x0301
 } robot_interaction_data_t;
 // Old name was: ext_student_interactive_header_data_t;
 
-typedef _packed struct //0x0100 new
+typedef __packed struct //0x0100 new
 {
     uint8_t delete_type;
     uint8_t layer;
 } interaction_layer_delete_t;
 //old name was: ext_client_custom _graphic_delete_t
 
-typedef _packed struct //0x0101
+typedef __packed struct //0x0101
 {
     uint8_t figure_name[3];
     uint32_t operate_tpye:3;
@@ -273,19 +273,19 @@ typedef _packed struct //0x0101
 } interaction_figure_t;
 // Old name was: graphic_data_struct_t
 
-typedef _packed struct //0x0102
+typedef __packed struct //0x0102
 {
     interaction_figure_t interaction_figure[2];
 } interaction_figure_2_t;
 //old name was: ext_client_custom_graphic_double_t;
 
-typedef _packed struct //0x0103
+typedef __packed struct //0x0103
 {
     interaction_figure_t interaction_figure[5];
 } interaction_figure_3_t;
 //old name was: ext_client_custom_graphic_five_t;
 
-typedef _packed struct //0x0104
+typedef __packed struct //0x0104
 {
     interaction_figure_t interaction_figure[7];
 } interaction_figure_4_t;
@@ -308,23 +308,23 @@ typedef __packed struct
     uint32_t end_y:11;
 } graphic_data_struct_t;
 
-typedef _packed struct //0x0110 
+typedef __packed struct //0x0110 
 {
     graphic_data_struct_t grapic_data_struct;
     uint8_t data[30];
 } ext_client_custom_character_t;
 
-typedef _packed struct //0x0120 new
+typedef __packed struct //0x0120 new
 {
     uint32_t sentry_cmd;
 } sentry_cmd_t;
 
-typedef _packed struct //0x0121 new
+typedef __packed struct //0x0121 new
 {
     uint8_t radar_cmd;  
 } radar_cmd_t;
 
-typedef _packed struct //0x0303 new
+typedef __packed struct //0x0303 new
 {
     float target_position_x;
     float target_position_y;
@@ -333,14 +333,14 @@ typedef _packed struct //0x0303 new
     uint8_t cmd_source;
 } map_command_t;
 
-typedef _packed struct //0x0305 new
+typedef __packed struct //0x0305 new
 {
     uint16_t target_robot_id;
     float target_position_x;
     float target_position_y;
 } map_robot_data_t;
 
-typedef _packed struct //0x0307 new
+typedef __packed struct //0x0307 new
 {
     uint8_t intention;
     uint16_t start_position_x;
@@ -350,19 +350,19 @@ typedef _packed struct //0x0307 new
     uint16_t sender_id;
 } map_data_t;
 
-typedef _packed struct //0x0308 new
+typedef __packed struct //0x0308 new
 {
     uint16_t sender_id;
     uint16_t receiver_id;
     uint8_t user_data[30];
 } custom_info_t;
 
-typedef _packed struct //0x0302 new
+typedef __packed struct //0x0302 new
 {
     uint8_t data[LENGTH_CUSTOM_DATA];
 } custom_robot_data_t; 
 
-typedef _packed struct //0x0304 new
+typedef __packed struct //0x0304 new
 {
     int16_t mouse_x;
     int16_t mouse_y;
@@ -373,7 +373,7 @@ typedef _packed struct //0x0304 new
     uint16_t reserved;
 } remote_control_t;
 
-typedef _packed struct //0x0306 new
+typedef __packed struct //0x0306 new
 {
     uint16_t key_value;
     uint16_t x_position:12;
@@ -385,7 +385,7 @@ typedef _packed struct //0x0306 new
 
 /*
 TODO: DE DONDE SALIO ESTO? AUN SE NECESITA?
-typedef __packed struct
+typedef ___packed struct
 {
     float data1;
     float data2;
@@ -393,13 +393,13 @@ typedef __packed struct
     uint8_t data4;
 } custom_data_t;
 
-typedef __packed struct
+typedef ___packed struct
 {
     uint8_t data[64];
 } up_stream_data_t;
 // Old name was:ext_up_stream_data_t;
 
-typedef __packed struct
+typedef ___packed struct
 {
     uint8_t data[32];
 } download_stream_data_t;
