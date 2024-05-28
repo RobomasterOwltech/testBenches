@@ -4,11 +4,14 @@
 #include "CRC8_CRC16.h"
 #include "protocol.h"
 
+static game_status_t game_state;
+static robot_status_t robot_state;
+static shoot_data_t shoot_data;
+static power_heat_data_t power_heat_data;
 
 frame_header_struct_t referee_receive_header;
 frame_header_struct_t referee_send_header;
 
-game_status_t game_state;
 game_result_t game_result;
 game_robot_HP_t game_robot_HP;
 
@@ -17,13 +20,10 @@ supply_projectile_action_t supply_projectile_action;
 
 referee_warning_t referee_warning;
 
-robot_status_t robot_state;
-power_heat_data_t power_heat_data;
 robot_pos_t game_robot_pos;
 buff_t buff_musk;
 air_support_data_t aerial_robot_energy;
 hurt_data_t robot_hurt;
-shoot_data_t shoot_data;
 projectile_allowance_t projectile_allowance; 
 
 //change student_interactive_data_t to robot_interaction_data_t

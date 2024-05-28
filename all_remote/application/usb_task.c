@@ -32,11 +32,17 @@
 #include "shoot.h"
 #include "chassis_behaviour.h"
 #include "gimbal_behaviour.h"
+#include "referee.h"
 
 extern shoot_control_t shoot_control;
 extern chassis_behaviour_e chassis_behaviour_mode;
-
 extern gimbal_behaviour_e gimbal_behaviour;
+
+extern game_status_t game_state;
+extern robot_status_t robot_state;
+extern power_heat_data_t power_heat_data;
+extern shoot_data_t shoot_data;
+
 
 const int debugTextSize = 40;
 
@@ -223,15 +229,41 @@ void usb_task(void const * argument)
             //             get_remote_control_point()->rc.s[2],
             //             get_remote_control_point()->rc.s[3]); 
             // ==============================
-
+            // "******************************\r\n\
+            // chassis mode: %s \r\n\
+            // gimbal mode: %s \r\n\
+            // shoot mode: %s \r\n\
+            // ******************************\r\n",
+            //             shootModeText, 
+            //             chassisModeText,
+            //             gimbalModeText); 
+            // ==============================
             "******************************\r\n\
-            chassis mode: %s \r\n\
-            gimbal mode: %s \r\n\
-            shoot mode: %s \r\n\
+            game type: %d \r\n\
+            game progress: %d \r\n\
+            =======\r\n\
+            robot id: %d \r\n\
+            robot hp: %d \r\n\
+            robot power limit: %d \r\n\
+            =======\r\n\
+            chassis volt: %d \r\n\
+            chassis curr: %d \r\n\
+            =======\r\n\
+            balls freq: %d \r\n\
+            shoot speed: %.3f \r\n\
             ******************************\r\n",
-                        shootModeText, 
-                        chassisModeText,
-                        gimbalModeText); 
+                        game_state.game_type, 
+                        game_state.game_progress,
+
+                        robot_state.robot_id,
+                        robot_state.current_HP,
+                        robot_state.chassis_power_limit,
+
+                        power_heat_data.chassis_voltage,
+                        power_heat_data.chassis_current,
+
+                        shoot_data.launching_frequency,
+                        shoot_data.initial_speed); 
 
     }
 
