@@ -406,6 +406,10 @@ typedef ___packed struct
 // Old name was:ext_download_stream_data_t;
 */
 
+static game_status_t game_state;
+static robot_status_t robot_state;
+static shoot_data_t shoot_data;
+static power_heat_data_t power_heat_data;
 
 
 extern void init_referee_struct_data(void);

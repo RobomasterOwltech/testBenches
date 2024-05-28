@@ -4,10 +4,11 @@
 #include "CRC8_CRC16.h"
 #include "protocol.h"
 
-static game_status_t game_state;
-static robot_status_t robot_state;
-static shoot_data_t shoot_data;
-static power_heat_data_t power_heat_data;
+// These were moved to the .h
+// static game_status_t game_state;
+// static robot_status_t robot_state;
+// static shoot_data_t shoot_data;
+// static power_heat_data_t power_heat_data;
 
 frame_header_struct_t referee_receive_header;
 frame_header_struct_t referee_send_header;
