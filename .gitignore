@@ -1,4 +1,5 @@
 */Debug
 */*/*/*.o
-*/MDK-ARM
+*/MDK-ARM/standard_tpye_c/*.d
 */*/*/*.crf
+
