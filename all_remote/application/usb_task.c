@@ -31,7 +31,7 @@
 
 #include "shoot.h"
 #include "chassis_behaviour.h"
-#include "gimbal_behaviour.c"
+#include "gimbal_behaviour.h"
 
 extern shoot_control_t shoot_control;
 extern chassis_behaviour_e chassis_behaviour_mode;

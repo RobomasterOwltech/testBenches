@@ -99,7 +99,7 @@ typedef enum
                                         // ң������ֵ���Ա����ɵ���ֵ ֱ�ӷ��͵�can������
 } chassis_behaviour_e;
 
-chassis_behaviour_e chassis_behaviour_mode = CHASSIS_ZERO_FORCE;
+static chassis_behaviour_e chassis_behaviour_mode = CHASSIS_ZERO_FORCE;
 
 #define CHASSIS_OPEN_RC_SCALE 10 // in CHASSIS_OPEN mode, multiply the value. ��chassis_open ģ���£�ң�������Ըñ������͵�can��
 

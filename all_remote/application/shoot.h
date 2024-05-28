@@ -138,7 +138,7 @@ typedef struct
     uint16_t heat;
 } shoot_control_t;
 
-shoot_control_t shoot_control;          //�������
+static shoot_control_t shoot_control;          //�������
 
 
 //�����������̨ʹ��ͬһ��can��id��Ҳ�����������̨������ִ��

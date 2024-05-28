@@ -84,7 +84,6 @@
 
 #include "gimbal_task.h"
 
-static gimbal_behaviour_e gimbal_behaviour = GIMBAL_ZERO_FORCE;
 
 typedef enum
 {
@@ -93,8 +92,10 @@ typedef enum
   GIMBAL_CALI,           
   GIMBAL_ABSOLUTE_ANGLE, 
   GIMBAL_RELATIVE_ANGLE, 
-  GIMBAL_MOTIONLESS,     
+  GIMBAL_MOTIONLESS     
 } gimbal_behaviour_e;
+
+static gimbal_behaviour_e gimbal_behaviour = GIMBAL_ZERO_FORCE;
 
 /**
   * @brief          the function is called by gimbal_set_mode function in gimbal_task.c
