@@ -138,6 +138,9 @@ typedef struct
     uint16_t heat;
 } shoot_control_t;
 
+shoot_control_t shoot_control;          //�������
+
+
 //�����������̨ʹ��ͬһ��can��id��Ҳ�����������̨������ִ��
 extern void shoot_init(void);
 extern int16_t shoot_control_loop(void);
