@@ -1,7 +1,7 @@
 /**
   ****************************(C) COPYRIGHT 2019 DJI****************************
   * @file       referee_usart_task.c/h
-  * @brief      RM referee system data solve. RM²ÃÅÐÏµÍ³Êý¾Ý´¦Àí
+  * @brief      RM referee system data solve. RMï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½
   * @note       
   * @history
   *  Version    Date            Author          Modification
@@ -35,7 +35,7 @@
   * @retval         none
   */
 /**
-  * @brief          µ¥×Ö½Ú½â°ü
+  * @brief          ï¿½ï¿½ï¿½Ö½Ú½ï¿½ï¿½
   * @param[in]      void
   * @retval         none
   */
@@ -56,7 +56,7 @@ unpack_data_t referee_unpack_obj;
   * @retval         none
   */
 /**
-  * @brief          ²ÃÅÐÏµÍ³ÈÎÎñ
+  * @brief          ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½ï¿½
   * @param[in]      pvParameters: NULL
   * @retval         none
   */
@@ -81,13 +81,14 @@ void referee_usart_task(void const * argument)
   * @retval         none
   */
 /**
-  * @brief          µ¥×Ö½Ú½â°ü
+  * @brief          ï¿½ï¿½ï¿½Ö½Ú½ï¿½ï¿½
   * @param[in]      void
   * @retval         none
   */
 void referee_unpack_fifo_data(void)
 {
   uint8_t byte = 0;
+  // SOF stands for start Of Frame
   uint8_t sof = HEADER_SOF;
   unpack_data_t *p_obj = &referee_unpack_obj;
 
@@ -121,6 +122,7 @@ void referee_unpack_fifo_data(void)
         p_obj->data_len |= (byte << 8);
         p_obj->protocol_packet[p_obj->index++] = byte;
 
+        // TODO: CHECK IF THIS CONDITION IS CORRECT
         if(p_obj->data_len < (REF_PROTOCOL_FRAME_MAX_SIZE - REF_HEADER_CRC_CMDID_LEN))
         {
           p_obj->unpack_step = STEP_FRAME_SEQ;
@@ -143,6 +145,7 @@ void referee_unpack_fifo_data(void)
 
         if (p_obj->index == REF_PROTOCOL_HEADER_SIZE)
         {
+          // TODO: CHECK THAT WE ARE READING THE 0-5 FIRST BYTES
           if ( verify_CRC8_check_sum(p_obj->protocol_packet, REF_PROTOCOL_HEADER_SIZE) )
           {
             p_obj->unpack_step = STEP_DATA_CRC16;
