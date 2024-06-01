@@ -128,6 +128,7 @@ void referee_data_solve(uint8_t *frame)
 
     index += sizeof(frame_header_struct_t);
 
+	
     memcpy(&cmd_id, frame + index, sizeof(uint16_t));
     index += sizeof(uint16_t);
 

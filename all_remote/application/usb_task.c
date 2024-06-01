@@ -180,7 +180,6 @@ void usb_task(void const * argument)
             status[error_list_usb_local[BOARD_ACCEL_TOE].error_exist],
             status[error_list_usb_local[BOARD_MAG_TOE].error_exist],
             status[error_list_usb_local[REFEREE_TOE].error_exist]);
-        
             // ======================= */   
             //  "******************************\r\n\
             // voltage percentage:%d%% \r\n\
@@ -200,7 +199,6 @@ void usb_task(void const * argument)
             //      motor_chassis[3].speed_rpm,
             //      get_remote_control_point()->rc.s[0],
             //      get_remote_control_point()->rc.s[1]); 
-            
             // ==============================
             // "******************************\r\n\
             // voltage percentage:%d%% \r\n\
@@ -229,41 +227,44 @@ void usb_task(void const * argument)
             //             get_remote_control_point()->rc.s[2],
             //             get_remote_control_point()->rc.s[3]); 
             // ==============================
-            // "******************************\r\n\
-            // chassis mode: %s \r\n\
-            // gimbal mode: %s \r\n\
-            // shoot mode: %s \r\n\
-            // ******************************\r\n",
-            //             shootModeText, 
-            //             chassisModeText,
-            //             gimbalModeText); 
-            // ==============================
             "******************************\r\n\
-            game type: %d \r\n\
-            game progress: %d \r\n\
-            =======\r\n\
-            robot id: %d \r\n\
-            robot hp: %d \r\n\
-            robot power limit: %d \r\n\
-            =======\r\n\
-            chassis volt: %d \r\n\
-            chassis curr: %d \r\n\
-            =======\r\n\
-            balls freq: %d \r\n\
-            shoot speed: %.3f \r\n\
+            chassis mode: %s \r\n\
+            gimbal mode: %s \r\n\
+            shoot mode: %s \r\n\
             ******************************\r\n",
-                        game_state.game_type, 
-                        game_state.game_progress,
+                        shootModeText, 
+                        chassisModeText,
+                        gimbalModeText); 
+            // ==============================
+            // "****************\r\n\
+            // referee usart:%s\r\n\
+            // =======\r\n\
+            // game type: %d \r\n\
+            // game progress: %d \r\n\
+            // =======\r\n\
+            // robot id: %d \r\n\
+            // robot hp: %d \r\n\
+            // robot power limit: %d \r\n\
+            // =======\r\n\
+            // chassis volt: %d \r\n\
+            // chassis curr: %d \r\n\
+            // =======\r\n\
+            // balls freq: %d \r\n\
+            // shoot speed: %.3f \r\n\
+            // ****************\r\n",
+            //     status[error_list_usb_local[REFEREE_TOE].error_exist],
+            //     game_state.game_type, 
+            //     game_state.game_progress,
 
-                        robot_state.robot_id,
-                        robot_state.current_HP,
-                        robot_state.chassis_power_limit,
+            //     robot_state.robot_id,
+            //     robot_state.current_HP,
+            //     robot_state.chassis_power_limit,
 
-                        power_heat_data.chassis_voltage,
-                        power_heat_data.chassis_current,
+            //     power_heat_data.chassis_voltage,
+            //     power_heat_data.chassis_current,
 
-                        shoot_data.launching_frequency,
-                        shoot_data.initial_speed); 
+            //     shoot_data.launching_frequency,
+            //     shoot_data.initial_speed); 
 
     }
 

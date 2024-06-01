@@ -15,7 +15,7 @@
 
 #pragma pack(push, 1)
 
-// TODO: QUE PASA CON LOS IDs QUE SE REPITEN
+
 typedef enum
 {
     GAME_STATUS_CMD_ID                = 0x0001,
@@ -54,7 +54,7 @@ typedef enum
     CUSTOM_INFO_CMD_ID                = 0x0308,
     CUSTOM_ROBOT_DATA_CMD_ID          = 0x0302,
     REMOTE_CONTROL_CMD_ID             = 0x0304,
-    CUSTOM_CLIENT_DATA_CMD_ID         = 0x0306,
+    CUSTOM_CLIENT_DATA_CMD_ID         = 0x0306
 }referee_cmd_id_t;
 typedef  struct
 {
@@ -71,7 +71,7 @@ typedef enum
   STEP_LENGTH_HIGH = 2,
   STEP_FRAME_SEQ   = 3,
   STEP_HEADER_CRC8 = 4,
-  STEP_DATA_CRC16  = 5,
+  STEP_DATA_CRC16  = 5
 } unpack_step_e;
 
 typedef struct
