@@ -424,27 +424,42 @@ static void RC_cmd_to_calibrate(void)
         cali_buzzer_off();
     }
 
-    if (calibrate_RC->rc.ch[CHASSIS_MODE_CHANNEL] < -RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[CHASSIS_X_CHANNEL] < -RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[YAW_CHANNEL] > RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[PITCH_CHANNEL] < -RC_CALI_VALUE_HOLE && switch_is_down(calibrate_RC->rc.s[CHASSIS_MODE_CHANNEL]) && switch_is_down(calibrate_RC->rc.s[SHOOT_RC_MODE_CHANNEL_B]) && rc_action_flag == 0)
+    #ifdef USING_FLYSKY
+    if (calibrate_RC->rc.ch[CHASSIS_Y_CHANNEL] < -RC_CALI_VALUE_HOLE &&
+      calibrate_RC->rc.ch[CHASSIS_X_CHANNEL] < -RC_CALI_VALUE_HOLE &&
+      calibrate_RC->rc.ch[YAW_CHANNEL] > RC_CALI_VALUE_HOLE &&
+      calibrate_RC->rc.ch[PITCH_CHANNEL] < -RC_CALI_VALUE_HOLE &&
+      switch_is_up(calibrate_RC->rc.s[CHASSIS_MODE_CHANNEL]) &&
+      switch_is_mid(calibrate_RC->rc.s[SHOOT_RC_MODE_CHANNEL_A]) &&
+      switch_is_mid(calibrate_RC->rc.s[SHOOT_RC_MODE_CHANNEL_B]) &&
+      rc_action_flag == 0)
     {
         //two rockers set to  \../, hold for 2 seconds,
         //����ҡ�˴�� \../,����2s
         rc_cmd_time++;
     }
-    else if (calibrate_RC->rc.ch[CHASSIS_MODE_CHANNEL] > RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[CHASSIS_X_CHANNEL] > RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[YAW_CHANNEL] < -RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[PITCH_CHANNEL] > RC_CALI_VALUE_HOLE && switch_is_down(calibrate_RC->rc.s[CHASSIS_MODE_CHANNEL]) && switch_is_down(calibrate_RC->rc.s[SHOOT_RC_MODE_CHANNEL_B]) && rc_action_flag != 0)
+    else if (calibrate_RC->rc.ch[CHASSIS_Y_CHANNEL] > RC_CALI_VALUE_HOLE &&
+      calibrate_RC->rc.ch[CHASSIS_X_CHANNEL] > RC_CALI_VALUE_HOLE &&
+      calibrate_RC->rc.ch[YAW_CHANNEL] < -RC_CALI_VALUE_HOLE &&
+      calibrate_RC->rc.ch[PITCH_CHANNEL] > RC_CALI_VALUE_HOLE && 
+      switch_is_up(calibrate_RC->rc.s[CHASSIS_MODE_CHANNEL]) &&
+      switch_is_mid(calibrate_RC->rc.s[SHOOT_RC_MODE_CHANNEL_A]) &&
+      switch_is_mid(calibrate_RC->rc.s[SHOOT_RC_MODE_CHANNEL_B]) &&
+      rc_action_flag != 0)
     {
         //two rockers set '\/', hold for 2 seconds
         //����ҡ�˴��'\/',����2s
         rc_cmd_time++;
         rc_action_flag = GIMBAL_FLAG;
     }
-    else if (calibrate_RC->rc.ch[CHASSIS_MODE_CHANNEL] > RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[CHASSIS_X_CHANNEL] < -RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[YAW_CHANNEL] < -RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[PITCH_CHANNEL] < -RC_CALI_VALUE_HOLE && switch_is_down(calibrate_RC->rc.s[CHASSIS_MODE_CHANNEL]) && switch_is_down(calibrate_RC->rc.s[SHOOT_RC_MODE_CHANNEL_B]) && rc_action_flag != 0)
+    else if (calibrate_RC->rc.ch[CHASSIS_Y_CHANNEL] > RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[CHASSIS_X_CHANNEL] < -RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[YAW_CHANNEL] < -RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[PITCH_CHANNEL] < -RC_CALI_VALUE_HOLE && switch_is_down(calibrate_RC->rc.s[CHASSIS_MODE_CHANNEL]) && switch_is_down(calibrate_RC->rc.s[SHOOT_RC_MODE_CHANNEL_B]) && rc_action_flag != 0)
     {
         //two rocker set to ./\., hold for 2 seconds
         //����ҡ�˴��./\.,����2s
         rc_cmd_time++;
         rc_action_flag = GYRO_FLAG;
     }
-    else if (calibrate_RC->rc.ch[CHASSIS_MODE_CHANNEL] < -RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[CHASSIS_X_CHANNEL] > RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[YAW_CHANNEL] > RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[PITCH_CHANNEL] > RC_CALI_VALUE_HOLE && switch_is_down(calibrate_RC->rc.s[CHASSIS_MODE_CHANNEL]) && switch_is_down(calibrate_RC->rc.s[SHOOT_RC_MODE_CHANNEL_B]) && rc_action_flag != 0)
+    else if (calibrate_RC->rc.ch[CHASSIS_Y_CHANNEL] < -RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[CHASSIS_X_CHANNEL] > RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[YAW_CHANNEL] > RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[PITCH_CHANNEL] > RC_CALI_VALUE_HOLE && switch_is_down(calibrate_RC->rc.s[CHASSIS_MODE_CHANNEL]) && switch_is_down(calibrate_RC->rc.s[SHOOT_RC_MODE_CHANNEL_B]) && rc_action_flag != 0)
     {
         //two rocker set to /''\, hold for 2 seconds
         //����ҡ�˴��/''\,����2s
@@ -455,6 +470,40 @@ static void RC_cmd_to_calibrate(void)
     {
         rc_cmd_time = 0;
     }
+  #else
+    
+    if (calibrate_RC->rc.ch[0] < -RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[1] < -RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[2] > RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[3] < -RC_CALI_VALUE_HOLE && switch_is_down(calibrate_RC->rc.s[0]) && switch_is_down(calibrate_RC->rc.s[1]) && rc_action_flag == 0)
+    {
+        //two rockers set to  \../, hold for 2 seconds,
+        //两个摇杆打成 \../,保持2s
+        rc_cmd_time++;
+    }
+    else if (calibrate_RC->rc.ch[0] > RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[1] > RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[2] < -RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[3] > RC_CALI_VALUE_HOLE && switch_is_down(calibrate_RC->rc.s[0]) && switch_is_down(calibrate_RC->rc.s[1]) && rc_action_flag != 0)
+    {
+        //two rockers set '\/', hold for 2 seconds
+        //两个摇杆打成'\/',保持2s
+        rc_cmd_time++;
+        rc_action_flag = GIMBAL_FLAG;
+    }
+    else if (calibrate_RC->rc.ch[0] > RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[1] < -RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[2] < -RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[3] < -RC_CALI_VALUE_HOLE && switch_is_down(calibrate_RC->rc.s[0]) && switch_is_down(calibrate_RC->rc.s[1]) && rc_action_flag != 0)
+    {
+        //two rocker set to ./\., hold for 2 seconds
+        //两个摇杆打成./\.,保持2s
+        rc_cmd_time++;
+        rc_action_flag = GYRO_FLAG;
+    }
+    else if (calibrate_RC->rc.ch[0] < -RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[1] > RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[2] > RC_CALI_VALUE_HOLE && calibrate_RC->rc.ch[3] > RC_CALI_VALUE_HOLE && switch_is_down(calibrate_RC->rc.s[0]) && switch_is_down(calibrate_RC->rc.s[1]) && rc_action_flag != 0)
+    {
+        //two rocker set to /''\, hold for 2 seconds
+        //两个摇杆打成/''\,保持2s
+        rc_cmd_time++;
+        rc_action_flag = CHASSIS_FLAG;
+    }
+    else
+    {
+        rc_cmd_time = 0;
+    }
+    #endif
 
     calibrate_systemTick = xTaskGetTickCount();
 
