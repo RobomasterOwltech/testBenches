@@ -161,7 +161,7 @@
 
 
 #ifdef USING_FLYSKY
-  #define RC_CALI_VALUE_HOLE          90     //remote control threshold, the max value of remote control channel is 660. 
+  #define RC_CALI_VALUE_HOLE          85     //remote control threshold, the max value of remote control channel is 660. 
 #else  
   #define RC_CALI_VALUE_HOLE          600     //remote control threshold, the max value of remote control channel is 660. 
 #endif
