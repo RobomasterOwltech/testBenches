@@ -84,6 +84,7 @@
 #include "arm_math.h"
 #include "bsp_buzzer.h"
 #include "detect_task.h"
+#include "chassis_task.h"
 
 #include "user_lib.h"
 
@@ -497,8 +498,7 @@ static void gimbal_behavour_set(gimbal_control_t *gimbal_mode_set)
         /*Se ha excedido el tiempo máximo de inicialización, o ya se ha estabilizado en el valor medio durante un tiempo.
         Salga del estado de inicialización, apague el interruptor, o desconéctese.*/
         if (init_time < GIMBAL_INIT_TIME && init_stop_time < GIMBAL_INIT_STOP_TIME &&
-            !(switch_is_down(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL_A])  && 
-            switch_is_down(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL_B])) && 
+            !(switch_is_up(gimbal_mode_set->gimbal_rc_ctrl->rc.s[CHASSIS_MODE_CHANNEL])) && 
             !toe_is_error(DBUS_TOE))
         {
         // This is up
@@ -512,20 +512,17 @@ static void gimbal_behavour_set(gimbal_control_t *gimbal_mode_set)
     }
 
     //开关控制 云台状态
-    if (switch_is_down(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL_A] && 
-            switch_is_down(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL_B])))
+    if (switch_is_down(chassis_move_mode->chassis_RC->rc.s[CHASSIS_MODE_CHANNEL]))
     {   
         // This is down
-        gimbal_behaviour = GIMBAL_RELATIVE_ANGLE; 
+        gimbal_behaviour = GIMBAL_ABSOLUTE_ANGLE; 
     }
-    else if (switch_is_down(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL_A]) && 
-        switch_is_mid(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL_B]))
+    else if (switch_is_mid(chassis_move_mode->chassis_RC->rc.s[CHASSIS_MODE_CHANNEL]))
     {
         // This is middle
-        gimbal_behaviour = GIMBAL_ABSOLUTE_ANGLE;
+        gimbal_behaviour = GIMBAL_RELATIVE_ANGLE;
     }
-    else if (switch_is_mid(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL_A]) &&
-        switch_is_mid(gimbal_mode_set->gimbal_rc_ctrl->rc.s[GIMBAL_MODE_CHANNEL_B]))
+    else if (switch_is_up(chassis_move_mode->chassis_RC->rc.s[CHASSIS_MODE_CHANNEL]))
     {
         // This is up
         gimbal_behaviour = GIMBAL_ZERO_FORCE;
