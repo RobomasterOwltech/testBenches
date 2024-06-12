@@ -218,14 +218,16 @@ static void shoot_set_mode(void)
     if (switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) &&
     switch_is_mid(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B]))
     {
-        //Try with :SHOOT_READY_BULLET
-        shoot_control.shoot_mode = SHOOT_READY; 
+        // Try with: SHOOT_READY_BULLET
+        // SHOOT_READY didn't work, 
+        shoot_control.shoot_mode = SHOOT_READY_BULLET; 
     }
 
     //下拨一次或者鼠标按下一次，进入射击状态
     if (switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) &&
     switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B]))
     {
+        // This is spected behaviour
         shoot_control.shoot_mode = SHOOT_CONTINUE_BULLET;
     }
 
