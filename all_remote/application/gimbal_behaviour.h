@@ -77,12 +77,13 @@
   ==============================================================================
   @endverbatim
   ****************************(C) COPYRIGHT 2019 DJI****************************
-  */
+**/
 #ifndef GIMBAL_BEHAVIOUR_H
 #define GIMBAL_BEHAVIOUR_H
 #include "struct_typedef.h"
 
 #include "gimbal_task.h"
+#include "chassis_task.h"
 
 
 typedef enum

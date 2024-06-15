@@ -71,7 +71,7 @@ void usb_task(void const * argument)
         // ==== This is for debugging robot modes ====
         // ===================================
         
-        switch (shoot_control.shoot_mode)
+       /*  switch (shoot_control.shoot_mode)
         {
         case SHOOT_STOP:
             snprintf(shootModeText, debugTextSize, "SHOOT_STOP");
@@ -150,10 +150,10 @@ void usb_task(void const * argument)
             snprintf (gimbalModeText, debugTextSize, "GIMBAL_ERROR_MODE");
             break;
         }
-
+ */
         osDelay(500);
         usb_printf(
-            /*"******************************\r\n\
+            "******************************\r\n\
             voltage percentage:%d%% \r\n\
             DBUS:%s\r\n\
             chassis motor1:%s\r\n\
@@ -227,14 +227,14 @@ void usb_task(void const * argument)
             //             get_remote_control_point()->rc.s[2],
             //             get_remote_control_point()->rc.s[3]); 
             // ==============================
-            "******************************\r\n\
+               /*  "******************************\r\n\
             chassis mode: %s \r\n\
             gimbal mode: %s \r\n\
             shoot mode: %s \r\n\
             ******************************\r\n",
                         shootModeText, 
                         chassisModeText,
-                        gimbalModeText); 
+                        gimbalModeText);  */
             // ==============================
             // "****************\r\n\
             // referee usart:%s\r\n\

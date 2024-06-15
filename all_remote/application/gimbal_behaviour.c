@@ -84,7 +84,7 @@
 #include "arm_math.h"
 #include "bsp_buzzer.h"
 #include "detect_task.h"
-#include "chassis_task.h"
+
 
 #include "user_lib.h"
 
@@ -290,6 +290,7 @@ static void gimbal_motionless_control(fp32 *yaw, fp32 *pitch, gimbal_control_t *
   * @param[out]     gimbal_mode_set: 云台数据指针
   * @retval         none
   */
+
 
 void gimbal_behaviour_mode_set(gimbal_control_t *gimbal_mode_set)
 {
@@ -512,17 +513,17 @@ static void gimbal_behavour_set(gimbal_control_t *gimbal_mode_set)
     }
 
     //开关控制 云台状态
-    if (switch_is_down(chassis_move_mode->chassis_RC->rc.s[CHASSIS_MODE_CHANNEL]))
+    if (switch_is_down(gimbal_mode_set->gimbal_rc_ctrl->rc.s[CHASSIS_MODE_CHANNEL]))
     {   
         // This is down
         gimbal_behaviour = GIMBAL_ABSOLUTE_ANGLE; 
     }
-    else if (switch_is_mid(chassis_move_mode->chassis_RC->rc.s[CHASSIS_MODE_CHANNEL]))
+    else if (switch_is_mid(gimbal_mode_set->gimbal_rc_ctrl->rc.s[CHASSIS_MODE_CHANNEL]))
     {
         // This is middle
         gimbal_behaviour = GIMBAL_RELATIVE_ANGLE;
     }
-    else if (switch_is_up(chassis_move_mode->chassis_RC->rc.s[CHASSIS_MODE_CHANNEL]))
+    else if (switch_is_up(gimbal_mode_set->gimbal_rc_ctrl->rc.s[CHASSIS_MODE_CHANNEL]))
     {
         // This is up
         gimbal_behaviour = GIMBAL_ZERO_FORCE;

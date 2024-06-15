@@ -76,7 +76,7 @@
 #define MOTOR_SPEED_TO_CHASSIS_SPEED_WZ 0.25f
 
 
-#define MOTOR_DISTANCE_TO_CENTER 0.2f
+#define MOTOR_DISTANCE_TO_CENTER 0.2f //no vale la pena cambiarlo ya que las distancias son parecidas y la velocidad y driver se lo puede comer -Carlos 2024 
 
 //chassis task control time  2ms
 //����������Ƽ�� 2ms
@@ -134,7 +134,7 @@
 
 //chassis follow angle PID
 //������ת����PID
-#define CHASSIS_FOLLOW_GIMBAL_PID_KP 40.0f
+#define CHASSIS_FOLLOW_GIMBAL_PID_KP 40.0f//new: 70.0f
 #define CHASSIS_FOLLOW_GIMBAL_PID_KI 0.0f
 #define CHASSIS_FOLLOW_GIMBAL_PID_KD 0.0f
 #define CHASSIS_FOLLOW_GIMBAL_PID_MAX_OUT 6.0f
