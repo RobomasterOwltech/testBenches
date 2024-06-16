@@ -123,6 +123,128 @@ int16_t shoot_control_loop(void)
     {
         //���ò����ֵ��ٶ�
         shoot_control.speed_set = 0.0f;
+        shoot_control.trigger_speed_set = 0.0f; 
+    }
+    
+    else if(shoot_control.shoot_mode == SHOOT_READY_BULLET)
+    {
+        
+        
+            //���ò����ֵĲ����ٶ�,��������ת��ת����
+            shoot_control.trigger_speed_set = READY_TRIGGER_SPEED;
+            trigger_motor_turn_back();
+        
+        
+        
+            shoot_control.trigger_speed_set = 0.0f;
+            shoot_control.speed_set = 0.0f;
+
+
+            shoot_control.trigger_motor_pid.max_out = TRIGGER_BULLET_PID_MAX_OUT;
+            shoot_control.trigger_motor_pid.max_iout = TRIGGER_BULLET_PID_MAX_IOUT;       
+    }
+    
+    else if (shoot_control.shoot_mode == SHOOT_CONTINUE_BULLET)
+    {
+        //���ò����ֵĲ����ٶ�,��������ת��ת����
+        shoot_control.trigger_speed_set = CONTINUE_TRIGGER_SPEED;
+        trigger_motor_turn_back();
+    }
+    
+
+    if(shoot_control.shoot_mode == SHOOT_STOP)
+    {
+        shoot_laser_off();
+        shoot_control.given_current = 0;
+        //Ħ������Ҫһ����б������������ͬʱֱ�ӿ�����������ܵ����ת
+        // Apaga las flywheels
+        ramp_calc(&shoot_control.fric1_ramp, -SHOOT_FRIC_PWM_ADD_VALUE);
+        ramp_calc(&shoot_control.fric2_ramp, -SHOOT_FRIC_PWM_ADD_VALUE); 
+    }
+    else
+    {
+        shoot_laser_on(); //���⿪��
+        //���㲦���ֵ��PID
+        PID_calc(&shoot_control.trigger_motor_pid, shoot_control.speed, shoot_control.speed_set);
+        shoot_control.given_current = (int16_t)(shoot_control.trigger_motor_pid.out);
+        if(shoot_control.shoot_mode < SHOOT_READY_BULLET)
+        {
+            shoot_control.given_current = 0;
+        }
+        //Ħ������Ҫһ����б������������ͬʱֱ�ӿ�����������ܵ����ת
+        ramp_calc(&shoot_control.fric1_ramp, SHOOT_FRIC_PWM_ADD_VALUE);
+        ramp_calc(&shoot_control.fric2_ramp, SHOOT_FRIC_PWM_ADD_VALUE);
+
+    }
+
+    shoot_control.fric_pwm1 = (uint16_t)(shoot_control.fric1_ramp.out);
+    shoot_control.fric_pwm2 = (uint16_t)(shoot_control.fric2_ramp.out);
+    shoot_fric1_on(shoot_control.fric_pwm1);
+    shoot_fric2_on(shoot_control.fric_pwm2);
+    return shoot_control.given_current;
+}
+
+/**
+  * @brief          ���״̬�����ã�ң�����ϲ�һ�ο��������ϲ��رգ��²�1�η���1�ţ�һֱ�����£���������䣬����3min׼��ʱ�������ӵ�
+  * @param[in]      void
+  * @retval         void
+  */
+
+#ifdef USING_FLYSKY
+static void shoot_set_mode(void)
+{
+
+    //上拨判断， 一次开启，再次关闭
+    // TODO: VERIFY
+    if (switch_is_mid(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) &&
+    switch_is_mid(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B]))
+    {
+        shoot_control.shoot_mode = SHOOT_STOP;
+    }
+    if (switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) &&
+    switch_is_mid(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B]))
+    {
+        // Try with: SHOOT_READY_BULLET
+        // SHOOT_READY didn't work, 
+        shoot_control.shoot_mode = SHOOT_READY_BULLET; 
+    }
+
+    //下拨一次或者鼠标按下一次，进入射击状态
+    if (switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) &&
+    switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B]))
+    {
+        // This is spected behaviour
+        shoot_control.shoot_mode = SHOOT_CONTINUE_BULLET;
+    }
+
+
+    get_shoot_heat0_limit_and_heat0(&shoot_control.heat_limit, &shoot_control.heat);
+    if(!toe_is_error(REFEREE_TOE) && (shoot_control.heat + SHOOT_HEAT_REMAIN_VALUE > shoot_control.heat_limit))
+    {
+        if(shoot_control.shoot_mode == SHOOT_BULLET || shoot_control.shoot_mode == SHOOT_CONTINUE_BULLET)
+        {
+            shoot_control.shoot_mode =SHOOT_READY_BULLET;
+        }
+    }
+    //如果云台状态是 无力状态，就关闭射击
+    if (gimbal_cmd_to_shoot_stop())
+    {
+        shoot_control.shoot_mode = SHOOT_STOP;
+    }
+}
+       
+#else
+int16_t shoot_control_loop(void)
+{
+
+    shoot_set_mode();        //����״̬��
+    shoot_feedback_update(); //��������
+
+
+    if (shoot_control.shoot_mode == SHOOT_STOP)
+    {
+        //���ò����ֵ��ٶ�
+        shoot_control.speed_set = 0.0f;
     }
     else if (shoot_control.shoot_mode == SHOOT_READY_FRIC)
     {
@@ -198,57 +320,6 @@ int16_t shoot_control_loop(void)
     return shoot_control.given_current;
 }
 
-/**
-  * @brief          ���״̬�����ã�ң�����ϲ�һ�ο��������ϲ��رգ��²�1�η���1�ţ�һֱ�����£���������䣬����3min׼��ʱ�������ӵ�
-  * @param[in]      void
-  * @retval         void
-  */
-
-#ifdef USING_FLYSKY
-static void shoot_set_mode(void)
-{
-
-    //上拨判断， 一次开启，再次关闭
-    // TODO: VERIFY
-    if (switch_is_mid(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) &&
-    switch_is_mid(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B]))
-    {
-        shoot_control.shoot_mode = SHOOT_STOP;
-    }
-    if (switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) &&
-    switch_is_mid(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B]))
-    {
-        // Try with: SHOOT_READY_BULLET
-        // SHOOT_READY didn't work, 
-        shoot_control.shoot_mode = SHOOT_READY_BULLET; 
-    }
-
-    //下拨一次或者鼠标按下一次，进入射击状态
-    if (switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_A]) &&
-    switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL_B]))
-    {
-        // This is spected behaviour
-        shoot_control.shoot_mode = SHOOT_CONTINUE_BULLET;
-    }
-
-
-    get_shoot_heat0_limit_and_heat0(&shoot_control.heat_limit, &shoot_control.heat);
-    if(!toe_is_error(REFEREE_TOE) && (shoot_control.heat + SHOOT_HEAT_REMAIN_VALUE > shoot_control.heat_limit))
-    {
-        if(shoot_control.shoot_mode == SHOOT_BULLET || shoot_control.shoot_mode == SHOOT_CONTINUE_BULLET)
-        {
-            shoot_control.shoot_mode =SHOOT_READY_BULLET;
-        }
-    }
-    //如果云台状态是 无力状态，就关闭射击
-    if (gimbal_cmd_to_shoot_stop())
-    {
-        shoot_control.shoot_mode = SHOOT_STOP;
-    }
-}
-       
-#else
-        
 static void shoot_set_mode(void)
 {
     static int8_t last_s = RC_SW_UP;

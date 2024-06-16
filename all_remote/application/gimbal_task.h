@@ -34,19 +34,19 @@
 
 //pitch speed close-loop PID params, max out and max iout
 //pitch 速度环 PID参数以及 PID最大输出，积分输出
-#define PITCH_SPEED_PID_KP        2900.0f//new: 3500.0f
-#define PITCH_SPEED_PID_KI        60.0f
-#define PITCH_SPEED_PID_KD        250.0f //original 0
-#define PITCH_SPEED_PID_MAX_OUT   30000.0f //new: 60000
-#define PITCH_SPEED_PID_MAX_IOUT  10000.0f //new: 60000
+#define PITCH_SPEED_PID_KP        29.0f//original: 2900.0f
+#define PITCH_SPEED_PID_KI        0.6f //original: 60.0f
+#define PITCH_SPEED_PID_KD        14.5f //original 250.0f
+#define PITCH_SPEED_PID_MAX_OUT   300.0f //original: 30000
+#define PITCH_SPEED_PID_MAX_IOUT  100.0f //original: 10000
 
 //yaw speed close-loop PID params, max out and max iout
 //yaw 速度环 PID参数以及 PID最大输出，积分输出
-#define YAW_SPEED_PID_KP        1500.0f //new:       
-#define YAW_SPEED_PID_KI        20.0f
-#define YAW_SPEED_PID_KD        150.0f //original:0  
-#define YAW_SPEED_PID_MAX_OUT   30000.0f
-#define YAW_SPEED_PID_MAX_IOUT  5000.0f
+#define YAW_SPEED_PID_KP        135.0f //before: 150       
+#define YAW_SPEED_PID_KI        1.8f //before: 2.0f
+#define YAW_SPEED_PID_KD        15.0f //before: 15.0f  
+#define YAW_SPEED_PID_MAX_OUT   27000.0f //before: 30000.0f
+#define YAW_SPEED_PID_MAX_IOUT  4500.0f //before: 5000.0f
 
 //pitch gyro angle close-loop PID params, max out and max iout
 //pitch 角度环 角度由陀螺仪解算 PID参数以及 PID最大输出，积分输出
